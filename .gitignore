@@ -1,0 +1,16 @@
+# Ocultar a pasta da biblioteca SFML
+sfml/
+SFML/
+SFML-2.6.2/
+
+# Ocultar o executável final e arquivos de build no Windows
+*.exe
+*.o
+*.obj
+build/
+bin/
+
+# Ocultar configurações específicas do VS Code
+.vscode/
+# Ocultar arquivos de configuração do CMake
+CMakeLists.txt
