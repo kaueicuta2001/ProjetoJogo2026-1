@@ -1,7 +1,7 @@
 # Ocultar a pasta da biblioteca SFML
 sfml/
 SFML/
-SFML-2.6.2/
+SFML-2.6.2-sources/
 
 # Ocultar o executável final e arquivos de build no Windows
 *.exe
