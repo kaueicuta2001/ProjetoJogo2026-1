@@ -7,8 +7,8 @@ class Ente
     protected:
         int id;
     public:
-        Ente(int id) : id(id) {}
-        virtual ~Ente() {}
+        Ente(int id);
+        virtual ~Ente();
         virtual void executar() = 0;
         //void desenhar() {}
 };

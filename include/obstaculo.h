@@ -8,7 +8,7 @@ protected:
     bool danoso;
 public:
     Obstaculo(bool danoso, int x, int y, int id);
-    ~Obstaculo(){}
+    ~Obstaculo();
 
     virtual void executar() = 0;
     virtual void salvar() = 0;
