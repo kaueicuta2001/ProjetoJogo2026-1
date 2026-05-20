@@ -11,7 +11,7 @@ class Jogador : public Personagem
     public:
         Jogador(int num_vidas, int x, int y, int id, int pontos);
         ~Jogador();
-        void desenhar(sf::RenderWindow& janela);
-        void executar();
-        void salvar();
+        void Desenhar(sf::RenderWindow& janela);
+        void Executar();
+        void Salvar();
 };

@@ -10,6 +10,6 @@ class Entidade : public Ente
     public:
         Entidade(int x, int y, int id);
         virtual ~Entidade();
-        virtual void executar() = 0;
-        virtual void salvar() = 0;
+        virtual void Executar() = 0;
+        virtual void Salvar() = 0;
 };

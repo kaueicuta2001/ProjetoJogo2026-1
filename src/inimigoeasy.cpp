@@ -13,12 +13,12 @@ InimigoEasy::~InimigoEasy()
 
 }
 
-void InimigoEasy::executar()
+void InimigoEasy::Executar()
 {
     cout << "Executando...Inimigo facil" << endl;
 }
 
-void InimigoEasy::salvar()
+void InimigoEasy::Salvar()
 {
     cout << "Salvando..." << endl;
 }

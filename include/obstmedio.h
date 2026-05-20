@@ -10,6 +10,6 @@ private:
 public:
     ObstMedio(float largura, bool danoso, int x, int y, int id);
     ~ObstMedio();
-    void executar();
-    void salvar();
+    void Executar();
+    void Salvar();
 };

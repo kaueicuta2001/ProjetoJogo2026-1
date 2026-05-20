@@ -9,6 +9,6 @@ class Personagem : public Entidade
     public:
         Personagem(int num_vidas, int x, int y, int id);
         ~Personagem();
-        virtual void executar() = 0;
-        virtual void salvar() = 0;
+        virtual void Executar() = 0;
+        virtual void Salvar() = 0;
 };

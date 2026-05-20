@@ -9,6 +9,6 @@ private:
 public:
     InimigoEasy(float raio, int nivel_maldade, int num_vidas, int x, int y, int id);
     ~InimigoEasy();
-    void executar();
-    void salvar();
+    void Executar();
+    void Salvar();
 };

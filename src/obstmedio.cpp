@@ -14,12 +14,12 @@ Obstaculo(danoso, x, y, id), largura(largura)
 
 ObstMedio::~ObstMedio(){}
 
-void ObstMedio::executar()
+void ObstMedio::Executar()
 {
     cout << "Executando...Obstaculo medio" << endl;
 }
 
-void ObstMedio::salvar()
+void ObstMedio::Salvar()
 {
     cout << "Salvando..." << endl;
     cout << "\n" << endl;

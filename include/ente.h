@@ -9,6 +9,6 @@ class Ente
     public:
         Ente(int id);
         virtual ~Ente();
-        virtual void executar() = 0;
+        virtual void Executar() = 0;
         //void desenhar() {}
 };

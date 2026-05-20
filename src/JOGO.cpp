@@ -21,23 +21,23 @@ Jogo::~Jogo()
 }
 void Jogo::Executar()
 {
-    plataforma.executar();
-    plataforma.salvar();
+    plataforma.Executar();
+    plataforma.Salvar();
 
-    obstdificil.executar();
-    obstdificil.salvar();
+    obstdificil.Executar();
+    obstdificil.Salvar();
 
-    obstmedio.executar();
-    obstmedio.salvar();
+    obstmedio.Executar();
+    obstmedio.Salvar();
 
-    jogador.executar();
-    jogador.salvar();
+    jogador.Executar();
+    jogador.Salvar();
 
-    inimigoeasy.executar();
-    inimigoeasy.salvar();
+    inimigoeasy.Executar();
+    inimigoeasy.Salvar();
 
-    inimigomedio.executar();
-    inimigomedio.salvar();
+    inimigomedio.Executar();
+    inimigomedio.Salvar();
 
     while (janela.isOpen())//verifica se a janela está aberta
     {
@@ -57,7 +57,7 @@ void Jogo::Executar()
         janela.clear();
 
         // Desenhar aqui
-        jogador.desenhar(janela);
+        jogador.Desenhar(janela);
 
         janela.display();
     }

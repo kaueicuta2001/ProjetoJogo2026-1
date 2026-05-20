@@ -9,6 +9,6 @@ class InimigoMedio : public Inimigo
     public:
         InimigoMedio(int tamanho, int nivel_maldade, int num_vidas, int x, int y, int id);
         ~InimigoMedio();
-        void executar();
-        void salvar();
+        void Executar();
+        void Salvar();
 };

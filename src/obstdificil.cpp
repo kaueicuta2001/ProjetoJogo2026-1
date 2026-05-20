@@ -15,12 +15,12 @@ ObstDificil::~ObstDificil()
 {
 }
 
-void ObstDificil::executar()
+void ObstDificil::Executar()
 {
     cout << "Executando...Obstaculo Dificil" << endl;
 }
 
-void ObstDificil::salvar()
+void ObstDificil::Salvar()
 {
     cout << "Salvando..." << endl;
 }

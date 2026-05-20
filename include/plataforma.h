@@ -9,6 +9,6 @@ private:
 public:
     Plataforma(int altura, bool danoso, int x, int y, int id);
     ~Plataforma();
-    void executar();
-    void salvar();
+    void Executar();
+    void Salvar();
 };

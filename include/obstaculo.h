@@ -10,6 +10,6 @@ public:
     Obstaculo(bool danoso, int x, int y, int id);
     ~Obstaculo();
 
-    virtual void executar() = 0;
-    virtual void salvar() = 0;
+    virtual void Executar() = 0;
+    virtual void Salvar() = 0;
 };

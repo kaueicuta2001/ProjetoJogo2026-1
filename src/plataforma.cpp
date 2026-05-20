@@ -17,12 +17,12 @@ Plataforma::~Plataforma()
 
 }
 
-void Plataforma::executar()
+void Plataforma::Executar()
 {
     cout << "Executando...Plataforma" << endl;
 }
 
-void Plataforma::salvar()
+void Plataforma::Salvar()
 {
     cout << "Salvando..." << endl;
 }

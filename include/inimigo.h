@@ -9,6 +9,6 @@ class Inimigo : public Personagem
     public:
         Inimigo(int nivel_maldade, int num_vidas, int x, int y, int id);
         virtual ~Inimigo();
-        virtual void executar() = 0;
-        virtual void salvar() = 0;
+        virtual void Executar() = 0;
+        virtual void Salvar() = 0;
 };

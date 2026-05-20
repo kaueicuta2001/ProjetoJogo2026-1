@@ -18,17 +18,17 @@ Jogador::~Jogador()
 {
 }
 
-void Jogador::desenhar(sf::RenderWindow& janela)
+void Jogador::Desenhar(sf::RenderWindow& janela)
 {
     janela.draw(corpo);
 }
 
-void Jogador::executar()
+void Jogador::Executar()
 {
     cout << "Executando...jogador" << endl;
 }
 
-void Jogador::salvar()
+void Jogador::Salvar()
 {
     cout << "Salvando...jogador" << endl;
 }

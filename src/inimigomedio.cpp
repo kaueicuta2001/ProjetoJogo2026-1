@@ -11,12 +11,12 @@ InimigoMedio::~InimigoMedio()
 {
 }
 
-void InimigoMedio::executar()
+void InimigoMedio::Executar()
 {
     cout << "Executando...Inimigo medio" << endl;
 }
 
-void InimigoMedio::salvar()
+void InimigoMedio::Salvar()
 {
     cout << "Salvando..." << endl;
     cout << "\n" << endl;
