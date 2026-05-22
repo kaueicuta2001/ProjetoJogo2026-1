@@ -7,10 +7,11 @@ class Jogador : public Personagem
 {
     private:
         int pontos;
-        sf::RectangleShape corpo;
+        void Inicializar();
     public:
-        Jogador(int num_vidas, int x, int y, int id, int pontos);
+        Jogador(int id, sf::Vector2f pos, int num_vidas);
         ~Jogador();
+        void Mover();
         void Desenhar(sf::RenderWindow& janela);
         void Executar();
         void Salvar();

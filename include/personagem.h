@@ -6,8 +6,9 @@ class Personagem : public Entidade
 {
     protected:
         int num_vidas;
+        sf::Vector2f vel;
     public:
-        Personagem(int num_vidas, int x, int y, int id);
+        Personagem(int id, sf::Vector2f pos, int num_vidas);
         ~Personagem();
         virtual void Executar() = 0;
         virtual void Salvar() = 0;

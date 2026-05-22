@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "gerenciadorgrafico.h"
+
 class Ente
 {
     protected:
