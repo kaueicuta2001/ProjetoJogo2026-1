@@ -6,51 +6,20 @@
 class GerenciadorGrafico
 {
 private:
-    RenderWindow window;
-    RectangleShape retangulogenerico;
+    sf::RenderWindow window;
+
+    static GerenciadorGrafico* pGG;
+    GerenciadorGrafico();
 
 public:
-    GerenciadorGrafico() : window(VideoMode(800, 600), "Janela do Game")
-    {
-        window.setFramerateLimit(60);
-    }
-    ~GerenciadorGrafico() {}
+    ~GerenciadorGrafico();
 
     void desenharEnte(Ente* pE);
-
-    void moverretangulo(Vector2f moverrr)
-    {
-        retangulogenerico.move(moverrr);
-    }
-
-    bool janelaAberta()
-    {
-        return window.isOpen();
-    }
-
-    void janelaClear()
-    {
-        window.clear(Color::Blue);
-    }
-
-    void janelaDisplay()
-    {
-        window.display();
-    }
-
-    void fechaJanela()
-    {
-        window.close();
-    }
-
-    void gerenciarEventos(Event& evento)
-    {
-        while (window.pollEvent(evento))
-        {
-            if (evento.type == Event::Closed)
-            {
-                window.close();
-            }
-        }
-    }
+    static GerenciadorGrafico* getGerenciadorGrafico();
+    sf::RenderWindow* getWindow();
+    void LimpaJanela();
+    void DesenhaElemento(sf::RectangleShape corpo);
+    void MostraElemento();
+    void FecharJanela();
+    const bool VerificaJanelaAberta();
 };

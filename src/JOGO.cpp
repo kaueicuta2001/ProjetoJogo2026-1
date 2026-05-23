@@ -5,7 +5,7 @@ using namespace sf;
 
 Jogo::Jogo() :
 janela(VideoMode(800, 600), "Projeto Jogo"),
-jogador(3, 50, 50, 1, 0),
+jogador(3, Vector2f(100, 100), 5),
 plataforma(20, false, 1, 2, 60),
 obstdificil(50, true, 5, 6, 40),
 obstmedio(62.5, false, 6, 8, 50),
