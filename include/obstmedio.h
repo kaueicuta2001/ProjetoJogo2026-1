@@ -8,7 +8,7 @@ private:
     float largura;
 
 public:
-    ObstMedio(float largura, bool danoso, int x, int y, int id);
+    ObstMedio(int id, sf::Vector2f pos, bool danoso, float largura);
     ~ObstMedio();
     void Executar();
     void Salvar();

@@ -4,13 +4,10 @@ using namespace std;
 using namespace sf;
 
 Jogo::Jogo() :
-janela(VideoMode(800, 600), "Projeto Jogo"),
 jogador(3, Vector2f(100, 100), 5),
-plataforma(20, false, 1, 2, 60),
-obstdificil(50, true, 5, 6, 40),
-obstmedio(62.5, false, 6, 8, 50),
-inimigoeasy(5.9, 23, 5, 6, 4, 69),
-inimigomedio(60, 24, 8, 45, 65, 4647)
+plataforma(2, Vector2f(150, 150), false, 20),
+inimigoeasy(1, Vector2f(200, 200), 3, 1, 10),
+pGG(GerenciadorGrafico::getGerenciadorGrafico())
 {
     Executar();
 }
@@ -19,16 +16,11 @@ Jogo::~Jogo()
 {
     
 }
+
 void Jogo::Executar()
 {
     plataforma.Executar();
     plataforma.Salvar();
-
-    obstdificil.Executar();
-    obstdificil.Salvar();
-
-    obstmedio.Executar();
-    obstmedio.Salvar();
 
     jogador.Executar();
     jogador.Salvar();
@@ -36,30 +28,31 @@ void Jogo::Executar()
     inimigoeasy.Executar();
     inimigoeasy.Salvar();
 
-    inimigomedio.Executar();
-    inimigomedio.Salvar();
-
-    while (janela.isOpen())//verifica se a janela está aberta
+    while (pGG->VerificaJanelaAberta())//verifica se a janela está aberta
     {
         sf::Event event;//Event é a classe que representa um evento, como um clique do mouse ou uma tecla pressionada.
-        while (janela.pollEvent(event))//verifica se há algum evento durante a execução do jogo
+        while (pGG->getWindow()->pollEvent(event))//verifica se há algum evento durante a execução do jogo
         {
             if (event.type == Event::Closed)//se clicar no x da janela
-                janela.close();//fecha a janela
+                pGG->FecharJanela();//fecha a janela
             
             else if(event.type == Event::KeyPressed)//se pressionar uma tecla
             {
                 if (event.key.code == Keyboard::Escape)//se a tecla for escape
-                    janela.close();//fecha a janela
+                    pGG->FecharJanela();//fecha a janela
             }
         }
 
-        janela.clear();
+        pGG->LimpaJanela();
+
+        jogador.Executar();
 
         // Desenhar aqui
-        jogador.Desenhar(janela);
+        pGG->DesenhaElemento(&plataforma);
+        pGG->DesenhaElemento(&jogador);
+        pGG->DesenhaElemento(&inimigoeasy);
 
-        janela.display();
+        pGG->Renderizar();
     }
 }
 

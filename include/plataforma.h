@@ -7,7 +7,7 @@ class Plataforma : public Obstaculo
 private:
     int altura;
 public:
-    Plataforma(int altura, bool danoso, int x, int y, int id);
+    Plataforma(int id, sf::Vector2f pos, bool danoso, int altura);
     ~Plataforma();
     void Executar();
     void Salvar();

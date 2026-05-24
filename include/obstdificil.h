@@ -7,7 +7,7 @@ class ObstDificil : public Obstaculo
 private:
     short int danosidade;
 public:
-    ObstDificil(short int danosidade, bool danoso, int x, int y, int id);
+    ObstDificil(int id, sf::Vector2f pos, bool danoso, short int danosidade);
     ~ObstDificil();
     void Executar();
     void Salvar();

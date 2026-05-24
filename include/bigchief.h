@@ -7,6 +7,9 @@ class BigChief : public Inimigo
     private:
         short int forca;
     public:
-        BigChief(short int forca, int nivel_maldade, int num_vidas, int x, int y, int id);
+        BigChief(int id, sf::Vector2f pos, int num_vidas, int nivel_maldade, short int poder);
         ~BigChief();
+        void Mover();
+        void Executar();
+        void Salvar();
 };

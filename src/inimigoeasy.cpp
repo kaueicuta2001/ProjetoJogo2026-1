@@ -1,11 +1,14 @@
 #include "inimigoeasy.h"
 
 using namespace std;
+using namespace sf;
 
-InimigoEasy::InimigoEasy(float raio, int nivel_maldade, int num_vidas, int x, int y, int id) :
-Inimigo(nivel_maldade, num_vidas, x, y, id), raio(raio)
+InimigoEasy::InimigoEasy(int id, Vector2f pos, int num_vidas, int nivel_maldade, float rraio) :
+Inimigo(id, pos, num_vidas, nivel_maldade),
+raio(rraio)
 {
-
+    tamanho = Vector2f(50, 50);
+    cor = Color::Red;
 }
 
 InimigoEasy::~InimigoEasy()
@@ -13,12 +16,17 @@ InimigoEasy::~InimigoEasy()
 
 }
 
+void InimigoEasy::Mover()
+{
+    //cout << "Movendo...Inimigo facil" << endl;
+}
+
 void InimigoEasy::Executar()
 {
-    cout << "Executando...Inimigo facil" << endl;
+    //cout << "Executando...Inimigo facil" << endl;
 }
 
 void InimigoEasy::Salvar()
 {
-    cout << "Salvando..." << endl;
+    //cout << "Salvando..." << endl;
 }

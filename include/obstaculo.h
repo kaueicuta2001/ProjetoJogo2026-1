@@ -7,7 +7,7 @@ class Obstaculo : public Entidade
 protected:
     bool danoso;
 public:
-    Obstaculo(bool danoso, int x, int y, int id);
+    Obstaculo(int id, sf::Vector2f pos, bool danoso);
     ~Obstaculo();
 
     virtual void Executar() = 0;

@@ -1,37 +1,40 @@
 #include "jogador.h"
 
 using namespace std;
+using namespace sf;
 
 Jogador::Jogador(int id, sf::Vector2f pos, int num_vidas) :
-Personagem(id, pos, num_vidas), pontos(pontos)
+Personagem(id, pos, num_vidas),
+pontos(0)
 {
-    vel = sf::Vector2f(1.f, 1.f);
-    cor = sf::Color::Green;
-
-    corpo.setSize(sf::Vector2f(50.f, 50.f));
-    corpo.setFillColor(cor);
-    corpo.setPosition(pos);
-
-    cout << "objeto criado com sucesso....." << endl;
-    cout << "o jogador tem " << num_vidas << " vidas" << endl;
-    cout << "o jogador tem " << pontos << " pontos" << endl;
+    vel = Vector2f(5.f, 5.f);
+    cor = Color::Green;
+    tamanho = Vector2f(50.f, 50.f);
 }
 
 Jogador::~Jogador()
 {
 }
 
-void Jogador::Desenhar(sf::RenderWindow& janela)
+void Jogador::Mover()
 {
-    janela.draw(corpo);
+    // Exemplo de movimento simples usando WASD
+    if (Keyboard::isKeyPressed(Keyboard::A))
+        posicao.x -= vel.x;
+    if (Keyboard::isKeyPressed(Keyboard::D))
+        posicao.x += vel.x;
+    if (Keyboard::isKeyPressed(Keyboard::W))
+        posicao.y -= vel.y;
+    if (Keyboard::isKeyPressed(Keyboard::S))
+        posicao.y += vel.y;
 }
 
 void Jogador::Executar()
 {
-    cout << "Executando...jogador" << endl;
+    Mover();
 }
 
 void Jogador::Salvar()
 {
-    cout << "Salvando...jogador" << endl;
+    //cout << "Salvando...jogador" << endl;
 }

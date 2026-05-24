@@ -9,12 +9,24 @@ posicao(pos),
 tamanho(0.f, 0.f),
 cor(sf::Color::White)
 {
-    corpo.setSize(tamanho);
-    corpo.setFillColor(cor);
-    corpo.setPosition(posicao);
 }
 
 Entidade::~Entidade()
 {
 
+}
+
+sf::Vector2f Entidade::getPosicao()
+{
+    return posicao;
+}
+
+sf::Vector2f Entidade::getTamanho()
+{
+    return tamanho;
+}
+
+sf::Color Entidade::getCor()
+{
+    return cor;
 }
