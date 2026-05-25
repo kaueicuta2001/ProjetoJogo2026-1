@@ -1,10 +1,12 @@
 #pragma once
 
 #include "gerenciadorgrafico.h"
+#include "listaentidades.h"
+#include "entidade.h"
+#include "jogador.h"
 #include "plataforma.h"
 #include "obstdificil.h"
 #include "obstmedio.h"
-#include "jogador.h"
 #include "inimigoeasy.h"
 #include "inimigomedio.h"
 
@@ -14,13 +16,11 @@
 class Jogo
 {
     private:
-        GerenciadorGrafico* pGG;
-        sf::Event evento;
-        Jogador jogador;
-        Plataforma plataforma;
-        InimigoEasy inimigoeasy;
+        GerenciadorGrafico* GG;
+        ListaEntidades listaEnts;
     public:
         Jogo();
         ~Jogo();
+        void InstanciarEntidades();
         void Executar();
 };

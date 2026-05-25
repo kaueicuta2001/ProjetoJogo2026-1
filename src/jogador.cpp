@@ -31,6 +31,7 @@ void Jogador::Mover()
 
 void Jogador::Executar()
 {
+    Ente::pGG->DesenhaElemento(this);
     Mover();
 }
 

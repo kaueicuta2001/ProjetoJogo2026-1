@@ -17,7 +17,7 @@ Plataforma::~Plataforma()
 
 void Plataforma::Executar()
 {
-    //cout << "Executando...Plataforma" << endl;
+    pGG->DesenhaElemento(this);
 }
 
 void Plataforma::Salvar()

@@ -12,3 +12,10 @@ Ente::~Ente()
 {
 
 }
+
+GerenciadorGrafico* Ente::pGG = nullptr;
+
+void Ente::setGG(GerenciadorGrafico* gg)
+{
+    pGG = gg;
+}

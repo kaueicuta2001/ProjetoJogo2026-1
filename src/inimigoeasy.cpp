@@ -23,7 +23,7 @@ void InimigoEasy::Mover()
 
 void InimigoEasy::Executar()
 {
-    //cout << "Executando...Inimigo facil" << endl;
+    pGG->DesenhaElemento(this);
 }
 
 void InimigoEasy::Salvar()

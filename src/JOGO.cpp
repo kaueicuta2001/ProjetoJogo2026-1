@@ -1,14 +1,16 @@
 #include "jogo.h"
+#include "ente.h"
+#include "jogador.h"
+#include "plataforma.h"
+#include "inimigoeasy.h"
 
 using namespace std;
 using namespace sf;
 
 Jogo::Jogo() :
-jogador(3, Vector2f(100, 100), 5),
-plataforma(2, Vector2f(150, 150), false, 20),
-inimigoeasy(1, Vector2f(200, 200), 3, 1, 10),
-pGG(GerenciadorGrafico::getGerenciadorGrafico())
+GG(GerenciadorGrafico::getGerenciadorGrafico())
 {
+    Ente::setGG(GG);
     Executar();
 }
 
@@ -17,42 +19,44 @@ Jogo::~Jogo()
     
 }
 
+void Jogo::InstanciarEntidades()
+{
+    Jogador* pJogador = new Jogador(3, Vector2f(100, 100), 5);
+    Plataforma* pPlataforma = new Plataforma(2, Vector2f(150, 150), false, 20);
+    InimigoEasy* pInimigoEasy = new InimigoEasy(1, Vector2f(200, 200), 3, 1, 10);
+
+    Entidade* e1 = static_cast<Entidade*>(pJogador);
+    Entidade* e2 = static_cast<Entidade*>(pPlataforma);
+    Entidade* e3 = static_cast<Entidade*>(pInimigoEasy);
+
+    listaEnts.Incluir(e1);
+    listaEnts.Incluir(e2);
+    listaEnts.Incluir(e3);
+}
+
 void Jogo::Executar()
 {
-    plataforma.Executar();
-    plataforma.Salvar();
 
-    jogador.Executar();
-    jogador.Salvar();
-
-    inimigoeasy.Executar();
-    inimigoeasy.Salvar();
-
-    while (pGG->VerificaJanelaAberta())//verifica se a janela está aberta
+    while (GG->VerificaJanelaAberta())//verifica se a janela está aberta
     {
         sf::Event event;//Event é a classe que representa um evento, como um clique do mouse ou uma tecla pressionada.
-        while (pGG->getWindow()->pollEvent(event))//verifica se há algum evento durante a execução do jogo
+        while (GG->getWindow()->pollEvent(event))//verifica se há algum evento durante a execução do jogo
         {
             if (event.type == Event::Closed)//se clicar no x da janela
-                pGG->FecharJanela();//fecha a janela
+                GG->FecharJanela();//fecha a janela
             
             else if(event.type == Event::KeyPressed)//se pressionar uma tecla
             {
                 if (event.key.code == Keyboard::Escape)//se a tecla for escape
-                    pGG->FecharJanela();//fecha a janela
+                    GG->FecharJanela();//fecha a janela
             }
         }
 
-        pGG->LimpaJanela();
+        GG->LimpaJanela();
 
-        jogador.Executar();
+        listaEnts.Percorrer();
 
-        // Desenhar aqui
-        pGG->DesenhaElemento(&plataforma);
-        pGG->DesenhaElemento(&jogador);
-        pGG->DesenhaElemento(&inimigoeasy);
-
-        pGG->Renderizar();
+        GG->Renderizar();
     }
 }
 
