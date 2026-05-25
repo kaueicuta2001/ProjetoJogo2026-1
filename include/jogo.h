@@ -2,7 +2,6 @@
 
 #include "gerenciadorgrafico.h"
 #include "listaentidades.h"
-#include "entidade.h"
 #include "jogador.h"
 #include "plataforma.h"
 #include "obstdificil.h"

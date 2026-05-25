@@ -25,17 +25,14 @@ void Jogo::InstanciarEntidades()
     Plataforma* pPlataforma = new Plataforma(2, Vector2f(150, 150), false, 20);
     InimigoEasy* pInimigoEasy = new InimigoEasy(1, Vector2f(200, 200), 3, 1, 10);
 
-    Entidade* e1 = static_cast<Entidade*>(pJogador);
-    Entidade* e2 = static_cast<Entidade*>(pPlataforma);
-    Entidade* e3 = static_cast<Entidade*>(pInimigoEasy);
-
-    listaEnts.Incluir(e1);
-    listaEnts.Incluir(e2);
-    listaEnts.Incluir(e3);
+    listaEnts.Incluir(pJogador);
+    listaEnts.Incluir(pPlataforma);
+    listaEnts.Incluir(pInimigoEasy);
 }
 
 void Jogo::Executar()
 {
+    InstanciarEntidades();
 
     while (GG->VerificaJanelaAberta())//verifica se a janela está aberta
     {
