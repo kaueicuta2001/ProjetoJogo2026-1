@@ -5,9 +5,12 @@
 class InimigoEasy : public Inimigo
 {
 private:
-    float raio;
+    float distancia;
+    float limiteDir;
+    float limiteEsq;
+    int direcao;
 public:
-    InimigoEasy(int id, sf::Vector2f pos, int num_vidas, int nivel_maldade, float rraio);
+    InimigoEasy(int id, sf::Vector2f pos, float dist);
     ~InimigoEasy();
     void Mover();
     void Executar();

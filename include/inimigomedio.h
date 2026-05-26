@@ -7,7 +7,7 @@ class InimigoMedio : public Inimigo
     private:
         int tamanho;
     public:
-        InimigoMedio(int id, sf::Vector2f pos, int tamanho, int nivel_maldade, int num_vidas);
+        InimigoMedio(int id, sf::Vector2f pos);
         ~InimigoMedio();
         void Mover();
         void Executar();

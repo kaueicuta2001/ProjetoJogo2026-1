@@ -2,9 +2,11 @@
 
 using namespace std;
 
-InimigoMedio::InimigoMedio(int id, sf::Vector2f pos, int tamanho, int nivel_maldade, int num_vidas) :
-Inimigo(id, pos, num_vidas, nivel_maldade), tamanho(tamanho)
+InimigoMedio::InimigoMedio(int id, sf::Vector2f pos) :
+Inimigo(id, pos),
+tamanho(50)
 {
+
 }
 
 InimigoMedio::~InimigoMedio()

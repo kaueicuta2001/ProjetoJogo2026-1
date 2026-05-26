@@ -3,9 +3,9 @@
 using namespace std;
 using namespace sf;
 
-BigChief::BigChief(int id, Vector2f pos, int num_vidas,  int nivel_maldade, short int poder) :
-Inimigo(id, pos, num_vidas, nivel_maldade),
-forca(poder)
+BigChief::BigChief(int id, Vector2f pos) :
+Inimigo(id, pos),
+forca(100)
 {
 }
 

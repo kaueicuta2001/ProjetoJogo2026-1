@@ -3,8 +3,8 @@
 using namespace std;
 using namespace sf;
 
-Jogador::Jogador(int id, sf::Vector2f pos, int num_vidas) :
-Personagem(id, pos, num_vidas),
+Jogador::Jogador(int id, sf::Vector2f pos) :
+Personagem(id, pos),
 pontos(0)
 {
     vel = Vector2f(5.f, 5.f);

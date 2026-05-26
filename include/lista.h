@@ -40,7 +40,7 @@ class Lista {
         }
 
         ~Lista() {
-            esvaziar();
+            Esvaziar();
         }
 
         void Incluir(TL* info) {
@@ -58,7 +58,7 @@ class Lista {
             quantidade++;
         }
 
-        void remover(TL* info) {
+        void Remover(TL* info) {
             if (info == nullptr || pPrimeiro == nullptr) return;
 
             Elemento* atual = pPrimeiro;
@@ -91,7 +91,7 @@ class Lista {
             quantidade--;
         }
 
-        void esvaziar() {
+        void Esvaziar() {
             Elemento* atual = pPrimeiro;
             while (atual != nullptr) {
                 Elemento* aux = atual->getProximo();

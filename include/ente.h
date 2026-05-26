@@ -11,8 +11,8 @@ class Ente
         static GerenciadorGrafico* pGG;
     public:
         Ente(int id);
-        static void setGG(GerenciadorGrafico* gg);
         virtual ~Ente();
+        static void setGG(GerenciadorGrafico* gg);
         virtual void Executar() = 0;
         //void desenhar() {}
 };

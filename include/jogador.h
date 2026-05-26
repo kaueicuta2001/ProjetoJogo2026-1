@@ -8,7 +8,7 @@ class Jogador : public Personagem
     private:
         int pontos;
     public:
-        Jogador(int id, sf::Vector2f pos, int num_vidas);
+        Jogador(int id, sf::Vector2f pos);
         ~Jogador();
         void Mover();
         void Executar();

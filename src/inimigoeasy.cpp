@@ -3,12 +3,18 @@
 using namespace std;
 using namespace sf;
 
-InimigoEasy::InimigoEasy(int id, Vector2f pos, int num_vidas, int nivel_maldade, float rraio) :
-Inimigo(id, pos, num_vidas, nivel_maldade),
-raio(rraio)
+InimigoEasy::InimigoEasy(int id, Vector2f pos, float dist) :
+Inimigo(id, pos),
+distancia(dist),
+limiteDir(pos.x + distancia),
+limiteEsq(pos.x - distancia),
+direcao(1)
 {
+    vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(50, 50);
     cor = Color::Red;
+    num_vidas = 3;
+    nivel_maldade = 1;
 }
 
 InimigoEasy::~InimigoEasy()
@@ -18,11 +24,21 @@ InimigoEasy::~InimigoEasy()
 
 void InimigoEasy::Mover()
 {
-    //cout << "Movendo...Inimigo facil" << endl;
+    posicao.x += vel.x * direcao;
+
+    if (posicao.x > limiteDir)
+    {
+        direcao = -1;
+    }
+    else if (posicao.x < limiteEsq)
+    {
+        direcao = 1;
+    }
 }
 
 void InimigoEasy::Executar()
 {
+    Mover();
     pGG->DesenhaElemento(this);
 }
 

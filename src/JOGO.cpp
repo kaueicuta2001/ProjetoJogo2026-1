@@ -21,9 +21,9 @@ Jogo::~Jogo()
 
 void Jogo::InstanciarEntidades()
 {
-    Jogador* pJogador = new Jogador(3, Vector2f(100, 100), 5);
-    Plataforma* pPlataforma = new Plataforma(2, Vector2f(150, 150), false, 20);
-    InimigoEasy* pInimigoEasy = new InimigoEasy(1, Vector2f(200, 200), 3, 1, 10);
+    Jogador* pJogador = new Jogador(3, Vector2f(100, 100));
+    Plataforma* pPlataforma = new Plataforma(2, Vector2f(150, 150), false);
+    InimigoEasy* pInimigoEasy = new InimigoEasy(1, Vector2f(200, 200), 50);
 
     listaEnts.Incluir(pJogador);
     listaEnts.Incluir(pPlataforma);

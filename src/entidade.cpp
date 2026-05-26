@@ -7,7 +7,8 @@ Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
 posicao(pos),
 tamanho(0.f, 0.f),
-cor(sf::Color::White)
+cor(sf::Color::White),
+vivo(true)
 {
 }
 
@@ -29,4 +30,14 @@ sf::Vector2f Entidade::getTamanho()
 sf::Color Entidade::getCor()
 {
     return cor;
+}
+
+bool Entidade::getVivo()
+{
+    return vivo;
+}
+
+void Entidade::Desativar()
+{
+    vivo = false;
 }
