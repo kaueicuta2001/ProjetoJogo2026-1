@@ -1,21 +1,13 @@
 #include "ente.h"
+#include "gerenciadorgrafico.h"
 
-using namespace std;
+Ente::Ente(int id) : id(id) {}
 
-Ente::Ente(int id) :
-id(id)
-{
-
-}
-
-Ente::~Ente()
-{
-
-}
-
-GerenciadorGrafico* Ente::pGG = nullptr;
+Ente::~Ente() {}
 
 void Ente::setGG(GerenciadorGrafico* gg)
 {
     pGG = gg;
 }
+
+GerenciadorGrafico* Ente::pGG = nullptr;
