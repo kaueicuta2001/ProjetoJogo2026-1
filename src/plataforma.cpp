@@ -1,6 +1,7 @@
 #include "plataforma.h"
+#include "gerenciadorgrafico.h"
 
-using namespace std;
+using namespace sf;
 
 Plataforma::Plataforma(int id, sf::Vector2f pos, bool danoso) : 
 Obstaculo(id, pos, danoso), 
@@ -10,10 +11,7 @@ tempo(100)
     cor = sf::Color::Blue;
 }
 
-Plataforma::~Plataforma()
-{
-
-}
+Plataforma::~Plataforma() {}
 
 /* void Plataforma::obstaculizar()
 {
@@ -29,7 +27,4 @@ void Plataforma::Executar()
         Desativar();
 }
 
-void Plataforma::Salvar()
-{
-    //cout << "Salvando..." << endl;
-}
+void Plataforma::Salvar() {}

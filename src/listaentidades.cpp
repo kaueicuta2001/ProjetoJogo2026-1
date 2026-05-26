@@ -1,11 +1,6 @@
 #include "listaentidades.h"
 
-using namespace std;
-
-ListaEntidades::ListaEntidades()
-{
-    
-}
+ListaEntidades::ListaEntidades() {}
 
 ListaEntidades::~ListaEntidades()
 {
@@ -32,6 +27,11 @@ int ListaEntidades::getQuantidade() const
     return LEs.getQuantidade();
 }
 
+Lista<Entidade>::Elemento* ListaEntidades::getPrimeiro()
+{
+    return LEs.getPrimeiro();
+}
+
 void ListaEntidades::Percorrer()
 {
     Lista<Entidade>::Elemento* atual = LEs.getPrimeiro();
@@ -50,6 +50,5 @@ void ListaEntidades::Percorrer()
         
         pEntidade->Executar();
 
-        atual = atual->getProximo();
     }
 }

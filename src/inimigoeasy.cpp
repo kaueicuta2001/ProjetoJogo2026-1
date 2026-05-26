@@ -1,6 +1,6 @@
 #include "inimigoeasy.h"
+#include "gerenciadorgrafico.h"
 
-using namespace std;
 using namespace sf;
 
 InimigoEasy::InimigoEasy(int id, Vector2f pos, float dist) :
@@ -17,10 +17,7 @@ direcao(1)
     nivel_maldade = 1;
 }
 
-InimigoEasy::~InimigoEasy()
-{
-
-}
+InimigoEasy::~InimigoEasy() {}
 
 void InimigoEasy::Mover()
 {
@@ -42,7 +39,4 @@ void InimigoEasy::Executar()
     pGG->DesenhaElemento(this);
 }
 
-void InimigoEasy::Salvar()
-{
-    //cout << "Salvando..." << endl;
-}
+void InimigoEasy::Salvar() {}

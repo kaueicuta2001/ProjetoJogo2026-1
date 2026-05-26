@@ -1,4 +1,4 @@
-#include "entidade.h"
+#include "Entidade.h"
 
 using namespace std;
 using namespace sf;
@@ -15,6 +15,11 @@ vivo(true)
 Entidade::~Entidade()
 {
 
+}
+
+void Entidade::setPosicao(sf::Vector2f pos)
+{
+    posicao = pos;
 }
 
 sf::Vector2f Entidade::getPosicao()

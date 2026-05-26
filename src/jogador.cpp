@@ -1,6 +1,6 @@
 #include "jogador.h"
+#include "gerenciadorgrafico.h"
 
-using namespace std;
 using namespace sf;
 
 Jogador::Jogador(int id, sf::Vector2f pos) :
@@ -12,21 +12,26 @@ pontos(0)
     tamanho = Vector2f(50.f, 50.f);
 }
 
-Jogador::~Jogador()
-{
-}
+Jogador::~Jogador() {}
 
 void Jogador::Mover()
 {
-    // Exemplo de movimento simples usando WASD
     if (Keyboard::isKeyPressed(Keyboard::A))
+    {
         posicao.x -= vel.x;
+    }
     if (Keyboard::isKeyPressed(Keyboard::D))
+    {
         posicao.x += vel.x;
+    }
     if (Keyboard::isKeyPressed(Keyboard::W))
+    {
         posicao.y -= vel.y;
+    }
     if (Keyboard::isKeyPressed(Keyboard::S))
+    {
         posicao.y += vel.y;
+    }
 }
 
 void Jogador::Executar()
@@ -35,7 +40,4 @@ void Jogador::Executar()
     Mover();
 }
 
-void Jogador::Salvar()
-{
-    //cout << "Salvando...jogador" << endl;
-}
+void Jogador::Salvar() {}

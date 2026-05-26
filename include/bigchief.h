@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Inimigo.h"
+#include "inimigo.h"
 
 class BigChief : public Inimigo
 {

@@ -1,7 +1,5 @@
 #pragma once
-
-#include "ente.h"
-#include "gerenciadorgrafico.h"
+#include "Ente.h"
 
 class Entidade : public Ente
 {
@@ -13,6 +11,7 @@ class Entidade : public Ente
     public:
         Entidade(int id, sf::Vector2f pos);
         virtual ~Entidade();
+        virtual void setPosicao(sf::Vector2f pos);
         virtual sf::Vector2f getPosicao();
         virtual sf::Vector2f getTamanho();
         virtual sf::Color getCor();

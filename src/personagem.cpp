@@ -1,8 +1,5 @@
 #include "personagem.h"
 
-using namespace std;
-using namespace sf;
-
 Personagem::Personagem(int id, sf::Vector2f pos) : 
 Entidade(id, pos), 
 num_vidas(1),

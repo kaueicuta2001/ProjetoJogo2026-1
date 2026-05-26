@@ -1,8 +1,8 @@
 #pragma once
 
-#include <iostream>
+#include <SFML/Graphics.hpp>
 
-#include "gerenciadorgrafico.h"
+class GerenciadorGrafico;
 
 class Ente
 {
