@@ -49,6 +49,6 @@ void ListaEntidades::Percorrer()
         }
         
         pEntidade->Executar();
-
+        atual = atual->getProximo();
     }
 }

@@ -1,23 +1,32 @@
 #include "GerenciadorDeColisoes.h"
 #include <cmath>
 
-GerenciadorDeColisoes::GerenciadorDeColisoes() : pListaInimigos(nullptr), pListaObstaculos(nullptr) {}
+using namespace std;
+
+GerenciadorDeColisoes::GerenciadorDeColisoes() : listaInimigos(), listaObstaculos() {}
 
 GerenciadorDeColisoes::~GerenciadorDeColisoes() {}
 
-void GerenciadorDeColisoes::setListas(Lista<Inimigo>* pInimigos, Lista<Obstaculo>* pObstaculos) {
-    pListaInimigos = pInimigos;
-    pListaObstaculos = pObstaculos;
+void GerenciadorDeColisoes::IncluirInimigo(Inimigo* inimigo) {
+    if (inimigo) {
+        listaInimigos.push_back(inimigo);
+    }
+}
+
+void GerenciadorDeColisoes::IncluirObstaculo(Obstaculo* obstaculo) {
+    if (obstaculo) {
+        listaObstaculos.push_back(obstaculo);
+    }
 }
 
 void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
-    if (!pJogador || (!pListaInimigos && !pListaObstaculos)) return;
+    if (!pJogador || (listaInimigos.empty() && listaObstaculos.empty())) return;
 
-    if (pListaObstaculos) {
-        Lista<Obstaculo>::Elemento* it = pListaObstaculos->getPrimeiro();
-        while (it != nullptr) {
-            Obstaculo* obs = it->getInfo();
-            
+    if (!listaObstaculos.empty()) {
+        std::list<Obstaculo*>::iterator it = listaObstaculos.begin();
+        while (it != listaObstaculos.end()) {
+            Obstaculo* obs = *it;
+
             sf::Vector2f posJ = pJogador->getPosicao();
             sf::Vector2f tamJ = pJogador->getTamanho();
             sf::Vector2f posO = obs->getPosicao();
@@ -39,24 +48,32 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                 float interY = minY - distY;
 
                 if (interX < interY) {
-                    if (centroJogX < centroObsX)
+                    if (centroJogX < centroObsX){
                         pJogador->setPosicao(sf::Vector2f(posJ.x - interX, posJ.y));
-                    else
+                        cout << "colisao obstaculo esquerda" << endl;
+                    }
+                    else{
                         pJogador->setPosicao(sf::Vector2f(posJ.x + interX, posJ.y));
+                        cout << "colisao obstaculo direita" << endl;
+                    }
                 } else {
-                    if (centroJogY < centroObsY)
+                    if (centroJogY < centroObsY){
                         pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y - interY));
-                    else
+                        cout << "colisao obstaculo cima" << endl;
+                    }
+                    else{
                         pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y + interY));
+                        cout << "colisao obstaculo baixo" << endl;
+                    }
                 }
             }
-            it = it->getProximo();
+            ++it;
         }
     }
-    if (pListaInimigos) {
-        Lista<Inimigo>::Elemento* it = pListaInimigos->getPrimeiro();
-        while (it != nullptr) {
-            Inimigo* inimigo = it->getInfo();
+    if (!listaInimigos.empty()) {
+        std::list<Inimigo*>::iterator it = listaInimigos.begin();
+        while (it != listaInimigos.end()) {
+            Inimigo* inimigo = *it;
 
             sf::Vector2f posJ = pJogador->getPosicao();
             sf::Vector2f tamJ = pJogador->getTamanho();
@@ -79,18 +96,50 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                 float interY = minY - distY;
 
                 if (interX < interY) {
-                    if (centroJogX < centroInimX)
+                    if (centroJogX < centroInimX){
                         pJogador->setPosicao(sf::Vector2f(posJ.x - interX, posJ.y));
-                    else
+                        cout << "colisao inimigo esquerda" << endl;
+                    }
+                    else{
                         pJogador->setPosicao(sf::Vector2f(posJ.x + interX, posJ.y));
+                        cout << "colisao inimigo direita" << endl;
+                    }
                 } else {
-                    if (centroJogY < centroInimY)
+                    if (centroJogY < centroInimY){
                         pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y - interY));
-                    else
+                        cout << "colisao inimigo cima" << endl;
+                    }
+                    else{
                         pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y + interY));
+                        cout << "colisao inimigo baixo" << endl;
+                    }
                 }
             }
-            it = it->getProximo();
+            ++it;
+        }
+    }
+}
+
+void GerenciadorDeColisoes::RemoverInimigoInativo() {
+    std::list<Inimigo*>::iterator it = listaInimigos.begin();
+    while (it != listaInimigos.end()) {
+        Inimigo* inimigo = *it;
+        if (!inimigo->getVivo()) {
+            it = listaInimigos.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
+void GerenciadorDeColisoes::RemoverObstaculoInativo() {
+    std::list<Obstaculo*>::iterator it = listaObstaculos.begin();
+    while (it != listaObstaculos.end()) {
+        Obstaculo* obstaculo = *it;
+        if (!obstaculo->getVivo()) {
+            it = listaObstaculos.erase(it);
+        } else {
+            ++it;
         }
     }
 }

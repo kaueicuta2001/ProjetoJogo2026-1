@@ -1,17 +1,23 @@
 #pragma once
-#include "Lista.h"
+
 #include "Jogador.h"
 #include "Inimigo.h"
 #include "Obstaculo.h"
 
+#include <iostream>
+#include <list>
+
 class GerenciadorDeColisoes {
 private:
-    Lista<Inimigo>* pListaInimigos;
-    Lista<Obstaculo>* pListaObstaculos;
+    std::list<Inimigo*> listaInimigos;
+    std::list<Obstaculo*> listaObstaculos;
 
 public:
     GerenciadorDeColisoes();
     ~GerenciadorDeColisoes();
-    void setListas(Lista<Inimigo>* pInimigos, Lista<Obstaculo>* pObstaculos);
+    void IncluirInimigo(Inimigo* inimigo);
+    void IncluirObstaculo(Obstaculo* obstaculo);
     void VerificarColisoes(Jogador* pJogador);
+    void RemoverInimigoInativo();
+    void RemoverObstaculoInativo();
 };
