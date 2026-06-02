@@ -19,10 +19,6 @@ public:
 
         ~Elemento()
         {
-            if (pInfo != nullptr)
-            {
-                delete pInfo;
-            }
             pInfo = nullptr;
             pProximo = nullptr;
         }

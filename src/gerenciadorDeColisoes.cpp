@@ -1,24 +1,53 @@
 #include "gerenciadorDeColisoes.h"
 #include <cmath>
 
-GerenciadorDeColisoes::GerenciadorDeColisoes() : pListaInimigos(nullptr), pListaObstaculos(nullptr) {}
+using namespace std;
+
+GerenciadorDeColisoes::GerenciadorDeColisoes() : listaInimigos(), listaObstaculos() {}
 
 GerenciadorDeColisoes::~GerenciadorDeColisoes() {}
 
-void GerenciadorDeColisoes::setListas(Lista<Inimigo>* pInimigos, Lista<Obstaculo>* pObstaculos) {
-    pListaInimigos = pInimigos;
-    pListaObstaculos = pObstaculos;
+void GerenciadorDeColisoes::IncluirInimigo(Inimigo* inimigo) {
+    if (inimigo) {
+        listaInimigos.push_back(inimigo);
+    }
+}
+
+void GerenciadorDeColisoes::IncluirObstaculo(Obstaculo* obstaculo) {
+    if (obstaculo) {
+        listaObstaculos.push_back(obstaculo);
+    }
+}
+
+void GerenciadorDeColisoes::RemoverInimigoInativo() {
+    for (auto it = listaInimigos.begin(); it != listaInimigos.end();) {
+        if (!(*it)->getVivo()) {
+            it = listaInimigos.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
+void GerenciadorDeColisoes::RemoverObstaculoInativo() {
+    for (auto it = listaObstaculos.begin(); it != listaObstaculos.end();) {
+        if (!(*it)->getVivo()) {
+            it = listaObstaculos.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
 
 void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
-    if (!pJogador || (!pListaInimigos && !pListaObstaculos)) return;
+    if (!pJogador || (listaInimigos.empty() && listaObstaculos.empty())) return;
 
     pJogador->SetNoChao(false);
 
-    if (pListaObstaculos) {
-        Lista<Obstaculo>::Elemento* it = pListaObstaculos->getPrimeiro();
-        while (it != nullptr) {
-            Obstaculo* obs = it->getInfo();
+    if (!listaObstaculos.empty()) {
+        std::list<Obstaculo*>::iterator it = listaObstaculos.begin();
+        while (it != listaObstaculos.end()) {
+            Obstaculo* obs = *it;
 
             sf::Vector2f posJ = pJogador->getPosicao();
             sf::Vector2f tamJ = pJogador->getTamanho();
@@ -54,20 +83,20 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                     }
                 }
             }
-            it = it->getProximo();
+            ++it;
         }
     }
 
-    if (pListaInimigos) {
-        Lista<Inimigo>::Elemento* it = pListaInimigos->getPrimeiro();
-        while (it != nullptr) {
-            Inimigo* inimigo = it->getInfo();
+    if (!listaInimigos.empty()) {
+        std::list<Inimigo*>::iterator it = listaInimigos.begin();
+        while (it != listaInimigos.end()) {
+            Inimigo* inimigo = *it;
             inimigo->SetNoChao(false);
 
-            if (pListaObstaculos) {
-                Lista<Obstaculo>::Elemento* it_obs = pListaObstaculos->getPrimeiro();
-                while (it_obs != nullptr) {
-                    Obstaculo* obs = it_obs->getInfo();
+            if (!listaObstaculos.empty()) {
+                std::list<Obstaculo*>::iterator it_obs = listaObstaculos.begin();
+                while (it_obs != listaObstaculos.end()) {
+                    Obstaculo* obs = *it_obs;
 
                     sf::Vector2f posI = inimigo->getPosicao();
                     sf::Vector2f tamI = inimigo->getTamanho();
@@ -103,7 +132,7 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                             }
                         }
                     }
-                    it_obs = it_obs->getProximo();
+                    ++it_obs;
                 }
             }
 
@@ -141,7 +170,7 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                     }
                 }
             }
-            it = it->getProximo();
+            ++it;
         }
     }
 }
