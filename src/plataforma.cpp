@@ -2,13 +2,16 @@
 #include "gerenciadorgrafico.h"
 
 using namespace sf;
+using namespace std;
 
 Plataforma::Plataforma(int id, sf::Vector2f pos, bool danoso) : 
 Obstaculo(id, pos, danoso), 
 tempo(1800)
 {
-    tamanho = sf::Vector2f(250.f, 20.f);
-    cor = sf::Color::Blue;
+    tamanho = sf::Vector2f(64.f, 16.f);
+    if (!textura.loadFromFile("../assets/plataforma.png"))
+        std::cerr << "Erro ao carregar a textura da plataforma!" << endl;
+    InicializarSprite(textura);//parâmetro por refência escondida
 }
 
 Plataforma::~Plataforma() {}
@@ -20,11 +23,13 @@ Plataforma::~Plataforma() {}
 
 void Plataforma::Executar()
 {
-    pGG->DesenhaElemento(this);
     if(tempo > 0)
         tempo--;
     else
         Desativar();
+
+    sprite.setPosition(posicao);
+    pGG->DesenhaSprite(&sprite);
 }
 
 void Plataforma::Salvar() {}

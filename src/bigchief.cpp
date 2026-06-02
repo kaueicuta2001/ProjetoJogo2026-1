@@ -2,6 +2,7 @@
 #include "gerenciadorgrafico.h"
 
 using namespace sf;
+using namespace std;
 
 BigChief::BigChief(int id, Vector2f pos, float dist) :
 Inimigo(id, pos),
@@ -13,9 +14,12 @@ direcao(1)
 {
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(80, 80);
-    cor = Color::Yellow;
     num_vidas = 5;
     nivel_maldade = 3;
+    if (!textura.loadFromFile("../assets/bigchief.png"))
+        std::cerr << "Erro ao carregar a textura do Big Chief!" << endl;
+    InicializarSprite(textura);//parâmetro por refência escondida
+
 }
 
 BigChief::~BigChief() {}
@@ -39,7 +43,8 @@ void BigChief::Mover()
 void BigChief::Executar()
 {
     Mover();
-    pGG->DesenhaElemento(this);
+    sprite.setPosition(posicao);
+    pGG->DesenhaSprite(&sprite);
 }
 
 void BigChief::Salvar() {}

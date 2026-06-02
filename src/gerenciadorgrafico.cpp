@@ -5,7 +5,8 @@ using namespace sf;
 
 GerenciadorGrafico* GerenciadorGrafico::pGG = nullptr;
 
-GerenciadorGrafico::GerenciadorGrafico() : window(new RenderWindow(VideoMode(800, 600), "Projeto Jogo")), corpoGenerico(Vector2f(0.f, 0.f))
+GerenciadorGrafico::GerenciadorGrafico() :
+window(new RenderWindow(VideoMode(800, 600), "Projeto Jogo"))
 {
     window->setFramerateLimit(60);
 }
@@ -37,12 +38,12 @@ void GerenciadorGrafico::LimpaJanela()
     window->clear();
 }
 
-void GerenciadorGrafico::DesenhaElemento(Entidade* pEntidade)
+void GerenciadorGrafico::DesenhaSprite(sf::Sprite* pSprite)
 {
-    corpoGenerico.setPosition(pEntidade->getPosicao());
-    corpoGenerico.setSize(pEntidade->getTamanho());
-    corpoGenerico.setFillColor(pEntidade->getCor());
-    window->draw(corpoGenerico);
+    if(pSprite != nullptr)
+    {
+        window->draw(*pSprite);
+    }
 }
 
 void GerenciadorGrafico::Renderizar()

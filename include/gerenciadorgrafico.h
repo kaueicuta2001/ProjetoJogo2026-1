@@ -8,7 +8,6 @@ class GerenciadorGrafico
 {
 private:
     sf::RenderWindow* window;
-    sf::RectangleShape corpoGenerico;
     static GerenciadorGrafico* pGG;
     GerenciadorGrafico();
 
@@ -17,7 +16,7 @@ public:
     static GerenciadorGrafico* getGerenciadorGrafico();
     sf::RenderWindow* getWindow();
     void LimpaJanela();
-    void DesenhaElemento(Entidade* pEntidade);
+    void DesenhaSprite(sf::Sprite* pSprite);
     void Renderizar();
     void FecharJanela();
     bool VerificaJanelaAberta() const;

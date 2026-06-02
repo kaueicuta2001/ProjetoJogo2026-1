@@ -39,8 +39,8 @@ void Jogo::Executar()
         }
 
         GG->LimpaJanela();
-        pJogador->Executar();
         faseAtual->Executar();
+        pJogador->Executar();
         GG->Renderizar();
     }
 }

@@ -7,7 +7,6 @@ Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
 posicao(pos),
 tamanho(0.f, 0.f),
-cor(sf::Color::White),
 vivo(true)
 {
 }
@@ -32,11 +31,6 @@ sf::Vector2f Entidade::getTamanho()
     return tamanho;
 }
 
-sf::Color Entidade::getCor()
-{
-    return cor;
-}
-
 bool Entidade::getVivo()
 {
     return vivo;
@@ -45,4 +39,19 @@ bool Entidade::getVivo()
 void Entidade::Desativar()
 {
     vivo = false;
+}
+
+void Entidade::InicializarSprite(sf::Texture& textura)
+{
+    sprite.setTexture(textura);
+     
+// Faz a conta de escala UMA ÚNICA VEZ aqui no início
+    sf::Vector2u texSize = textura.getSize();
+    if (texSize.x > 0 && texSize.y > 0)
+    {
+        sprite.setScale(
+            tamanho.x / texSize.x,
+            tamanho.y / texSize.y
+        );
+    }
 }

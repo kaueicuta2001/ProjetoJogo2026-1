@@ -6,14 +6,28 @@
 
 Fase1::Fase1(int id, Jogador* pJogador) : Fase(id, pJogador),
 maxInimigosEasy(5), 
-maxPlataformas(3)
+maxPlataformas(3),
+tamBG(pGG->getWindow()->getSize())
 {
+    desenharBG();
     CriarInimigos();
     CriarObstaculos();
 }
 
 Fase1::~Fase1()
 {
+}
+
+void Fase1::desenharBG()
+{
+    if (!texturaBG.loadFromFile("../assets/fase1BG.png"))
+       cerr << "Erro ao carregar a textura de fundo!" << endl;
+    spriteBG.setTexture(texturaBG);
+    spriteBG.setPosition(0.f, 0.f);
+    spriteBG.setScale(
+        tamBG.x / texturaBG.getSize().x,
+        tamBG.y / texturaBG.getSize().y
+    );
 }
 
 void Fase1::CriarInimigosEasy()
@@ -39,7 +53,7 @@ void Fase1::CriarPlataformas()
 {
     for (int i = 0; i < maxPlataformas; i++)
     {
-        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(200 + i * 200, 150), false);
+        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(200 + i * 200, 400), false);
         listaEntidades.Incluir(pPlataforma);
         gerenciadorColisoes.IncluirObstaculo(pPlataforma);
     }
@@ -52,12 +66,14 @@ void Fase1::CriarInimigos()
 
 void Fase1::CriarObstaculos()
 {
-    CriarChao();
     CriarPlataformas();
+    CriarChao();
 }
 
 void Fase1::Executar()
 {
+    pGG->getWindow()->draw(spriteBG);
+
     listaEntidades.Percorrer();
     gerenciadorColisoes.VerificarColisoes(pJogador);
     gerenciadorColisoes.RemoverInimigoInativo();
