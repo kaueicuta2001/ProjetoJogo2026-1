@@ -24,19 +24,17 @@ void Jogador::Mover()
     {
         posicao.x += vel.x;
     }
-    if (Keyboard::isKeyPressed(Keyboard::W))
+    if (Keyboard::isKeyPressed(Keyboard::W) && noChao)
     {
-        posicao.y -= vel.y;
+        vel.y = -12.f;
+        noChao = false;
     }
-    if (Keyboard::isKeyPressed(Keyboard::S))
-    {
-        posicao.y += vel.y;
-    }
+    AplicarGravidade();
 }
 
 void Jogador::Executar()
 {
-    Ente::pGG->DesenhaElemento(this);
+    pGG->DesenhaElemento(this);
     Mover();
 }
 

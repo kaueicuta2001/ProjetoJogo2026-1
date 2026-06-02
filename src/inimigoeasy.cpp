@@ -31,6 +31,8 @@ void InimigoEasy::Mover()
     {
         direcao = 1;
     }
+
+    AplicarGravidade();
 }
 
 void InimigoEasy::Executar()

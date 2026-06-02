@@ -5,9 +5,12 @@
 class InimigoMedio : public Inimigo
 {
     private:
-        int tamanho;
+        float distancia;
+        float limiteDir;
+        float limiteEsq;
+        int direcao;
     public:
-        InimigoMedio(int id, sf::Vector2f pos);
+        InimigoMedio(int id, sf::Vector2f pos, float dist);
         ~InimigoMedio();
         void Mover();
         void Executar();

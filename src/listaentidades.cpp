@@ -38,17 +38,14 @@ void ListaEntidades::Percorrer()
 
     while (atual != nullptr) {
         Entidade* pEntidade = atual->getInfo();
+        Lista<Entidade>::Elemento* proximo = atual->getProximo();
 
         if (!pEntidade->getVivo()) {
-            Lista<Entidade>::Elemento* proximo = atual->getProximo();
-
             Remover(pEntidade);
-            atual = proximo;
-            proximo = nullptr;
-            continue;//skippa Executar()
+        } else {
+            pEntidade->Executar();
         }
-        
-        pEntidade->Executar();
 
+        atual = proximo;
     }
 }

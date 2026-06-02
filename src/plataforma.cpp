@@ -7,7 +7,7 @@ Plataforma::Plataforma(int id, sf::Vector2f pos, bool danoso) :
 Obstaculo(id, pos, danoso), 
 tempo(100)
 {
-    tamanho = sf::Vector2f(100.f, 20.f);
+    tamanho = sf::Vector2f(250.f, 20.f);
     cor = sf::Color::Blue;
 }
 
