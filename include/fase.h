@@ -3,6 +3,7 @@
 #include "ente.h"
 #include "listaentidades.h"
 #include "gerenciadorDeColisoes.h"
+#include "chao.h"
 #include "plataforma.h"
 #include "inimigoeasy.h"
 

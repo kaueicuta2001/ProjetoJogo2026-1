@@ -4,9 +4,9 @@ using namespace sf;
 
 Jogo::Jogo() : GG(GerenciadorGrafico::getGerenciadorGrafico()), pJogador(nullptr)
 {
+    Ente::setGG(GG);
     pJogador = new Jogador(5, Vector2f(50.f, 50.f));
     faseAtual = new Fase1(1, pJogador);
-    Ente::setGG(GG);
     Executar();
 }
 

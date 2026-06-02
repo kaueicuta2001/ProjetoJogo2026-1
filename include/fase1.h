@@ -11,6 +11,7 @@ public:
     Fase1(int id, Jogador* pJogador);
     ~Fase1();
     void CriarInimigosEasy();
+    void CriarChao();
     void CriarPlataformas();
     void CriarInimigos();
     void CriarObstaculos();

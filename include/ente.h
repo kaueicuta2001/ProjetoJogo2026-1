@@ -14,5 +14,5 @@ class Ente
         virtual ~Ente();
         static void setGG(GerenciadorGrafico* gg);
         virtual void Executar() = 0;
-        //void desenhar() {}
+        //void desenhar();
 };

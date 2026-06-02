@@ -1,4 +1,5 @@
 #include "fase1.h"
+#include "gerenciadorgrafico.h"
 
  using namespace sf;
  using namespace std;
@@ -25,6 +26,15 @@ void Fase1::CriarInimigosEasy()
     }
 }
 
+void Fase1::CriarChao()
+{
+    int altura = Ente::pGG->getWindow()->getSize().y;
+    int largura = Ente::pGG->getWindow()->getSize().x;
+    Chao* pChao = new Chao(0, Vector2f(largura, altura));
+    listaEntidades.Incluir(pChao);
+    gerenciadorColisoes.IncluirObstaculo(pChao);
+}
+
 void Fase1::CriarPlataformas()
 {
     for (int i = 0; i < maxPlataformas; i++)
@@ -42,6 +52,7 @@ void Fase1::CriarInimigos()
 
 void Fase1::CriarObstaculos()
 {
+    CriarChao();
     CriarPlataformas();
 }
 

@@ -45,9 +45,9 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
     pJogador->SetNoChao(false);
 
     if (!listaObstaculos.empty()) {
-        std::list<Obstaculo*>::iterator it = listaObstaculos.begin();
-        while (it != listaObstaculos.end()) {
-            Obstaculo* obs = *it;
+        std::list<Obstaculo*>::iterator it_obs = listaObstaculos.begin();
+        while (it_obs != listaObstaculos.end()) {
+            Obstaculo* obs = *it_obs;
 
             sf::Vector2f posJ = pJogador->getPosicao();
             sf::Vector2f tamJ = pJogador->getTamanho();
@@ -83,14 +83,14 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                     }
                 }
             }
-            ++it;
+            ++it_obs;
         }
     }
 
     if (!listaInimigos.empty()) {
-        std::list<Inimigo*>::iterator it = listaInimigos.begin();
-        while (it != listaInimigos.end()) {
-            Inimigo* inimigo = *it;
+        std::list<Inimigo*>::iterator it_inim = listaInimigos.begin();
+        while (it_inim != listaInimigos.end()) {
+            Inimigo* inimigo = *it_inim;
             inimigo->SetNoChao(false);
 
             if (!listaObstaculos.empty()) {
@@ -170,7 +170,7 @@ void GerenciadorDeColisoes::VerificarColisoes(Jogador* pJogador) {
                     }
                 }
             }
-            ++it;
+            ++it_inim;
         }
     }
 }
