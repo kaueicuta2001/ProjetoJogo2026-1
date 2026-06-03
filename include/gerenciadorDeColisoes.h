@@ -18,6 +18,9 @@ public:
     void IncluirInimigo(Inimigo* inimigo);
     void IncluirObstaculo(Obstaculo* obstaculo);
     void VerificarColisoes(Jogador* pJogador);
+    void TratarColisaoJogsInimigo();
+    void TratarColisaoJogsObstaculo();
+    void TratarColisaoInimigoObstaculo();
     void RemoverInimigoInativo();
     void RemoverObstaculoInativo();
 };

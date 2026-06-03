@@ -1,13 +1,24 @@
 #include "ente.h"
 #include "gerenciadorgrafico.h"
 
-Ente::Ente(int id) : id(id) {}
+using namespace sf;
+
+Ente::Ente(int id) :
+id(id),
+textura(Texture()),
+sprite(Sprite())
+{}
 
 Ente::~Ente() {}
+
+GerenciadorGrafico* Ente::pGG = nullptr;
 
 void Ente::setGG(GerenciadorGrafico* gg)
 {
     pGG = gg;
 }
 
-GerenciadorGrafico* Ente::pGG = nullptr;
+void Ente::Desenhar()
+{
+    pGG->DesenhaSprite(&sprite);
+}

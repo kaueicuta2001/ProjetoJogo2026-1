@@ -37,9 +37,9 @@ void Jogador::Mover()
 
 void Jogador::Executar()
 {
-    Mover();
     sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
+    Mover();
+    Desenhar();
 }
 
 void Jogador::Salvar() {}

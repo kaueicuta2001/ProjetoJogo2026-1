@@ -1,32 +1,34 @@
 #include "fase1.h"
 #include "gerenciadorgrafico.h"
 
- using namespace sf;
- using namespace std;
+using namespace sf;
+using namespace std;
 
 Fase1::Fase1(int id, Jogador* pJogador) : Fase(id, pJogador),
 maxInimigosEasy(5), 
 maxPlataformas(3),
 tamBG(pGG->getWindow()->getSize())
 {
-    desenharBG();
     CriarInimigos();
     CriarObstaculos();
+    InicializarBG();
 }
 
 Fase1::~Fase1()
 {
+    pJogador = nullptr;
+    listaEntidades.Esvaziar();
 }
 
-void Fase1::desenharBG()
+void Fase1::InicializarBG()
 {
-    if (!texturaBG.loadFromFile("../assets/fase1BG.png"))
+    if (!textura.loadFromFile("../assets/fase1BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
-    spriteBG.setTexture(texturaBG);
-    spriteBG.setPosition(0.f, 0.f);
-    spriteBG.setScale(
-        tamBG.x / texturaBG.getSize().x,
-        tamBG.y / texturaBG.getSize().y
+    sprite.setTexture(textura);
+    sprite.setPosition(0.f, 0.f);
+    sprite.setScale(
+        tamBG.x / textura.getSize().x,
+        tamBG.y / textura.getSize().y
     );
 }
 
@@ -72,7 +74,7 @@ void Fase1::CriarObstaculos()
 
 void Fase1::Executar()
 {
-    pGG->getWindow()->draw(spriteBG);
+    Desenhar();
 
     listaEntidades.Percorrer();
     gerenciadorColisoes.VerificarColisoes(pJogador);

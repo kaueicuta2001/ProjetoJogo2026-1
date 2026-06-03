@@ -10,10 +10,12 @@ class Ente
     protected:
         int id;
         static GerenciadorGrafico* pGG;
+        sf::Texture textura;
+        sf::Sprite sprite;
     public:
         Ente(int id);
         virtual ~Ente();
         static void setGG(GerenciadorGrafico* gg);
         virtual void Executar() = 0;
-        //void desenhar();
+        void Desenhar();
 };

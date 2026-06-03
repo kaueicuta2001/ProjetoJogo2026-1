@@ -13,7 +13,7 @@ vivo(true)
 
 Entidade::~Entidade()
 {
-
+    
 }
 
 void Entidade::setPosicao(sf::Vector2f pos)
