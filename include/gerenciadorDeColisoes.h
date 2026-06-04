@@ -11,16 +11,19 @@ class GerenciadorDeColisoes {
 private:
     std::list<Inimigo*> listaInimigos;
     std::list<Obstaculo*> listaObstaculos;
+    Jogador* pJogador;
 
 public:
-    GerenciadorDeColisoes();
+    GerenciadorDeColisoes(Jogador* jogador);
     ~GerenciadorDeColisoes();
     void IncluirInimigo(Inimigo* inimigo);
     void IncluirObstaculo(Obstaculo* obstaculo);
+    bool VerificarColisao(Entidade* pe1, Entidade* pe2) const;
     void VerificarColisoes(Jogador* pJogador);
-    void TratarColisaoJogsInimigo();
-    void TratarColisaoJogsObstaculo();
-    void TratarColisaoInimigoObstaculo();
+    void TratarColisoesJogsObstacs();
+    void TratarColisoesInimigoObstacs();
+    void TratarColisoesJogsInimigo();
     void RemoverInimigoInativo();
     void RemoverObstaculoInativo();
+    void Executar();
 };

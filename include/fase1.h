@@ -9,7 +9,7 @@ private:
     int maxPlataformas;
     sf::Vector2f tamBG;
 public:
-    Fase1(int id, Jogador* pJogador);
+    Fase1(int id, Jogador* jogador);
     ~Fase1();
     void InicializarBG();
     void CriarInimigosEasy();

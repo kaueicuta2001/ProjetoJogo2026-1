@@ -4,7 +4,8 @@
 using namespace sf;
 using namespace std;
 
-Fase1::Fase1(int id, Jogador* pJogador) : Fase(id, pJogador),
+Fase1::Fase1(int id, Jogador* pJogador) :
+Fase(id, pJogador),
 maxInimigosEasy(5), 
 maxPlataformas(3),
 tamBG(pGG->getWindow()->getSize())
@@ -77,9 +78,7 @@ void Fase1::Executar()
     Desenhar();
 
     listaEntidades.Percorrer();
-    gerenciadorColisoes.VerificarColisoes(pJogador);
-    gerenciadorColisoes.RemoverInimigoInativo();
-    gerenciadorColisoes.RemoverObstaculoInativo();
+    gerenciadorColisoes.Executar();
 }
 
 void Fase1::Salvar() {}

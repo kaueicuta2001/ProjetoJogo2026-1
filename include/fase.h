@@ -14,7 +14,7 @@ protected:
     ListaEntidades listaEntidades;
     GerenciadorDeColisoes gerenciadorColisoes; 
 public:
-    Fase(int id,Jogador* pJogador);
+    Fase(int id, Jogador* jogador);
     virtual ~Fase();
     virtual void CriarInimigosEasy() = 0;
     virtual void CriarPlataformas() = 0;
