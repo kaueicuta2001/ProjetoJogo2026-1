@@ -6,7 +6,7 @@ using namespace std;
 
 Fase1::Fase1(int id, Jogador* pJogador) :
 Fase(id, pJogador),
-maxInimigosEasy(5), 
+maxBesouros(5), 
 maxPlataformas(3),
 tamBG(pGG->getWindow()->getSize())
 {
@@ -33,13 +33,13 @@ void Fase1::InicializarBG()
     );
 }
 
-void Fase1::CriarInimigosEasy()
+void Fase1::CriarBesouros()
 {
-    for (int i = 0; i < maxInimigosEasy; i++)
+    for (int i = 0; i < maxBesouros; i++)
     {
-        InimigoEasy* pInimigoEasy = new InimigoEasy(i + 10, Vector2f(100 + i * 150, 100), 100.f);
-        listaEntidades.Incluir(pInimigoEasy);
-        gerenciadorColisoes.IncluirInimigo(pInimigoEasy);
+        Besouro* pBesouro = new Besouro(i + 10, Vector2f(100 + i * 150, 100), 100.f);
+        listaEntidades.Incluir(pBesouro);
+        gerenciadorColisoes.IncluirInimigo(pBesouro);
     }
 }
 
@@ -64,7 +64,7 @@ void Fase1::CriarPlataformas()
 
 void Fase1::CriarInimigos()
 {
-    CriarInimigosEasy();
+    CriarBesouros();
 }
 
 void Fase1::CriarObstaculos()

@@ -5,14 +5,14 @@
 class Fase1 : public Fase
 {
 private:
-    int maxInimigosEasy;
+    int maxBesouros;
     int maxPlataformas;
     sf::Vector2f tamBG;
 public:
     Fase1(int id, Jogador* jogador);
     ~Fase1();
     void InicializarBG();
-    void CriarInimigosEasy();
+    void CriarBesouros();
     void CriarChao();
     void CriarPlataformas();
     void CriarInimigos();
