@@ -1,5 +1,5 @@
 #include "inimigoeasy.h"
-#include "gerenciadorgrafico.h"
+#include "jogador.h"
 
 using namespace sf;
 using namespace std;
@@ -11,6 +11,9 @@ limiteDir(pos.x + distancia),
 limiteEsq(pos.x - distancia),
 direcao(1)
 {
+    nome = "InimigoEasy";
+    num_vidas = 10;
+    dano = 10;
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(32.f, 32.f);
     num_vidas = 3;
@@ -38,11 +41,25 @@ void InimigoEasy::Mover()
     AplicarGravidade();
 }
 
+void InimigoEasy::AprimorarMaldade()
+{
+    nivel_maldade++;
+    dano += (nivel_maldade * 5); // Aumenta o dano a cada nível de maldade
+}
+
+void InimigoEasy::Danificar(Jogador* jogador)
+{
+    if (jogador) {
+        jogador->PerderVidas(dano);
+        AprimorarMaldade();
+    }
+}
+
 void InimigoEasy::Executar()
 {
     Mover();
     sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
+    Desenhar();
 }
 
 void InimigoEasy::Salvar() {}

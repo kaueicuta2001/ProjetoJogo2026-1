@@ -2,6 +2,8 @@
 
 #include "inimigo.h"
 
+class Jogador;
+
 class InimigoEasy : public Inimigo
 {
 private:
@@ -13,6 +15,8 @@ public:
     InimigoEasy(int id, sf::Vector2f pos, float dist);
     ~InimigoEasy();
     void Mover();
+    void AprimorarMaldade();
+    void Danificar(Jogador* jogador);
     void Executar();
     void Salvar();
 };

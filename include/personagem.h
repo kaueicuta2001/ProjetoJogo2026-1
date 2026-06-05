@@ -1,20 +1,26 @@
 #pragma once
 
+#include <string>
+
 #include "entidade.h"
 
 class Personagem : public Entidade
 {
     protected:
+        std::string nome;
         int num_vidas;
         sf::Vector2f vel;
         float gravidade;
         bool noChao;
+        int dano;
     public:
         Personagem(int id, sf::Vector2f pos);
         ~Personagem();
         virtual void Mover() = 0;
-        virtual void Executar() = 0;
-        virtual void Salvar() = 0;
         void AplicarGravidade();
         void SetNoChao(bool chao);
+        void PerderVidas(int danos);
+        int getVidas() const;
+        virtual void Executar() = 0;
+        virtual void Salvar() = 0;
 };
