@@ -6,12 +6,14 @@ using namespace std;
 
 Fase1::Fase1(int id, Jogador* pJogador) :
 Fase(id, pJogador),
-maxBesouros(5), 
-maxPlataformas(3),
+maxBesouros(5),       
+maxVespas(5),         
+maxPlataformas(8),    
 tamBG(pGG->getWindow()->getSize())
 {
-    CriarInimigos();
+    // A ordem importa! Obstáculos desenhados primeiro, inimigos por cima
     CriarObstaculos();
+    CriarInimigos();
     InicializarBG();
 }
 
@@ -35,11 +37,28 @@ void Fase1::InicializarBG()
 
 void Fase1::CriarBesouros()
 {
+    // 5 Besouros patrulhando o chão, distribuídos ao longo da tela
     for (int i = 0; i < maxBesouros; i++)
     {
-        Besouro* pBesouro = new Besouro(i + 10, Vector2f(100 + i * 150, 100), 100.f);
+        // Eles nascem na altura 650 (perto do chão) e patrulham uma distância de 80px
+        Besouro* pBesouro = new Besouro(i + 10, Vector2f(150.f + (i * 220.f), 650.f), 80.f);
         listaEntidades.Incluir(pBesouro);
         gerenciadorColisoes.IncluirInimigo(pBesouro);
+    }
+}
+
+void Fase1::CriarVespas()
+{
+    // Arrays com as posições fixas das Vespas + 50 de Y (abaixando-as)
+    float posicoesX[5] = {225.f, 375.f, 600.f, 825.f, 975.f};
+    float posicoesY[5] = {500.f, 400.f, 250.f, 400.f, 500.f}; // Valores originais + 50
+
+    for (int i = 0; i < maxVespas; i++)
+    {
+        // Amplitude de voo de 60px
+        Vespa* pVespa = new Vespa(i + 30, Vector2f(posicoesX[i], posicoesY[i]), 60.f);
+        listaEntidades.Incluir(pVespa);
+        gerenciadorColisoes.IncluirInimigo(pVespa);
     }
 }
 
@@ -54,9 +73,13 @@ void Fase1::CriarChao()
 
 void Fase1::CriarPlataformas()
 {
+    // Level Design: Cria uma pirâmide perfeita para o Sapo escalar, abaixada em 50px
+    float posicoesX[8] = {150.f, 300.f, 450.f, 600.f, 750.f, 900.f, 1050.f, 600.f};
+    float posicoesY[8] = {600.f, 500.f, 400.f, 300.f, 400.f, 500.f, 600.f, 550.f}; // Valores originais + 50
+
     for (int i = 0; i < maxPlataformas; i++)
     {
-        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(200 + i * 200, 400), false);
+        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(posicoesX[i], posicoesY[i]), false);
         listaEntidades.Incluir(pPlataforma);
         gerenciadorColisoes.IncluirObstaculo(pPlataforma);
     }
@@ -65,6 +88,7 @@ void Fase1::CriarPlataformas()
 void Fase1::CriarInimigos()
 {
     CriarBesouros();
+    CriarVespas(); 
 }
 
 void Fase1::CriarObstaculos()
@@ -75,10 +99,10 @@ void Fase1::CriarObstaculos()
 
 void Fase1::Executar()
 {
-    Desenhar();
+    Desenhar(); // Desenha o Fundo primeiro
 
-    listaEntidades.Percorrer();
-    gerenciadorColisoes.Executar();
+    listaEntidades.Percorrer(); // Executa (Move/Desenha) Entidades
+    gerenciadorColisoes.Executar(); // Checa colisões do frame atual
 }
 
 void Fase1::Salvar() {}

@@ -14,7 +14,7 @@ maxTempoImune(180) // Duração da imunidade em frames (ex: 180 frames = 3 segun
     num_vidas = 100;
     dano = 10;
     vel = Vector2f(5.f, 5.f);
-    tamanho = Vector2f(32.f, 32.f);
+    tamanho = Vector2f(40.f, 40.f);
     if(!textura.loadFromFile("../assets/jogador1.png"))//botar imagem do jogador
         cerr << "Erro ao carregar a textura do jogador!" << endl;
     InicializarSprite(textura);//parâmetro por refência escondida
@@ -40,7 +40,7 @@ void Jogador::Mover()
 }
 
 void Jogador::Pular() {
-    vel.y = -12.f;
+    vel.y = -10.f;
     noChao = false;
 }
 

@@ -1,5 +1,6 @@
 #include "besouro.h"
-#include "jogador.h"
+#include "gerenciadorgrafico.h"
+#include "jogador.h" // Necessário para o Besouro conseguir ferir o Jogador
 
 using namespace sf;
 using namespace std;
@@ -12,15 +13,15 @@ limiteEsq(pos.x - distancia),
 direcao(1)
 {
     nome = "Besouro";
-    num_vidas = 10;
-    dano = 10;
-    vel = Vector2f(1.f, 0.f);
-    tamanho = Vector2f(32.f, 32.f);
     num_vidas = 3;
+    dano = 1; // O dano que o Besouro causa ao encostar no Sapo
+    vel = Vector2f(1.f, 0.f);
+    tamanho = Vector2f(40.f, 40.f);
     nivel_maldade = 1;
+    
     if (!textura.loadFromFile("../assets/besouro.png"))
         cerr << "Erro ao carregar a textura do besouro!" << endl;
-    InicializarSprite(textura);//parâmetro por refência escondida
+    InicializarSprite(textura);
 }
 
 Besouro::~Besouro() {}
@@ -41,25 +42,22 @@ void Besouro::Mover()
     AplicarGravidade();
 }
 
-void Besouro::AprimorarMaldade()
-{
-    nivel_maldade++;
-    dano += (nivel_maldade * 5); // Aumenta o dano a cada nível de maldade
-}
-
-void Besouro::Danificar(Jogador* jogador)
-{
-    if (jogador) {
-        jogador->PerderVidas(dano);
-        AprimorarMaldade();
-    }
-}
-
 void Besouro::Executar()
 {
     Mover();
     sprite.setPosition(posicao);
-    Desenhar();
+    pGG->DesenhaSprite(&sprite);
+}
+
+// Lógica de dar dano ao Sapo se ele encostar no Besouro (pela lateral)
+void Besouro::Danificar(Jogador* pJogador)
+{
+    if(pJogador != nullptr)
+    {
+        pJogador->PerderVidas(dano);
+    }
 }
 
 void Besouro::Salvar() {}
+
+void Besouro::AprimorarMaldade() {}

@@ -38,6 +38,12 @@ void Jogo::Executar()
             }
         }
 
+        // Usando o método getVidas() que já está implementado na tua classe!
+        if (pJogador->getVidas() <= 0)
+        {
+            GG->FecharJanela();
+        }
+
         GG->LimpaJanela();
         faseAtual->Executar();
         pJogador->Executar();

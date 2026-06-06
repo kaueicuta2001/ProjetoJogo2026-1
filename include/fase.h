@@ -6,6 +6,7 @@
 #include "chao.h"
 #include "plataforma.h"
 #include "besouro.h"
+#include "vespa.h"
 
 class Fase : public Ente
 {
