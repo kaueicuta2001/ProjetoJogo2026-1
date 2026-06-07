@@ -87,6 +87,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 if (centroJY < centroOY) {
                     pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y - interY));
                     pJogador->SetNoChao(true);
+                    obs->Obstaculizar(pJogador);
                 } else {
                     pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y + interY));
                 }

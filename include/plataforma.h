@@ -1,6 +1,7 @@
 #pragma once
 
 #include "obstaculo.h"
+#include "jogador.h"
 
 class Plataforma : public Obstaculo
 {
@@ -10,7 +11,7 @@ public:
     Plataforma(int id, sf::Vector2f pos, bool danoso);
     ~Plataforma();
 
-    //void obstaculizar();
+    void Obstaculizar(Jogador* pJogador);
     void Executar();
     void Salvar();
 };

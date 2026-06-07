@@ -44,6 +44,10 @@ void Jogador::Pular() {
     noChao = false;
 }
 
+void Jogador::setVelY(float velY) {
+    vel.y = velY;
+}
+
 void Jogador::Pisar(Inimigo* inimigo) {
     if (inimigo) {
         inimigo->PerderVidas(dano);

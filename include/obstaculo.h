@@ -2,6 +2,8 @@
 
 #include "entidade.h"
 
+class Jogador;
+
 class Obstaculo : public Entidade
 {
 protected:
@@ -11,7 +13,7 @@ public:
     Obstaculo(int id, sf::Vector2f pos, bool danoso);
     ~Obstaculo();
 
-    //virtual void obstaculizar() = 0;
+    virtual void Obstaculizar(Jogador* pJogador) = 0;
     virtual void Executar() = 0;
     virtual void Salvar() = 0;
 };

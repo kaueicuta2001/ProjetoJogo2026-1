@@ -4,10 +4,12 @@
 using namespace sf;
 using namespace std;
 
-Chao::Chao(int id, sf::Vector2f windowSize) :
-Obstaculo(id, Vector2f(0, windowSize.y - 32.f), false)
+Chao::Chao(int id, sf::Vector2f pos, int danoso) :
+Obstaculo(id, pos, danoso),
+altura(32.f),
+largura(pGG->getWindow()->getSize().x)
 {
-    tamanho = Vector2f(windowSize.x, 32.f);
+    tamanho = Vector2f(largura, altura);
     if (!textura.loadFromFile("../assets/chao.png"))
         std::cerr << "Erro ao carregar a textura do chão!" << endl;
     InicializarSprite(textura);//parâmetro por refência escondida
@@ -15,6 +17,10 @@ Obstaculo(id, Vector2f(0, windowSize.y - 32.f), false)
 }
 
 Chao::~Chao() {}
+
+void Chao::Obstaculizar(Jogador* pJogador)
+{
+}
 
 void Chao::Executar()
 {

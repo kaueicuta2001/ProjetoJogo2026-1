@@ -1,6 +1,10 @@
 #pragma once
 
+#include <iostream>
+
 #include "fase.h"
+#include "vespa.h"
+#include "cogumelopulante.h"
 
 class Fase1 : public Fase
 {
@@ -8,6 +12,7 @@ private:
     int maxBesouros;
     int maxVespas;
     int maxPlataformas;
+    int maxCogumelos;
     sf::Vector2f tamBG;
 
 public:
@@ -19,6 +24,7 @@ public:
     void CriarVespas();
     void CriarChao();
     void CriarPlataformas();
+    void CriarCogumelosPulantes();
     void CriarInimigos();
     void CriarObstaculos();
     void Executar();

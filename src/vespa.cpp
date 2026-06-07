@@ -16,7 +16,7 @@ posInicial(pos)
 {
     nome = "Vespa";
     vel = Vector2f(0.f, 0.f); 
-    tamanho = Vector2f(60, 60);
+    tamanho = Vector2f(64.f, 64.f);
     num_vidas = 2;
     nivel_maldade = 2;
     dano = 1; // O dano que a Vespa causa ao encostar no Sapo
@@ -41,14 +41,8 @@ void Vespa::Mover()
     posicao.y = posInicial.y + amplitudeY * sin(2.f * angulo);
 }
 
-void Vespa::Executar()
-{
-    Mover();
-    sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
-}
+void Vespa::AprimorarMaldade() {}
 
-// Lógica de dar dano ao Sapo se ele encostar na Vespa (pela lateral/baixo)
 void Vespa::Danificar(Jogador* pJogador)
 {
     if(pJogador != nullptr)
@@ -57,6 +51,11 @@ void Vespa::Danificar(Jogador* pJogador)
     }
 }
 
-void Vespa::Salvar() {}
+void Vespa::Executar()
+{
+    Mover();
+    sprite.setPosition(posicao);
+    pGG->DesenhaSprite(&sprite);
+}
 
-void Vespa::AprimorarMaldade() {}
+void Vespa::Salvar() {}

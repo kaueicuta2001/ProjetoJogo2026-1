@@ -15,6 +15,7 @@ class Jogador : public Personagem
         ~Jogador();
         void Mover();
         void Pular();
+        void setVelY(float velY);
         void Pisar(Inimigo* inimigo);
         int getVidas() const;
         bool getImune() const;

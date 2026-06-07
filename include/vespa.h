@@ -16,10 +16,8 @@ class Vespa : public Inimigo
         Vespa(int id, sf::Vector2f pos, float dist);
         ~Vespa();
         void Mover();
-        void Executar();
-        void Salvar();
-        
-        // Métodos virtuais puros herdados de Inimigo
         void AprimorarMaldade();
         void Danificar(Jogador* pJogador);
+        void Executar();
+        void Salvar();
 };

@@ -1,12 +1,13 @@
 #include "plataforma.h"
 #include "gerenciadorgrafico.h"
+#include "jogador.h"
 
 using namespace sf;
 using namespace std;
 
 Plataforma::Plataforma(int id, sf::Vector2f pos, bool danoso) : 
 Obstaculo(id, pos, danoso), 
-tempo(1800)
+tempo(180)
 {
     tamanho = sf::Vector2f(75.f, 25.f);
     if (!textura.loadFromFile("../assets/plataforma.png"))
@@ -16,18 +17,16 @@ tempo(1800)
 
 Plataforma::~Plataforma() {}
 
-/* void Plataforma::obstaculizar()
+ void Plataforma::Obstaculizar(Jogador* pJogador)
 {
-    
-} */
+    if(tempo > 0)
+        tempo--;
+    else
+        Desativar();
+}
 
 void Plataforma::Executar()
 {
-    /*if(tempo > 0)
-        tempo--;
-    else
-        Desativar();*/
-
     sprite.setPosition(posicao);
     pGG->DesenhaSprite(&sprite);
 }
