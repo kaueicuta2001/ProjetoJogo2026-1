@@ -38,7 +38,7 @@ void GerenciadorGrafico::LimpaJanela()
     window->clear();
 }
 
-void GerenciadorGrafico::DesenhaSprite(sf::Sprite* pSprite)
+void GerenciadorGrafico::DesenharEnte(sf::Sprite* pSprite)
 {
     if(pSprite != nullptr)
     {

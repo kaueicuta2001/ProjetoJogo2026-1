@@ -8,5 +8,7 @@ int main()
     srand(time(nullptr));
 
     Jogo jogo;
+    jogo.Executar();
+
     return 0;
 }

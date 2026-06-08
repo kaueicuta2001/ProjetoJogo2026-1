@@ -110,7 +110,7 @@ void Fase1::CriarObstaculos()
 void Fase1::Executar()
 {
     Desenhar(); // Desenha o Fundo primeiro
-
+    pJogador->Executar(); // Executa o Jogador
     listaEntidades.Percorrer(); // Executa (Move/Desenha) Entidades
     gerenciadorColisoes.Executar(); // Checa colisões do frame atual
 }

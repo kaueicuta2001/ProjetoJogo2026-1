@@ -25,7 +25,7 @@ void Chao::Obstaculizar(Jogador* pJogador)
 void Chao::Executar()
 {
     sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
+    pGG->DesenharEnte(&sprite);
 }
 
 void Chao::Salvar() {}

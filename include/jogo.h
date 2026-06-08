@@ -1,14 +1,8 @@
 #pragma once
 
 #include "gerenciadorgrafico.h"
-#include "lista.h"
-#include "listaentidades.h"
 #include "jogador.h"
-#include "plataforma.h"
-#include "chao.h"
-#include "besouro.h"
-#include "vespa.h"
-#include "reibesouro.h"
+#include "menu.h"
 #include "fase.h"
 #include "fase1.h"
 #include "gerenciadorDeColisoes.h"
@@ -16,13 +10,13 @@
 class Jogo
 {
 private:
+    int opcaoSelecionada;
     GerenciadorGrafico* GG;
     Jogador* pJogador;
-    Fase *faseAtual;
-
+    Menu* menu;
+    Fase* faseAtual;
 public:
     Jogo();
     ~Jogo();
-    void InstanciarEntidades();
     void Executar();
 };

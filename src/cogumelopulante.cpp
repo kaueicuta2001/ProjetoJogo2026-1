@@ -25,7 +25,7 @@ void CogumeloPulante::Obstaculizar(Jogador* pJogador)
 void CogumeloPulante::Executar()
 {
     sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
+    pGG->DesenharEnte(&sprite);
 }
 
 void CogumeloPulante::Salvar() {}

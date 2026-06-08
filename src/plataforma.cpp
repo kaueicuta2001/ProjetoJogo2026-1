@@ -28,7 +28,7 @@ Plataforma::~Plataforma() {}
 void Plataforma::Executar()
 {
     sprite.setPosition(posicao);
-    pGG->DesenhaSprite(&sprite);
+    pGG->DesenharEnte(&sprite);
 }
 
 void Plataforma::Salvar() {}

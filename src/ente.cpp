@@ -20,5 +20,5 @@ void Ente::setGG(GerenciadorGrafico* gg)
 
 void Ente::Desenhar()
 {
-    pGG->DesenhaSprite(&sprite);
+    pGG->DesenharEnte(&sprite);
 }
