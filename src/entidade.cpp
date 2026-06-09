@@ -5,10 +5,10 @@ using namespace sf;
 
 Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
-posicao(pos),
-tamanho(0.f, 0.f),
 vivo(true)
 {
+    posicao = pos;
+    tamanho = Vector2f(0.f, 0.f);
 }
 
 Entidade::~Entidade()

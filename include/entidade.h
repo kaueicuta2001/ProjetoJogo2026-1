@@ -4,8 +4,6 @@
 class Entidade : public Ente
 {
     protected:
-        sf::Vector2f posicao;
-        sf::Vector2f tamanho;
         bool vivo;
     public:
         Entidade(int id, sf::Vector2f pos);

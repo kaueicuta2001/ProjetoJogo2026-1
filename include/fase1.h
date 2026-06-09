@@ -13,7 +13,6 @@ private:
     int maxVespas;
     int maxPlataformas;
     int maxCogumelos;
-    sf::Vector2f tamBG;
 
 public:
     Fase1(int id, Jogador* pJogador);

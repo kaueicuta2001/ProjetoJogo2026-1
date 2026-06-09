@@ -17,6 +17,7 @@ protected:
 public:
     Fase(int id, Jogador* jogador);
     virtual ~Fase();
+    void TratarEventos();
     virtual void CriarBesouros() = 0;
     virtual void CriarPlataformas() = 0;
     virtual void CriarInimigos() = 0;

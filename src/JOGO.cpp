@@ -29,30 +29,10 @@ void Jogo::Executar()
 {
     while (GG->VerificaJanelaAberta())
     {
-        /*Event event;
-
-        while (GG->getWindow()->pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-            {
-                GG->FecharJanela();
-            }
-            else if (event.type == Event::KeyPressed)
-            {
-                if (event.key.code == Keyboard::Escape)
-                {
-                    GG->FecharJanela();
-                }
-            }
-        }*/
-
         GG->LimpaJanela();
-        std::cout << "Janela limpa" << std::endl;
-        
         switch(opcaoSelecionada)
         {
             case 0:
-                std::cout << "Executando menu..." << std::endl;
                 menu->Executar();
                 if(menu->getSelecionado()){
                     opcaoSelecionada = menu->getOpcaoSelecionada();
@@ -68,7 +48,6 @@ void Jogo::Executar()
             default:
                 break;
         }
-    
         GG->Renderizar();
     }
 }

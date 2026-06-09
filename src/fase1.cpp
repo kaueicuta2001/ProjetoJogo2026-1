@@ -9,9 +9,9 @@ Fase(id, pJogador),
 maxBesouros(5),       
 maxVespas(5),         
 maxPlataformas(7),
-maxCogumelos(5),
-tamBG(pGG->getWindow()->getSize())
+maxCogumelos(5)
 {
+    tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
     CriarObstaculos();
     CriarInimigos();
     InicializarBG();
@@ -30,8 +30,8 @@ void Fase1::InicializarBG()
     sprite.setTexture(textura);
     sprite.setPosition(0.f, 0.f);
     sprite.setScale(
-        tamBG.x / textura.getSize().x,
-        tamBG.y / textura.getSize().y
+        tamanho.x / textura.getSize().x,
+        tamanho.y / textura.getSize().y
     );
 }
 
@@ -113,6 +113,7 @@ void Fase1::Executar()
     pJogador->Executar(); // Executa o Jogador
     listaEntidades.Percorrer(); // Executa (Move/Desenha) Entidades
     gerenciadorColisoes.Executar(); // Checa colisões do frame atual
+    TratarEventos(); // Trata eventos do frame atual
 }
 
 void Fase1::Salvar() {}

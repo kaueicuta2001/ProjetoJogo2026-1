@@ -16,14 +16,14 @@ private:
     bool selecionado;
     std::vector<std::string> opcoesMenu;
     sf::Font fonte;
-    sf::Text texto;
-    std::vector<sf::Text> textosMenu;
+    sf::Text titulo;
+    std::vector<sf::Text> botoesMenu;
 public:
     Menu(int id);
     ~Menu();
     void InicializaBG();
     void InicializaTextos();
-    void TratarEventos(sf::Event event);
+    void TratarEventos();
     bool getSelecionado() const;
     void setSelecionado(bool sel);
     int getOpcaoSelecionada() const;

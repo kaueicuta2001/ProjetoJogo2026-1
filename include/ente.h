@@ -12,6 +12,9 @@ class Ente
         static GerenciadorGrafico* pGG;
         sf::Texture textura;
         sf::Sprite sprite;
+        sf::Vector2f posicao;
+        sf::Vector2f tamanho;
+
     public:
         Ente(int id);
         virtual ~Ente();

@@ -7,9 +7,12 @@ using namespace sf;
 
 Menu::Menu(int id) :
 Ente(id),
-selecionado(false),
-opcaoSelecionada(-1)
+opcao(0),
+opcaoSelecionada(-1),
+selecionado(false)
 {
+    tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
+    posicao = Vector2f(0.f, 0.f);
     opcoesMenu.push_back("Iniciar Jogo");
     opcoesMenu.push_back("Sair");
     InicializaBG();
@@ -25,10 +28,10 @@ void Menu::InicializaBG()
     if (!textura.loadFromFile("../assets/menuBG.png"))
         cerr << "Erro ao carregar a textura de fundo!" << endl;
     sprite.setTexture(textura);
-    sprite.setPosition(0.f, 0.f);
+    sprite.setPosition(posicao);
     sprite.setScale(
-        pGG->getWindow()->getSize().x / textura.getSize().x,
-        pGG->getWindow()->getSize().y / textura.getSize().y
+        tamanho.x / textura.getSize().x,
+        tamanho.y / textura.getSize().y
     );
 }
 
@@ -36,7 +39,13 @@ void Menu::InicializaTextos()
 {    
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
         std::cerr << "Erro ao carregar a fonte!" << std::endl;
-    
+
+    titulo.setFont(fonte);
+    titulo.setString("Menu Principal");
+    titulo.setCharacterSize(40);
+    titulo.setFillColor(sf::Color::White);
+    titulo.setPosition(425.f, 175.f);
+
     for (size_t i = 0; i < opcoesMenu.size(); ++i)
     {
         Text textoLocal;
@@ -44,38 +53,54 @@ void Menu::InicializaTextos()
         textoLocal.setString(opcoesMenu[i]);
         textoLocal.setCharacterSize(24);
         textoLocal.setFillColor(sf::Color::White);
-        textoLocal.setPosition(100.f, 100.f + i * 40.f);
-        textosMenu.push_back(textoLocal);
+        textoLocal.setPosition(525.f, 375.f + i * 40.f);
+        botoesMenu.push_back(textoLocal);
     }
 }
 
-// Nova função que recebe o evento mastigado vindo do Jogo.cpp
-void Menu::TratarEventos(sf::Event event)
+void Menu::TratarEventos()
 {
-    static int opcao = 0; // Mantém o estado do índice do botão
+    Event event;
 
-    if (event.type == Event::KeyPressed)
+    while (pGG->getWindow()->pollEvent(event))
     {
-        if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up)
-            opcao = (opcao - 1 + opcoesMenu.size()) % opcoesMenu.size();
-        
-        else if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down)
-            opcao = (opcao + 1) % opcoesMenu.size();
-        
-        else if (event.key.code == Keyboard::Enter)
+        if (event.type == Event::Closed)
         {
-            opcaoSelecionada = opcao + 1; // 1 para iniciar, 2 para sair
-            selecionado = true;
+            pGG->getWindow()->close();
         }
-    }
 
-    // Atualiza as cores imediatamente quando o evento acontece
-    for (size_t i = 0; i < textosMenu.size(); ++i)
-    {
-        if (i == static_cast<size_t>(opcao))
-            textosMenu[i].setFillColor(Color::Yellow);
-        else
-            textosMenu[i].setFillColor(Color::White);
+        if (event.type == Event::KeyPressed)
+        {
+            if(event.key.code == Keyboard::Escape)
+            {
+                pGG->getWindow()->close();
+            }
+            if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up){
+                opcao = (opcao - 1 + opcoesMenu.size()) % opcoesMenu.size();
+                std::cout << "W pressionado" << std::endl;
+            }
+            else if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down){
+                opcao = (opcao + 1) % opcoesMenu.size();
+                std::cout << "S pressionado" << std::endl;
+            }
+            else if (event.key.code == Keyboard::Enter)
+            {
+                opcaoSelecionada = opcao + 1; // 1 para iniciar, 2 para sair
+                selecionado = true;
+                std::cout << "Enter pressionado, opção selecionada: " << opcaoSelecionada << std::endl;
+            }
+
+            std::cout << "Opção atual: " << opcao << std::endl;
+        }
+
+        // Atualiza as cores imediatamente quando o evento acontece
+        for (size_t i = 0; i < botoesMenu.size(); ++i)
+        {
+            if (i == static_cast<size_t>(opcao))
+                botoesMenu[i].setFillColor(Color::Yellow);
+            else
+                botoesMenu[i].setFillColor(Color::White);
+        }
     }
 }
 
@@ -96,11 +121,14 @@ int Menu::getOpcaoSelecionada() const
 
 void Menu::Executar()
 {
-    // O Executar agora NÃO tem pollEvent. Ele apenas renderiza o estado atual!
     Desenhar(); 
 
-    for (size_t i = 0; i < textosMenu.size(); ++i)
+    pGG->getWindow()->draw(titulo);
+
+    for (size_t i = 0; i < botoesMenu.size(); ++i)
     {
-        pGG->getWindow()->draw(textosMenu[i]);
+        pGG->getWindow()->draw(botoesMenu[i]);
     }
+
+    TratarEventos();
 }
