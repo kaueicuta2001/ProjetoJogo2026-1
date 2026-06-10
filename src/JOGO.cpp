@@ -3,11 +3,11 @@
 using namespace sf;
 
 Jogo::Jogo() :
+opcaoSelecionada(0),
 GG(GerenciadorGrafico::getGerenciadorGrafico()),
 pJogador(nullptr),
 menu(nullptr),
-faseAtual(nullptr),
-opcaoSelecionada(0)
+faseAtual(nullptr)
 {
     Ente::setGG(GG);
     pJogador = new Jogador(5, Vector2f(50.f, 50.f));

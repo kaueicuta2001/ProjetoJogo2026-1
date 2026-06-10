@@ -11,17 +11,21 @@
 class Fase : public Ente
 {
 protected:
+    int maxBesouros;
+    int maxPlataformas;
     Jogador* pJogador;
     ListaEntidades listaEntidades;
     GerenciadorDeColisoes gerenciadorColisoes; 
+    
+    void TratarEventos();
+    void CriarBesouros();
+    void CriarPlataformas();
+    void CriarChao();
+    virtual void CriarInimigos() = 0;
+    virtual void CriarObstaculos() = 0;
+    void CriarCenario();
 public:
     Fase(int id, Jogador* jogador);
     virtual ~Fase();
-    void TratarEventos();
-    virtual void CriarBesouros() = 0;
-    virtual void CriarPlataformas() = 0;
-    virtual void CriarInimigos() = 0;
-    virtual void CriarObstaculos() = 0;
-    virtual void Executar() = 0;
-    virtual void Salvar() = 0;
+    virtual void Executar();
 };

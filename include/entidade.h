@@ -5,6 +5,7 @@ class Entidade : public Ente
 {
     protected:
         bool vivo;
+        std::string nome;
     public:
         Entidade(int id, sf::Vector2f pos);
         virtual ~Entidade();
@@ -13,6 +14,7 @@ class Entidade : public Ente
         virtual sf::Vector2f getTamanho();
         virtual bool getVivo();
         virtual void Desativar();
+        
         void InicializarSprite(sf::Texture& textura);
         virtual void Executar() = 0;
         virtual void Salvar() = 0;

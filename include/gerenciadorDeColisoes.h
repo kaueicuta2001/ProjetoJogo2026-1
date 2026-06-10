@@ -3,6 +3,7 @@
 #include "Jogador.h"
 #include "Inimigo.h"
 #include "Obstaculo.h"
+#include "cogumelopulante.h"
 
 #include <iostream>
 #include <list>

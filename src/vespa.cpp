@@ -32,13 +32,14 @@ void Vespa::Mover()
 {
     angulo += velocidadeAngular;
 
-    if (angulo > 6.28318f) 
+    if (angulo > 6.28318f)//caso o valor do ângulo ultrapasse 2*PI, reseta para evitar overflow
     {
         angulo -= 6.28318f;
     }
 
     posicao.x = posInicial.x + amplitudeX * cos(angulo);
     posicao.y = posInicial.y + amplitudeY * sin(2.f * angulo);
+    AplicarGravidade();
 }
 
 void Vespa::AprimorarMaldade() {}

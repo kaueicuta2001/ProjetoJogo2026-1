@@ -7,7 +7,6 @@
 class Personagem : public Entidade
 {
     protected:
-        std::string nome;
         int num_vidas;
         sf::Vector2f vel;
         float gravidade;
