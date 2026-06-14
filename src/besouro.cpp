@@ -10,11 +10,12 @@ Inimigo(id, pos),
 distancia(dist),
 limiteDir(pos.x + distancia),
 limiteEsq(pos.x - distancia),
-direcao(1)
+direcao(1),
+antenasVenenosas(false)
 {
     nome = "Besouro";
-    num_vidas = 3;
-    dano = 1; // O dano que o Besouro causa ao encostar no Sapo
+    num_vidas = 20;
+    dano = 5; // O dano que o Besouro causa ao encostar no Sapo
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(40.f, 40.f);
     nivel_maldade = 1;
@@ -42,8 +43,32 @@ void Besouro::Mover()
     AplicarGravidade();
 }
 
+void Besouro::AtivarAntenaVenenosa()
+{
+    antenasVenenosas = true;
+    AprimorarMaldade();
+}
+
+void Besouro::AprimorarMaldade()
+{
+    dano *= 2;
+    AlterarSpriteMeiaVida();
+}
+
+void Besouro::AlterarSpriteMeiaVida()
+{
+    if (!textura.loadFromFile("../assets/besouromeiavida.png"))
+        cerr << "Erro ao carregar a textura do besouro meia vida!" << endl;
+    sprite.setTexture(textura);
+}
+
 void Besouro::Executar()
 {
+    if (num_vidas <= 10 && !antenasVenenosas)
+    {
+        AtivarAntenaVenenosa();
+    }
+    
     Mover();
     sprite.setPosition(posicao);
     pGG->DesenharEnte(&sprite);
@@ -59,5 +84,3 @@ void Besouro::Danificar(Jogador* pJogador)
 }
 
 void Besouro::Salvar() {}
-
-void Besouro::AprimorarMaldade() {}

@@ -7,12 +7,13 @@ using namespace std;
 Fase2::Fase2(int id, Jogador* pJogador, Jogador* pJogador2) :
 Fase(id, pJogador, pJogador2),
 maxVespas(5),         
-maxCogumelos(5)
+maxCogumelos(5),
+maxReiBesouro(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
     CriarObstaculos();
     CriarInimigos();
-    if (!textura.loadFromFile("../assets/fase2BG.png"))
+    if (!textura.loadFromFile("../assets/backgroundfase2.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
 }
@@ -50,10 +51,30 @@ void Fase2::CriarCogumelosPulantes()
     }
 }
 
+void Fase2::CriarReiBesouro()
+{
+    float posicoesX[5] = {200.f, 450.f, 700.f, 950.f, 600.f};
+
+    int numReiBesouro = (rand() % (maxReiBesouro - 2)) + 3; // Gera um número aleatório entre 3 e maxReiBesouro
+    for (int i = 0; i < numReiBesouro; i++)
+    {
+        ReiBesouro* pReiBesouro = new ReiBesouro(i + 70, Vector2f(posicoesX[i % 5], 200.f), 100.f);
+        pReiBesouro->setGerenciadorColisoes(&gerenciadorColisoes);
+        pReiBesouro->setListaEntidades(&listaEntidades);
+        listaEntidades.Incluir(pReiBesouro);
+        gerenciadorColisoes.IncluirInimigo(pReiBesouro);
+    }
+}
+
+void Fase2::CriarObstDificilFase2()
+{
+    CriarObstDificil();
+}
+
 void Fase2::CriarInimigos()
 {
-    CriarBesouros();
-    CriarVespas(); 
+    CriarVespas();
+    CriarReiBesouro();
 }
 
 void Fase2::CriarObstaculos()
@@ -61,16 +82,26 @@ void Fase2::CriarObstaculos()
     CriarPlataformas();
     CriarChao();
     CriarCogumelosPulantes();
+    CriarObstDificilFase2();
 }
 
 void Fase2::Executar()
 {
+    if (!VerificarEstadoFase())
+    {
+        Desenhar();
+        pJogador->Executar();
+        if(pJogador2)
+            pJogador2->Executar();
+        TratarEventos();
+        return;
+    }
+    
     Desenhar();
     pJogador->Executar();
     if(pJogador2)
         pJogador2->Executar();
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
-    TratarEventos(); // Trata eventos do frame atual
+    TratarEventos();
 }
-

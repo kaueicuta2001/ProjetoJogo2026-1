@@ -65,6 +65,17 @@ void Fase1::CriarObstaculos()
 
 void Fase1::Executar()
 {
+    if (!VerificarEstadoFase())
+    {
+        Desenhar();
+        pJogador->Executar();
+        if (pJogador2) {
+            pJogador2->Executar();
+        }
+        TratarEventos();
+        return;
+    }
+    
     Desenhar();
     pJogador->Executar();
     if (pJogador2) {
@@ -72,6 +83,6 @@ void Fase1::Executar()
     }
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
-    TratarEventos(); // Trata eventos do frame atual
+    TratarEventos();
 }
 

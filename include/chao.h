@@ -1,16 +1,18 @@
 #pragma once
 
-#include "obstaculo.h"
+#include "entidade.h"
 
-class Chao : public Obstaculo
+class Jogador;
+
+class Chao : public Entidade
 {
 private:
     float altura;
     float largura;
+    bool danoso;
 public:
-    Chao(int id, sf::Vector2f pos, int danoso);
+    Chao(int id, sf::Vector2f pos, bool danoso);
     ~Chao();
-    void Obstaculizar(Jogador* pJogador);
     void Executar();
     void Salvar();
 };

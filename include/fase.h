@@ -7,21 +7,27 @@
 #include "plataforma.h"
 #include "besouro.h"
 #include "vespa.h"
+#include "obstdificil.h"
 
 class Fase : public Ente
 {
 protected:
     int maxBesouros;
     int maxPlataformas;
+    int maxObstDificil;
     Jogador* pJogador;
     Jogador* pJogador2;
     ListaEntidades listaEntidades;
-    GerenciadorDeColisoes gerenciadorColisoes; 
+    GerenciadorDeColisoes gerenciadorColisoes;
+    bool faseAtiva; 
     
     void TratarEventos();
     void CriarBesouros();
     void CriarPlataformas();
     void CriarChao();
+    void CriarObstDificil();
+    bool VerificarEstadoFase();
+    int ContarInimigosVivos();
     virtual void CriarInimigos() = 0;
     virtual void CriarObstaculos() = 0;
     void CriarCenario();

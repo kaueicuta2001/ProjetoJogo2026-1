@@ -16,7 +16,7 @@ jogador2(isJogador2)
     dano = 10;
     vel = Vector2f(5.f, 5.f);
     tamanho = Vector2f(40.f, 40.f);
-    if(!textura.loadFromFile("../assets/jogador1.png"))//botar imagem do jogador
+    if(!textura.loadFromFile("../assets/jogador1.png"))
         cerr << "Erro ao carregar a textura do jogador!" << endl;
     InicializarSprite(textura);//parâmetro por refência escondida
 }
@@ -68,7 +68,7 @@ void Jogador::setVelY(float velY) {
 void Jogador::Pisar(Inimigo* inimigo) {
     if (inimigo) {
         inimigo->PerderVidas(dano);
-        pontos += dano; // Incrementa os pontos do jogador a cada dano causado ao inimigo
+        pontos += dano;
     }
     Pular();
 }
@@ -88,12 +88,12 @@ void Jogador::IniciarImunidade() {
 
 void Jogador::AtualizarImunidade() {
     if (imune && tempoImune > 0) {
-        int visivel = tempoImune % 5 == 0 ? 255 : 128; // Pisca entre visível e semi-transparente
-        sprite.setColor(Color(255, 255, 255, visivel)); // Transparente quando invisível
+        int visivel = tempoImune % 5 == 0 ? 255 : 128; 
+        sprite.setColor(Color(255, 255, 255, visivel)); 
         tempoImune--;
     } else {
         imune = false;
-        sprite.setColor(Color(255, 255, 255, 255)); // Volta a ser totalmente visível
+        sprite.setColor(Color(255, 255, 255, 255)); 
     }
 }
 

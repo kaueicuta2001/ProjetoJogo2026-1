@@ -12,14 +12,15 @@ angulo(0.f),
 velocidadeAngular(0.03f),
 amplitudeX(dist),         
 amplitudeY(dist / 2.f),   
-posInicial(pos)           
+posInicial(pos),
+glândulasVenenosas(false)           
 {
     nome = "Vespa";
     vel = Vector2f(0.f, 0.f); 
     tamanho = Vector2f(64.f, 64.f);
-    num_vidas = 2;
+    num_vidas = 40;
     nivel_maldade = 2;
-    dano = 1; // O dano que a Vespa causa ao encostar no Sapo
+    dano = 10; // O dano que a Vespa causa ao encostar no Sapo
     
     if (!textura.loadFromFile("../assets/vespa.png"))
         cerr << "Erro ao carregar a textura da vespa!" << endl;
@@ -42,7 +43,24 @@ void Vespa::Mover()
     AplicarGravidade();
 }
 
-void Vespa::AprimorarMaldade() {}
+void Vespa::AprimorarMaldade()
+{
+    dano *= 2;
+    AlterarSpriteMeiaVida();
+}
+
+void Vespa::AlterarSpriteMeiaVida()
+{
+    if (!textura.loadFromFile("../assets/vespameiavida.png"))
+        cerr << "Erro ao carregar a textura da vespa meia vida!" << endl;
+    sprite.setTexture(textura);
+}
+
+void Vespa::AtivarGlândulaVenenosa()
+{
+    glândulasVenenosas = true;
+    AprimorarMaldade();
+}
 
 void Vespa::Danificar(Jogador* pJogador)
 {
@@ -54,6 +72,11 @@ void Vespa::Danificar(Jogador* pJogador)
 
 void Vespa::Executar()
 {
+    if (num_vidas <= 20 && !glândulasVenenosas)
+    {
+        AtivarGlândulaVenenosa();
+    }
+    
     Mover();
     sprite.setPosition(posicao);
     pGG->DesenharEnte(&sprite);

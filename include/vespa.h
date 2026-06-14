@@ -12,6 +12,9 @@ class Vespa : public Inimigo
         float amplitudeX;         // Largura do símbolo do infinito
         float amplitudeY;         // Altura do símbolo do infinito
         sf::Vector2f posInicial;  // Ponto de âncora central do voo
+        bool glândulasVenenosas;
+        void AtivarGlândulaVenenosa();
+        void AlterarSpriteMeiaVida();
     public:
         Vespa(int id, sf::Vector2f pos, float dist);
         ~Vespa();

@@ -11,6 +11,9 @@ private:
     float limiteDir;
     float limiteEsq;
     int direcao;
+    bool antenasVenenosas;
+    void AtivarAntenaVenenosa();
+    void AlterarSpriteMeiaVida();
 public:
     Besouro(int id, sf::Vector2f pos, float dist);
     ~Besouro();
