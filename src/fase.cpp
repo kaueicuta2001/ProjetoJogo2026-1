@@ -4,19 +4,18 @@
 using namespace std;
 using namespace sf;
 
-Fase::Fase(int id, Jogador* jogador) :
+Fase::Fase(int id, Jogador* jogador, Jogador* jogador2) :
 Ente(id),
 maxBesouros(5),
 maxPlataformas(5),
 pJogador(jogador),
-gerenciadorColisoes(jogador)
+pJogador2(jogador2),
+gerenciadorColisoes(jogador, jogador2)
 {
 }
 
 Fase::~Fase()
 {
-    pJogador = nullptr;
-    listaEntidades.Esvaziar();
 }
 
 void Fase::TratarEventos()
@@ -79,9 +78,4 @@ void Fase::CriarCenario()
         tamanho.x / textura.getSize().x,
         tamanho.y / textura.getSize().y
     );
-}
-
-void Fase::Executar()
-{
-    CriarCenario();
 }

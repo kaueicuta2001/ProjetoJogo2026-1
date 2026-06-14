@@ -6,14 +6,14 @@
 #include "vespa.h"
 #include "cogumelopulante.h"
 
-class Fase1 : public Fase
+class Fase2 : public Fase
 {
 private:
     int maxVespas;
     int maxCogumelos;
 public:
-    Fase1(int id, Jogador* pJogador, Jogador* pJogador2 = nullptr);
-    ~Fase1();
+    Fase2(int id, Jogador* pJogador, Jogador* pJogador2 = nullptr);
+    ~Fase2();
     
     void CriarVespas();
     void CriarCogumelosPulantes();

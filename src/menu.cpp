@@ -5,47 +5,40 @@
 using namespace std;
 using namespace sf;
 
-Menu::Menu(int id) :
+Menu::Menu(int id, Jogo* jogo) :
 Ente(id),
-opcao(0),
+opcaoIndice(0),
 opcaoSelecionada(-1),
-selecionado(false)
+selecionado(false),
+pJog(jogo),
+event()
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
     posicao = Vector2f(0.f, 0.f);
-    opcoesMenu.push_back("Iniciar Jogo");
-    opcoesMenu.push_back("Sair");
     InicializaBG();
-    InicializaTextos();
-}
+}    
 
 Menu::~Menu()
 {
-}
+}    
 
 void Menu::InicializaBG()
 {
     if (!textura.loadFromFile("../assets/menuBG.png"))
-        cerr << "Erro ao carregar a textura de fundo!" << endl;
-    sprite.setTexture(textura);
+    cerr << "Erro ao carregar a textura de fundo!" << endl;
+    sprite.setTexture(textura);    
     sprite.setPosition(posicao);
     sprite.setScale(
         tamanho.x / textura.getSize().x,
         tamanho.y / textura.getSize().y
-    );
-}
+    );    
+}    
 
-void Menu::InicializaTextos()
+void Menu::InicializaBotoes()
 {    
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-        std::cerr << "Erro ao carregar a fonte!" << std::endl;
-
-    titulo.setFont(fonte);
-    titulo.setString("Menu Principal");
-    titulo.setCharacterSize(40);
-    titulo.setFillColor(sf::Color::White);
-    titulo.setPosition(425.f, 175.f);
-
+    std::cerr << "Erro ao carregar a fonte!" << std::endl;
+        
     for (size_t i = 0; i < opcoesMenu.size(); ++i)
     {
         Text textoLocal;
@@ -55,13 +48,11 @@ void Menu::InicializaTextos()
         textoLocal.setFillColor(sf::Color::White);
         textoLocal.setPosition(525.f, 375.f + i * 40.f);
         botoesMenu.push_back(textoLocal);
-    }
-}
+    }    
+}    
 
-void Menu::TratarEventos()
+void Menu::NavegarOpcao()
 {
-    Event event;
-
     while (pGG->getWindow()->pollEvent(event))
     {
         if (event.type == Event::Closed)
@@ -76,59 +67,39 @@ void Menu::TratarEventos()
                 pGG->getWindow()->close();
             }
             if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up){
-                opcao = (opcao - 1 + opcoesMenu.size()) % opcoesMenu.size();
-                std::cout << "W pressionado" << std::endl;
+                opcaoIndice = (opcaoIndice - 1 + opcoesMenu.size()) % opcoesMenu.size();
             }
             else if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down){
-                opcao = (opcao + 1) % opcoesMenu.size();
-                std::cout << "S pressionado" << std::endl;
+                opcaoIndice = (opcaoIndice + 1) % opcoesMenu.size();
             }
             else if (event.key.code == Keyboard::Enter)
             {
-                opcaoSelecionada = opcao + 1; // 1 para iniciar, 2 para sair
+                opcaoSelecionada = opcaoIndice;
                 selecionado = true;
-                std::cout << "Enter pressionado, opção selecionada: " << opcaoSelecionada << std::endl;
             }
 
-            std::cout << "Opção atual: " << opcao << std::endl;
+            std::cout << "Opção atual: " << opcaoIndice << std::endl;
         }
+    }
+}
 
-        // Atualiza as cores imediatamente quando o evento acontece
-        for (size_t i = 0; i < botoesMenu.size(); ++i)
-        {
-            if (i == static_cast<size_t>(opcao))
-                botoesMenu[i].setFillColor(Color::Yellow);
-            else
-                botoesMenu[i].setFillColor(Color::White);
-        }
+void Menu::DesenharBotoes()
+{
+    for (size_t i = 0; i < botoesMenu.size(); ++i)
+    {
+        if (i == static_cast<size_t>(opcaoIndice))
+            botoesMenu[i].setFillColor(Color::Yellow);
+        else    
+            botoesMenu[i].setFillColor(Color::White);
+    }
+    
+    for (size_t i = 0; i < botoesMenu.size(); ++i)
+    {
+        pGG->getWindow()->draw(botoesMenu[i]);
     }
 }
 
 bool Menu::getSelecionado() const
 {
     return selecionado;
-}
-
-void Menu::setSelecionado(bool sel)
-{
-    selecionado = sel;
-}
-
-int Menu::getOpcaoSelecionada() const
-{
-    return opcaoSelecionada;
-}
-
-void Menu::Executar()
-{
-    Desenhar(); 
-
-    pGG->getWindow()->draw(titulo);
-
-    for (size_t i = 0; i < botoesMenu.size(); ++i)
-    {
-        pGG->getWindow()->draw(botoesMenu[i]);
-    }
-
-    TratarEventos();
 }

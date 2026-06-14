@@ -13,10 +13,11 @@ private:
     std::list<Inimigo*> listaInimigos;
     std::list<Obstaculo*> listaObstaculos;
     Jogador* pJogador;
-
+    Jogador* pJogador2;
 public:
-    GerenciadorDeColisoes(Jogador* jogador);
+    GerenciadorDeColisoes(Jogador* jogador, Jogador* jogador2 = nullptr);
     ~GerenciadorDeColisoes();
+    void setJogador2(Jogador* jogador2);
     void IncluirInimigo(Inimigo* inimigo);
     void IncluirObstaculo(Obstaculo* obstaculo);
     bool VerificarColisao(Entidade* pe1, Entidade* pe2) const;

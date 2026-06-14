@@ -14,6 +14,7 @@ protected:
     int maxBesouros;
     int maxPlataformas;
     Jogador* pJogador;
+    Jogador* pJogador2;
     ListaEntidades listaEntidades;
     GerenciadorDeColisoes gerenciadorColisoes; 
     
@@ -25,7 +26,7 @@ protected:
     virtual void CriarObstaculos() = 0;
     void CriarCenario();
 public:
-    Fase(int id, Jogador* jogador);
+    Fase(int id, Jogador* jogador, Jogador* jogador2 = nullptr);
     virtual ~Fase();
-    virtual void Executar();
+    virtual void Executar() = 0;
 };

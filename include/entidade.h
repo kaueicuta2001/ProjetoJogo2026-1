@@ -9,10 +9,10 @@ class Entidade : public Ente
     public:
         Entidade(int id, sf::Vector2f pos);
         virtual ~Entidade();
-        virtual void setPosicao(sf::Vector2f pos);
-        virtual sf::Vector2f getPosicao();
-        virtual sf::Vector2f getTamanho();
-        virtual bool getVivo();
+        void setPosicao(sf::Vector2f pos);
+        const sf::Vector2f getPosicao();
+        const sf::Vector2f getTamanho();
+        bool getVivo() const;
         virtual void Desativar();
         
         void InicializarSprite(sf::Texture& textura);

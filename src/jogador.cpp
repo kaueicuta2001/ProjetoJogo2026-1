@@ -3,12 +3,13 @@
 using namespace sf;
 using namespace std;
 
-Jogador::Jogador(int id, sf::Vector2f pos) :
+Jogador::Jogador(int id, sf::Vector2f pos, bool isJogador2) :
 Personagem(id, pos),
 pontos(0),
 imune(false),
 tempoImune(0),
-maxTempoImune(180) // Duração da imunidade em frames (ex: 180 frames = 3 segundos a 60 FPS)
+maxTempoImune(180),
+jogador2(isJogador2)
 {
     nome = "Jogador";
     num_vidas = 100;
@@ -24,19 +25,35 @@ Jogador::~Jogador() {}
 
 void Jogador::Mover()
 {
-    if (Keyboard::isKeyPressed(Keyboard::A))
-    {
-        posicao.x -= vel.x;
+    if(!jogador2){
+        if (Keyboard::isKeyPressed(Keyboard::A))
+        {
+            posicao.x -= vel.x;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::D))
+        {
+            posicao.x += vel.x;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::W) && noChao)
+        {
+            Pular();
+        }
+        AplicarGravidade();
+    } else {
+        if (Keyboard::isKeyPressed(Keyboard::Left))
+        {
+            posicao.x -= vel.x;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Right))
+        {
+            posicao.x += vel.x;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Up) && noChao)
+        {
+            Pular();
+        }
+        AplicarGravidade();
     }
-    if (Keyboard::isKeyPressed(Keyboard::D))
-    {
-        posicao.x += vel.x;
-    }
-    if (Keyboard::isKeyPressed(Keyboard::W) && noChao)
-    {
-        Pular();
-    }
-    AplicarGravidade();
 }
 
 void Jogador::Pular() {
@@ -53,6 +70,7 @@ void Jogador::Pisar(Inimigo* inimigo) {
         inimigo->PerderVidas(dano);
         pontos += dano; // Incrementa os pontos do jogador a cada dano causado ao inimigo
     }
+    Pular();
 }
 
 int Jogador::getVidas() const {

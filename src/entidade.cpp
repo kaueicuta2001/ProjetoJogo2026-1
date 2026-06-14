@@ -21,17 +21,17 @@ void Entidade::setPosicao(sf::Vector2f pos)
     posicao = pos;
 }
 
-sf::Vector2f Entidade::getPosicao()
+const sf::Vector2f Entidade::getPosicao()
 {
     return posicao;
 }
 
-sf::Vector2f Entidade::getTamanho()
+const sf::Vector2f Entidade::getTamanho()
 {
     return tamanho;
 }
 
-bool Entidade::getVivo()
+bool Entidade::getVivo() const
 {
     return vivo;
 }

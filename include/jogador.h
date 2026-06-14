@@ -10,8 +10,9 @@ class Jogador : public Personagem
         bool imune;
         int tempoImune;
         int maxTempoImune;
+        const bool jogador2;
     public:
-        Jogador(int id, sf::Vector2f pos);
+        Jogador(int id, sf::Vector2f pos, bool isJogador2);
         ~Jogador();
         void Mover();
         void Pular();

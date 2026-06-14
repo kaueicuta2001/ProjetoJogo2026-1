@@ -1,10 +1,10 @@
-#include "fase1.h"
+#include "fase2.h"
 #include "gerenciadorgrafico.h"
 
 using namespace sf;
 using namespace std;
 
-Fase1::Fase1(int id, Jogador* pJogador, Jogador* pJogador2) :
+Fase2::Fase2(int id, Jogador* pJogador, Jogador* pJogador2) :
 Fase(id, pJogador, pJogador2),
 maxVespas(5),         
 maxCogumelos(5)
@@ -12,17 +12,17 @@ maxCogumelos(5)
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
     CriarObstaculos();
     CriarInimigos();
-    if (!textura.loadFromFile("../assets/fase1BG.png"))
+    if (!textura.loadFromFile("../assets/fase2BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
 }
 
-Fase1::~Fase1()
+Fase2::~Fase2()
 {
     listaEntidades.Esvaziar();
 }
 
-void Fase1::CriarVespas()
+void Fase2::CriarVespas()
 {
     float posicoesY[5] = {600.f, 500.f, 400.f, 300.f, 400.f};
 
@@ -35,7 +35,7 @@ void Fase1::CriarVespas()
     }
 }
 
-void Fase1::CriarCogumelosPulantes()
+void Fase2::CriarCogumelosPulantes()
 {
     int numCogumelos = (rand() % (maxCogumelos - 2)) + 3;
 
@@ -50,26 +50,25 @@ void Fase1::CriarCogumelosPulantes()
     }
 }
 
-void Fase1::CriarInimigos()
+void Fase2::CriarInimigos()
 {
     CriarBesouros();
     CriarVespas(); 
 }
 
-void Fase1::CriarObstaculos()
+void Fase2::CriarObstaculos()
 {
     CriarPlataformas();
     CriarChao();
     CriarCogumelosPulantes();
 }
 
-void Fase1::Executar()
+void Fase2::Executar()
 {
     Desenhar();
     pJogador->Executar();
-    if (pJogador2) {
+    if(pJogador2)
         pJogador2->Executar();
-    }
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
     TratarEventos(); // Trata eventos do frame atual

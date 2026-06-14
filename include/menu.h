@@ -10,22 +10,24 @@ class Jogo;
 
 class Menu : public Ente
 {
-private:
-    int opcao;
+protected:
+    int opcaoIndice;
     int opcaoSelecionada;
     bool selecionado;
+    Jogo* pJog;
+    sf::Event event;
     std::vector<std::string> opcoesMenu;
     sf::Font fonte;
-    sf::Text titulo;
     std::vector<sf::Text> botoesMenu;
 public:
-    Menu(int id);
-    ~Menu();
+    Menu(int id, Jogo* jogo);
+    virtual ~Menu();
     void InicializaBG();
-    void InicializaTextos();
-    void TratarEventos();
+    virtual void InicializaOpcoesMenu() = 0;
+    void InicializaBotoes();
+    virtual void PosicionaBotoes() = 0;
+    void NavegarOpcao();
+    void DesenharBotoes();
     bool getSelecionado() const;
-    void setSelecionado(bool sel);
-    int getOpcaoSelecionada() const;
-    void Executar();
+    virtual void Executar() = 0;
 }; 

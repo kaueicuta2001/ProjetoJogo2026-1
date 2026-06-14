@@ -3,14 +3,22 @@
 
 using namespace std;
 
-GerenciadorDeColisoes::GerenciadorDeColisoes(Jogador* jogador) :
+GerenciadorDeColisoes::GerenciadorDeColisoes(Jogador* jogador, Jogador* jogador2) :
 listaInimigos(),
 listaObstaculos(), 
-pJogador(jogador){}
+pJogador(jogador),
+pJogador2(jogador2) {}
 
 GerenciadorDeColisoes::~GerenciadorDeColisoes()
 {
+    listaInimigos.clear();
+    listaObstaculos.clear();
     pJogador = nullptr;
+    pJogador2 = nullptr;
+}
+
+void GerenciadorDeColisoes::setJogador2(Jogador* jogador2) {
+    pJogador2 = jogador2;
 }
 
 void GerenciadorDeColisoes::IncluirInimigo(Inimigo* inimigo) {
@@ -52,44 +60,83 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
     if (!pJogador || listaObstaculos.empty()) return;
 
     pJogador->SetNoChao(false);
-    
+    if (pJogador2) {
+        pJogador2->SetNoChao(false);
+    }
+
     list<Obstaculo*>::iterator it_obs = listaObstaculos.begin();
     
     while(it_obs != listaObstaculos.end()) {
         Obstaculo* obs = *it_obs;
         
         if (VerificarColisao(pJogador, obs)) {
-            sf::Vector2f posJ = pJogador->getPosicao();
-            sf::Vector2f tamJ = pJogador->getTamanho();
+            sf::Vector2f posJ1 = pJogador->getPosicao();
+            sf::Vector2f tamJ1 = pJogador->getTamanho();
             sf::Vector2f posO = obs->getPosicao();
             sf::Vector2f tamO = obs->getTamanho();
             
-            float centroJX = posJ.x + tamJ.x / 2.0f;
-            float centroJY = posJ.y + tamJ.y / 2.0f;
+            float centroJX = posJ1.x + tamJ1.x / 2.0f;
+            float centroJY = posJ1.y + tamJ1.y / 2.0f;
             float centroOX = posO.x + tamO.x / 2.0f;
             float centroOY = posO.y + tamO.y / 2.0f;
             
             float distX = std::abs(centroJX - centroOX);
             float distY = std::abs(centroJY - centroOY);
             
-            float minX = (tamJ.x + tamO.x) / 2.0f;
-            float minY = (tamJ.y + tamO.y) / 2.0f;
+            float minX = (tamJ1.x + tamO.x) / 2.0f;
+            float minY = (tamJ1.y + tamO.y) / 2.0f;
 
             float interX = minX - distX;
             float interY = minY - distY;
             
             if (interX < interY) {
                 if (centroJX < centroOX)
-                    pJogador->setPosicao(sf::Vector2f(posJ.x - interX, posJ.y));
+                    pJogador->setPosicao(sf::Vector2f(posJ1.x - interX, posJ1.y));
                 else
-                    pJogador->setPosicao(sf::Vector2f(posJ.x + interX, posJ.y));
+                    pJogador->setPosicao(sf::Vector2f(posJ1.x + interX, posJ1.y));
             } else {
                 if (centroJY < centroOY) {
-                    pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y - interY));
+                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y - interY));
                     pJogador->SetNoChao(true);
                     obs->Obstaculizar(pJogador);
                 } else {
-                    pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y + interY));
+                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y + interY));
+                }
+            }
+        }
+
+        if(pJogador2 && VerificarColisao(pJogador2, obs)) {
+            sf::Vector2f posJ2 = pJogador2->getPosicao();
+            sf::Vector2f tamJ2 = pJogador2->getTamanho();
+            sf::Vector2f posO = obs->getPosicao();
+            sf::Vector2f tamO = obs->getTamanho();
+            
+            float centroJ2X = posJ2.x + tamJ2.x / 2.0f;
+            float centroJ2Y = posJ2.y + tamJ2.y / 2.0f;
+            float centroOX = posO.x + tamO.x / 2.0f;
+            float centroOY = posO.y + tamO.y / 2.0f;
+            
+            float distX = std::abs(centroJ2X - centroOX);
+            float distY = std::abs(centroJ2Y - centroOY);
+            
+            float minX = (tamJ2.x + tamO.x) / 2.0f;
+            float minY = (tamJ2.y + tamO.y) / 2.0f;
+
+            float interX = minX - distX;
+            float interY = minY - distY;
+            
+            if (interX < interY) {
+                if (centroJ2X < centroOX)
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX, posJ2.y));
+                else
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX, posJ2.y));
+            } else {
+                if (centroJ2Y < centroOY) {
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y - interY));
+                    pJogador2->SetNoChao(true);
+                    obs->Obstaculizar(pJogador2);
+                } else {
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y + interY));
                 }
             }
         }
@@ -107,21 +154,21 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimigo() {
         
         if (VerificarColisao(pJogador, inim)) {
             
-            sf::Vector2f posJ = pJogador->getPosicao();
-            sf::Vector2f tamJ = pJogador->getTamanho();
+            sf::Vector2f posJ1 = pJogador->getPosicao();
+            sf::Vector2f tamJ1 = pJogador->getTamanho();
             sf::Vector2f posI = inim->getPosicao();
             sf::Vector2f tamI = inim->getTamanho();
 
-            float centroJX = posJ.x + tamJ.x / 2.0f;
-            float centroJY = posJ.y + tamJ.y / 2.0f;
+            float centroJX = posJ1.x + tamJ1.x / 2.0f;
+            float centroJY = posJ1.y + tamJ1.y / 2.0f;
             float centroIX = posI.x + tamI.x / 2.0f;
             float centroIY = posI.y + tamI.y / 2.0f;
             
             float distX = std::abs(centroJX - centroIX);
             float distY = std::abs(centroJY - centroIY);
             
-            float minX = (tamJ.x + tamI.x) / 2.0f;
-            float minY = (tamJ.y + tamI.y) / 2.0f;
+            float minX = (tamJ1.x + tamI.x) / 2.0f;
+            float minY = (tamJ1.y + tamI.y) / 2.0f;
 
             float interX = minX - distX;
             float interY = minY - distY;
@@ -131,29 +178,82 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimigo() {
                     if(!pJogador->getImune()) {
                         inim->Danificar(pJogador);
                         pJogador->IniciarImunidade();
-                        pJogador->setPosicao(sf::Vector2f(posJ.x - interX - 50.f, posJ.y - 16.f));
+                        pJogador->setPosicao(sf::Vector2f(posJ1.x - interX - 50.f, posJ1.y - 16.f));
                     }
                 }
                 else{
                     if(!pJogador->getImune()) {
                         inim->Danificar(pJogador);
                         pJogador->IniciarImunidade();
-                        pJogador->setPosicao(sf::Vector2f(posJ.x + interX + 50.f, posJ.y - 16.f));
+                        pJogador->setPosicao(sf::Vector2f(posJ1.x + interX + 50.f, posJ1.y - 16.f));
                     }
                 }
             } else {
                 if (centroJY < centroIY) {
-                    pJogador->setPosicao(sf::Vector2f(posJ.x, posJ.y - interY));
+                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y - interY));
                     pJogador->Pisar(inim);
-                    pJogador->Pular();
                 } else {
                     if(!pJogador->getImune()) {
                         inim->Danificar(pJogador);
                         pJogador->IniciarImunidade();
                         if(centroJX < centroIX) {
-                            pJogador->setPosicao(sf::Vector2f(posJ.x - interX - 50.f, posJ.y - 16.f));
+                            pJogador->setPosicao(sf::Vector2f(posJ1.x - interX - 50.f, posJ1.y - 16.f));
                         } else {
-                            pJogador->setPosicao(sf::Vector2f(posJ.x + interX + 50.f, posJ.y - 16.f));
+                            pJogador->setPosicao(sf::Vector2f(posJ1.x + interX + 50.f, posJ1.y - 16.f));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (pJogador2 && VerificarColisao(pJogador2, inim)) {
+            
+            sf::Vector2f posJ2 = pJogador2->getPosicao();
+            sf::Vector2f tamJ2 = pJogador2->getTamanho();
+            sf::Vector2f posI = inim->getPosicao();
+            sf::Vector2f tamI = inim->getTamanho();
+
+            float centroJ2X = posJ2.x + tamJ2.x / 2.0f;
+            float centroJ2Y = posJ2.y + tamJ2.y / 2.0f;
+            float centroIX = posI.x + tamI.x / 2.0f;
+            float centroIY = posI.y + tamI.y / 2.0f;
+            
+            float distX = std::abs(centroJ2X - centroIX);
+            float distY = std::abs(centroJ2Y - centroIY);
+            
+            float minX = (tamJ2.x + tamI.x) / 2.0f;
+            float minY = (tamJ2.y + tamI.y) / 2.0f;
+
+            float interX = minX - distX;
+            float interY = minY - distY;
+            
+            if (interX < interY) {
+                if (centroJ2X < centroIX){
+                    if(!pJogador2->getImune()) {
+                        inim->Danificar(pJogador2);
+                        pJogador2->IniciarImunidade();
+                        pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX - 50.f, posJ2.y - 16.f));
+                    }
+                }
+                else{
+                    if(!pJogador2->getImune()) {
+                        inim->Danificar(pJogador2);
+                        pJogador2->IniciarImunidade();
+                        pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX + 50.f, posJ2.y - 16.f));
+                    }
+                }
+            } else {
+                if (centroJ2Y < centroIY) {
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y - interY));
+                    pJogador2->Pisar(inim);
+                } else {
+                    if(!pJogador2->getImune()) {
+                        inim->Danificar(pJogador2);
+                        pJogador2->IniciarImunidade();
+                        if(centroJ2X < centroIX) {
+                            pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX - 50.f, posJ2.y - 16.f));
+                        } else {
+                            pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX + 50.f, posJ2.y - 16.f));
                         }
                     }
                 }
