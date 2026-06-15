@@ -21,6 +21,10 @@ GerenciadorDeColisoes::~GerenciadorDeColisoes()
     pJogador2 = nullptr;
 }
 
+void GerenciadorDeColisoes::setJogador(Jogador* jogador) {
+    pJogador = jogador;
+}
+
 void GerenciadorDeColisoes::setJogador2(Jogador* jogador2) {
     pJogador2 = jogador2;
 }
@@ -49,400 +53,178 @@ void GerenciadorDeColisoes::IncluirProjetil(Projetil* projetil) {
     }
 }
 
-bool GerenciadorDeColisoes::VerificarColisao(Entidade* pe1, Entidade* pe2) const {
-    if (!pe1 || !pe2) return false;
-    
-    sf::Vector2f pos1 = pe1->getPosicao();
-    sf::Vector2f tam1 = pe1->getTamanho();
-    sf::Vector2f pos2 = pe2->getPosicao();
-    sf::Vector2f tam2 = pe2->getTamanho();
-    
-    float centro1X = pos1.x + tam1.x / 2.0f;
-    float centro1Y = pos1.y + tam1.y / 2.0f;
-    float centro2X = pos2.x + tam2.x / 2.0f;
-    float centro2Y = pos2.y + tam2.y / 2.0f;
-    
-    float distX = std::abs(centro1X - centro2X);
-    float distY = std::abs(centro1Y - centro2Y);
-    
-    float minX = (tam1.x + tam2.x) / 2.0f;
-    float minY = (tam1.y + tam2.y) / 2.0f;
-    
-    return (distX < minX && distY < minY);
+bool GerenciadorDeColisoes::VerificarColisao(Entidade* ent1, Entidade* ent2) {
+    sf::Vector2f pos1 = ent1->getPosicao();
+    sf::Vector2f tam1 = ent1->getTamanho();
+    sf::Vector2f pos2 = ent2->getPosicao();
+    sf::Vector2f tam2 = ent2->getTamanho();
+
+    sf::Vector2f centro1(pos1.x + tam1.x / 2.0f, pos1.y + tam1.y / 2.0f);
+    sf::Vector2f centro2(pos2.x + tam2.x / 2.0f, pos2.y + tam2.y / 2.0f);
+
+    float distanciaX = abs(centro1.x - centro2.x);
+    float distanciaY = abs(centro1.y - centro2.y);
+
+    float somaMetadesX = tam1.x / 2.0f + tam2.x / 2.0f;
+    float somaMetadesY = tam1.y / 2.0f + tam2.y / 2.0f;
+
+    if (distanciaX < somaMetadesX && distanciaY < somaMetadesY) {
+        return true; 
+    }
+    return false;
 }
 
+void GerenciadorDeColisoes::Executar() {
+    RemoverInimigoInativo();
+    RemoverObstaculoInativo();
+    RemoverProjetilInativo();
 
-void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
-    if (!pJogador || listaObstaculos.empty()) return;
+    for (auto inimigo : listaInimigos) {
+        if (inimigo->getVivo()) {
+            inimigo->SetNoChao(false);
 
-    pJogador->SetNoChao(false);
-    if (pJogador2) {
-        pJogador2->SetNoChao(false);
+            for (auto chao : listaChao) {
+                if (chao->getVivo() && VerificarColisao(inimigo, chao)) {
+                    sf::Vector2f posIni = inimigo->getPosicao();
+                    sf::Vector2f tamIni = inimigo->getTamanho();
+                    sf::Vector2f posChao = chao->getPosicao();
+
+                    if (posIni.y < posChao.y) {
+                        inimigo->SetNoChao(true);
+                        inimigo->setPosicao(sf::Vector2f(posIni.x, posChao.y - tamIni.y));
+                    }
+                }
+            }
+
+            for (auto obstaculo : listaObstaculos) {
+                if (obstaculo->getVivo() && VerificarColisao(inimigo, obstaculo)) {
+                    sf::Vector2f posIni = inimigo->getPosicao();
+                    sf::Vector2f tamIni = inimigo->getTamanho();
+                    sf::Vector2f posObs = obstaculo->getPosicao();
+
+                    if (posIni.y < posObs.y) {
+                        inimigo->SetNoChao(true);
+                        inimigo->setPosicao(sf::Vector2f(posIni.x, posObs.y - tamIni.y));
+                    }
+                }
+            }
+        }
     }
 
-    list<Obstaculo*>::iterator it_obs = listaObstaculos.begin();
-    
-    while(it_obs != listaObstaculos.end()) {
-        Obstaculo* obs = *it_obs;
-        
-        if (VerificarColisao(pJogador, obs)) {
-            sf::Vector2f posJ1 = pJogador->getPosicao();
-            sf::Vector2f tamJ1 = pJogador->getTamanho();
-            sf::Vector2f posO = obs->getPosicao();
-            sf::Vector2f tamO = obs->getTamanho();
-            
-            float centroJX = posJ1.x + tamJ1.x / 2.0f;
-            float centroJY = posJ1.y + tamJ1.y / 2.0f;
-            float centroOX = posO.x + tamO.x / 2.0f;
-            float centroOY = posO.y + tamO.y / 2.0f;
-            
-            float distX = std::abs(centroJX - centroOX);
-            float distY = std::abs(centroJY - centroOY);
-            
-            float minX = (tamJ1.x + tamO.x) / 2.0f;
-            float minY = (tamJ1.y + tamO.y) / 2.0f;
+    if (pJogador && pJogador->getVivo()) {
+        pJogador->SetNoChao(false);
 
-            float interX = minX - distX;
-            float interY = minY - distY;
-            
-            if (interX < interY) {
-                if (centroJX < centroOX)
-                    pJogador->setPosicao(sf::Vector2f(posJ1.x - interX, posJ1.y));
-                else
-                    pJogador->setPosicao(sf::Vector2f(posJ1.x + interX, posJ1.y));
-            } else {
-                if (centroJY < centroOY) {
-                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y - interY));
+        for (auto chao : listaChao) {
+            if (chao->getVivo() && VerificarColisao(pJogador, chao)) {
+                sf::Vector2f posJog = pJogador->getPosicao();
+                sf::Vector2f tamJog = pJogador->getTamanho();
+                sf::Vector2f posChao = chao->getPosicao();
+
+                if (posJog.y < posChao.y) {
                     pJogador->SetNoChao(true);
-                    obs->Obstaculizar(pJogador);
-                } else {
-                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y + interY));
+                    pJogador->setPosicao(sf::Vector2f(posJog.x, posChao.y - tamJog.y));
                 }
             }
         }
 
-        if(pJogador2 && VerificarColisao(pJogador2, obs)) {
-            sf::Vector2f posJ2 = pJogador2->getPosicao();
-            sf::Vector2f tamJ2 = pJogador2->getTamanho();
-            sf::Vector2f posO = obs->getPosicao();
-            sf::Vector2f tamO = obs->getTamanho();
-            
-            float centroJ2X = posJ2.x + tamJ2.x / 2.0f;
-            float centroJ2Y = posJ2.y + tamJ2.y / 2.0f;
-            float centroOX = posO.x + tamO.x / 2.0f;
-            float centroOY = posO.y + tamO.y / 2.0f;
-            
-            float distX = std::abs(centroJ2X - centroOX);
-            float distY = std::abs(centroJ2Y - centroOY);
-            
-            float minX = (tamJ2.x + tamO.x) / 2.0f;
-            float minY = (tamJ2.y + tamO.y) / 2.0f;
+        for (auto obstaculo : listaObstaculos) {
+            if (obstaculo->getVivo() && VerificarColisao(pJogador, obstaculo)) {
+                sf::Vector2f posJog = pJogador->getPosicao();
+                sf::Vector2f tamJog = pJogador->getTamanho();
+                sf::Vector2f posObs = obstaculo->getPosicao();
 
-            float interX = minX - distX;
-            float interY = minY - distY;
-            
-            if (interX < interY) {
-                if (centroJ2X < centroOX)
-                    pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX, posJ2.y));
-                else
-                    pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX, posJ2.y));
-            } else {
-                if (centroJ2Y < centroOY) {
-                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y - interY));
-                    pJogador2->SetNoChao(true);
-                    obs->Obstaculizar(pJogador2);
-                } else {
-                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y + interY));
+                if (posJog.y < posObs.y) {
+                    pJogador->SetNoChao(true);
+                    pJogador->setPosicao(sf::Vector2f(posJog.x, posObs.y - tamJog.y));
                 }
-            }
-        }
-        ++it_obs;
-    }
-    
-    if (pJogador && !listaChao.empty()) {
-        list<Chao*>::iterator it_chao = listaChao.begin();
-        
-        while(it_chao != listaChao.end()) {
-            Chao* chao = *it_chao;
-            
-            if (VerificarColisao(pJogador, chao)) {
-                sf::Vector2f posJ1 = pJogador->getPosicao();
-                sf::Vector2f tamJ1 = pJogador->getTamanho();
-                sf::Vector2f posC = chao->getPosicao();
-                sf::Vector2f tamC = chao->getTamanho();
-                
-                float centroJX = posJ1.x + tamJ1.x / 2.0f;
-                float centroJY = posJ1.y + tamJ1.y / 2.0f;
-                float centroCX = posC.x + tamC.x / 2.0f;
-                float centroCY = posC.y + tamC.y / 2.0f;
-                
-                float distX = std::abs(centroJX - centroCX);
-                float distY = std::abs(centroJY - centroCY);
-                
-                float minX = (tamJ1.x + tamC.x) / 2.0f;
-                float minY = (tamJ1.y + tamC.y) / 2.0f;
-
-                float interX = minX - distX;
-                float interY = minY - distY;
-                
-                if (interX < interY) {
-                    if (centroJX < centroCX)
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x - interX, posJ1.y));
-                    else
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x + interX, posJ1.y));
-                } else {
-                    if (centroJY < centroCY) {
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y - interY));
-                        pJogador->SetNoChao(true);
-                    } else {
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y + interY));
-                    }
-                }
-            }
-            
-            if(pJogador2 && VerificarColisao(pJogador2, chao)) {
-                sf::Vector2f posJ2 = pJogador2->getPosicao();
-                sf::Vector2f tamJ2 = pJogador2->getTamanho();
-                sf::Vector2f posC = chao->getPosicao();
-                sf::Vector2f tamC = chao->getTamanho();
-                
-                float centroJ2X = posJ2.x + tamJ2.x / 2.0f;
-                float centroJ2Y = posJ2.y + tamJ2.y / 2.0f;
-                float centroCX = posC.x + tamC.x / 2.0f;
-                float centroCY = posC.y + tamC.y / 2.0f;
-                
-                float distX = std::abs(centroJ2X - centroCX);
-                float distY = std::abs(centroJ2Y - centroCY);
-                
-                float minX = (tamJ2.x + tamC.x) / 2.0f;
-                float minY = (tamJ2.y + tamC.y) / 2.0f;
-
-                float interX = minX - distX;
-                float interY = minY - distY;
-                
-                if (interX < interY) {
-                    if (centroJ2X < centroCX)
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX, posJ2.y));
-                    else
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX, posJ2.y));
-                } else {
-                    if (centroJ2Y < centroCY) {
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y - interY));
-                        pJogador2->SetNoChao(true);
-                    } else {
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y + interY));
-                    }
-                }
-            }
-            ++it_chao;
-        }
-    }
-}
-
-void GerenciadorDeColisoes::TratarColisoesJogsInimigo() 
-{
-    if (!pJogador || listaInimigos.empty()) return;
-    
-    list<Inimigo*>::iterator it_inim = listaInimigos.begin();
-    
-    while(it_inim != listaInimigos.end()) {
-        Inimigo* inim = *it_inim;
-        
-        if (VerificarColisao(pJogador, inim)) {
-            
-            sf::Vector2f posJ1 = pJogador->getPosicao();
-            sf::Vector2f tamJ1 = pJogador->getTamanho();
-            sf::Vector2f posI = inim->getPosicao();
-            sf::Vector2f tamI = inim->getTamanho();
-
-            float centroJX = posJ1.x + tamJ1.x / 2.0f;
-            float centroJY = posJ1.y + tamJ1.y / 2.0f;
-            float centroIX = posI.x + tamI.x / 2.0f;
-            float centroIY = posI.y + tamI.y / 2.0f;
-            
-            float distX = std::abs(centroJX - centroIX);
-            float distY = std::abs(centroJY - centroIY);
-            
-            float minX = (tamJ1.x + tamI.x) / 2.0f;
-            float minY = (tamJ1.y + tamI.y) / 2.0f;
-
-            float interX = minX - distX;
-            float interY = minY - distY;
-            
-            if (interX < interY) {
-                if (centroJX < centroIX){
-                    if(!pJogador->getImune()) {
-                        inim->Danificar(pJogador);
-                        pJogador->IniciarImunidade();
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x - interX - 50.f, posJ1.y - 16.f));
-                    }
-                }
-                else{
-                    if(!pJogador->getImune()) {
-                        inim->Danificar(pJogador);
-                        pJogador->IniciarImunidade();
-                        pJogador->setPosicao(sf::Vector2f(posJ1.x + interX + 50.f, posJ1.y - 16.f));
-                    }
-                }
-            } else {
-                if (centroJY < centroIY) {
-                    pJogador->setPosicao(sf::Vector2f(posJ1.x, posJ1.y - interY));
-                    pJogador->Pisar(inim);
-                } else {
-                    if(!pJogador->getImune()) {
-                        inim->Danificar(pJogador);
-                        pJogador->IniciarImunidade();
-                        if(centroJX < centroIX) {
-                            pJogador->setPosicao(sf::Vector2f(posJ1.x - interX - 50.f, posJ1.y - 16.f));
-                        } else {
-                            pJogador->setPosicao(sf::Vector2f(posJ1.x + interX + 50.f, posJ1.y - 16.f));
-                        }
-                    }
-                }
+                obstaculo->Obstaculizar(pJogador);
             }
         }
 
-        if (pJogador2 && VerificarColisao(pJogador2, inim)) {
-            
-            sf::Vector2f posJ2 = pJogador2->getPosicao();
-            sf::Vector2f tamJ2 = pJogador2->getTamanho();
-            sf::Vector2f posI = inim->getPosicao();
-            sf::Vector2f tamI = inim->getTamanho();
+        for (auto inimigo : listaInimigos) {
+            if (inimigo->getVivo() && VerificarColisao(pJogador, inimigo)) {
+                sf::Vector2f posJog = pJogador->getPosicao();
+                sf::Vector2f tamJog = pJogador->getTamanho();
+                sf::Vector2f posIni = inimigo->getPosicao();
 
-            float centroJ2X = posJ2.x + tamJ2.x / 2.0f;
-            float centroJ2Y = posJ2.y + tamJ2.y / 2.0f;
-            float centroIX = posI.x + tamI.x / 2.0f;
-            float centroIY = posI.y + tamI.y / 2.0f;
-            
-            float distX = std::abs(centroJ2X - centroIX);
-            float distY = std::abs(centroJ2Y - centroIY);
-            
-            float minX = (tamJ2.x + tamI.x) / 2.0f;
-            float minY = (tamJ2.y + tamI.y) / 2.0f;
-
-            float interX = minX - distX;
-            float interY = minY - distY;
-            
-            if (interX < interY) {
-                if (centroJ2X < centroIX){
-                    if(!pJogador2->getImune()) {
-                        inim->Danificar(pJogador2);
-                        pJogador2->IniciarImunidade();
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX - 50.f, posJ2.y - 16.f));
-                    }
-                }
-                else{
-                    if(!pJogador2->getImune()) {
-                        inim->Danificar(pJogador2);
-                        pJogador2->IniciarImunidade();
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX + 50.f, posJ2.y - 16.f));
-                    }
-                }
-            } else {
-                if (centroJ2Y < centroIY) {
-                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posJ2.y - interY));
-                    pJogador2->Pisar(inim);
-                } else {
-                    if(!pJogador2->getImune()) {
-                        inim->Danificar(pJogador2);
-                        pJogador2->IniciarImunidade();
-                        if(centroJ2X < centroIX) {
-                            pJogador2->setPosicao(sf::Vector2f(posJ2.x - interX - 50.f, posJ2.y - 16.f));
-                        } else {
-                            pJogador2->setPosicao(sf::Vector2f(posJ2.x + interX + 50.f, posJ2.y - 16.f));
-                        }
-                    }
-                }
-            }
-        }
-        ++it_inim;
-    }
-}
-
-void GerenciadorDeColisoes::TratarColisoesInimigoObstacs() 
-{
-    if (listaInimigos.empty() || listaObstaculos.empty()) return;
-    
-    list<Inimigo*>::iterator it_inim = listaInimigos.begin();
-    
-    while(it_inim != listaInimigos.end()) {
-        Inimigo* inim = *it_inim;
-
-        inim->SetNoChao(false);
-
-        list<Obstaculo*>::iterator it_obs = listaObstaculos.begin();
-        while(it_obs != listaObstaculos.end()) {
-            Obstaculo* obs = *it_obs;
-            
-            if (VerificarColisao(inim, obs)) {
-                sf::Vector2f posI = inim->getPosicao();
-                sf::Vector2f tamI = inim->getTamanho();
-                sf::Vector2f posO = obs->getPosicao();
-                sf::Vector2f tamO = obs->getTamanho();
-                            
-                float centroIX = posI.x + tamI.x / 2.0f;
-                float centroIY = posI.y + tamI.y / 2.0f;
-                float centroOX = posO.x + tamO.x / 2.0f;
-                float centroOY = posO.y + tamO.y / 2.0f;
-                
-                float distX = std::abs(centroIX - centroOX);
-                float distY = std::abs(centroIY - centroOY);
-                
-                float minX = (tamI.x + tamO.x) / 2.0f;
-                float minY = (tamI.y + tamO.y) / 2.0f;
-
-                float interX = minX - distX;
-                float interY = minY - distY;
-                
-                if (interX < interY) {
-                    if (centroIX < centroOX){
-                        inim->setPosicao(sf::Vector2f(posI.x - interX, posI.y));
-                    }
-                    else{
-                        inim->setPosicao(sf::Vector2f(posI.x + interX, posI.y));
-                    }
-                } 
-                else {
-                    if (centroIY < centroOY) {
-                        inim->setPosicao(sf::Vector2f(posI.x, posI.y - interY));
-                        inim->SetNoChao(true);
-                    } 
-                    else {
-                        inim->setPosicao(sf::Vector2f(posI.x, posI.y + interY));
-                    }
-                }
-            }
-            ++it_obs;
-        }
-        ++it_inim;
-    }
-}
-
-void GerenciadorDeColisoes::TratarColisoesJogsProjeteis()
-{
-    if (listaProjeteis.empty()) return;
-
-    list<Projetil*>::iterator it_proj = listaProjeteis.begin();
-
-    while (it_proj != listaProjeteis.end()) {
-        Projetil* proj = *it_proj;
-
-        if (proj->getVivo()) {
-            if (pJogador && VerificarColisao(pJogador, proj)) {
-                if (!pJogador->getImune()) {
-                    proj->Danificar(pJogador);
+                if (posJog.y + tamJog.y <= posIni.y + 20.0f) {
+                    pJogador->Pisar(inimigo);
+                } else if (!pJogador->getImune()) {
+                    pJogador->PerderVidas(inimigo->getDano());
                     pJogador->IniciarImunidade();
                 }
             }
+        }
+    }
 
-            if (pJogador2 && proj->getVivo() && VerificarColisao(pJogador2, proj)) {
-                if (!pJogador2->getImune()) {
-                    proj->Danificar(pJogador2);
+    // 
+    if (pJogador2 && pJogador2->getVivo()) {
+        pJogador2->SetNoChao(false);
+
+        for (auto chao : listaChao) {
+            if (chao->getVivo() && VerificarColisao(pJogador2, chao)) {
+                sf::Vector2f posJog = pJogador2->getPosicao();
+                sf::Vector2f tamJog = pJogador2->getTamanho();
+                sf::Vector2f posChao = chao->getPosicao();
+
+                if (posJog.y < posChao.y) {
+                    pJogador2->SetNoChao(true);
+                    pJogador2->setPosicao(sf::Vector2f(posJog.x, posChao.y - tamJog.y));
+                }
+            }
+        }
+
+        for (auto obstaculo : listaObstaculos) {
+            if (obstaculo->getVivo() && VerificarColisao(pJogador2, obstaculo)) {
+                sf::Vector2f posJog = pJogador2->getPosicao();
+                sf::Vector2f tamJog = pJogador2->getTamanho();
+                sf::Vector2f posObs = obstaculo->getPosicao();
+
+                if (posJog.y < posObs.y) {
+                    pJogador2->SetNoChao(true);
+                    pJogador2->setPosicao(sf::Vector2f(posJog.x, posObs.y - tamJog.y));
+                }
+                obstaculo->Obstaculizar(pJogador2);
+            }
+        }
+
+        for (auto inimigo : listaInimigos) {
+            if (inimigo->getVivo() && VerificarColisao(pJogador2, inimigo)) {
+                sf::Vector2f posJog = pJogador2->getPosicao();
+                sf::Vector2f tamJog = pJogador2->getTamanho();
+                sf::Vector2f posIni = inimigo->getPosicao();
+
+                if (posJog.y + tamJog.y <= posIni.y + 20.0f) {
+                    pJogador2->Pisar(inimigo);
+                } else if (!pJogador2->getImune()) {
+                    pJogador2->PerderVidas(inimigo->getDano());
                     pJogador2->IniciarImunidade();
                 }
             }
         }
+    }
 
+    auto it_proj = listaProjeteis.begin();
+    while (it_proj != listaProjeteis.end()) {
+        Projetil* proj = *it_proj;
+        
+        if (proj->getVivo()) {
+            if (pJogador && pJogador->getVivo() && VerificarColisao(pJogador, proj)) {
+                if (!pJogador->getImune()) {
+                    proj->Danificar(pJogador);
+                    pJogador->IniciarImunidade();
+                }
+                proj->Desativar();
+            }
+
+            if (pJogador2 && pJogador2->getVivo() && VerificarColisao(pJogador2, proj)) {
+                if (!pJogador2->getImune()) {
+                    proj->Danificar(pJogador2);
+                    pJogador2->IniciarImunidade();
+                }
+                proj->Desativar();
+            }
+        }
         ++it_proj;
     }
 }
@@ -481,15 +263,4 @@ void GerenciadorDeColisoes::RemoverProjetilInativo()
             ++it;
         }
     }
-}
-
-void GerenciadorDeColisoes::Executar() 
-{
-    TratarColisoesJogsObstacs();
-    TratarColisoesInimigoObstacs();
-    TratarColisoesJogsInimigo();
-    TratarColisoesJogsProjeteis();
-    RemoverInimigoInativo();
-    RemoverObstaculoInativo();
-    RemoverProjetilInativo();
 }

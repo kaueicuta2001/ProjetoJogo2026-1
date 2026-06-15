@@ -50,3 +50,8 @@ int Personagem::getVidas() const
 {
     return num_vidas;
 }
+
+int Personagem::getDano() const
+{
+    return dano;
+}

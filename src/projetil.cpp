@@ -1,20 +1,23 @@
 #include "projetil.h"
 #include "gerenciadorgrafico.h"
 #include "jogador.h"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
 
-Projetil::Projetil(int id, Vector2f pos, int direcao, int dano) :
+Projetil::Projetil(int id, Vector2f pos, Vector2f dirNormalizada, int dano) :
 Entidade(id, pos),
-vel(Vector2f(4.f, 0.f)),
+vel(Vector2f(3.75f, 3.75f)), // Três quartos da velocidade do jogador (3/4 de 5.f)
 dano(dano),
-direcao(direcao)
+direcaoTiro(dirNormalizada)
 {
     nome = "Projetil";
-    tamanho = Vector2f(16.f, 16.f);
-    if (!textura.loadFromFile("../assets/projetil.png"))
+    tamanho = Vector2f(26.6f, 26.6f); // Um terço do tamanho do Rei Besouro (80.f / 3)
+    
+    if (!textura.loadFromFile("../assets/projetilbesouro.png"))
         cerr << "Erro ao carregar a textura do projetil!" << endl;
+        
     InicializarSprite(textura);
 }
 
@@ -22,10 +25,13 @@ Projetil::~Projetil() {}
 
 void Projetil::Mover()
 {
-    posicao.x += vel.x * direcao;
+    // Move o projétil na direção diagonal salva no momento do disparo
+    posicao.x += vel.x * direcaoTiro.x;
+    posicao.y += vel.y * direcaoTiro.y;
 
+    // Morre se encostar nas arestas laterais (x = 0 ou largura máxima)
     float larguraJanela = static_cast<float>(pGG->getWindow()->getSize().x);
-    if (posicao.x < -tamanho.x || posicao.x > larguraJanela)
+    if (posicao.x <= 0.f || posicao.x >= larguraJanela)
     {
         Desativar();
     }
@@ -43,21 +49,17 @@ int Projetil::getDano() const
 
 void Projetil::Danificar(Jogador* pJogador)
 {
-    if (pJogador != nullptr)
+    if (pJogador)
     {
         pJogador->PerderVidas(dano);
     }
-    Desativar();
 }
 
 void Projetil::Executar()
 {
     Mover();
-    if (vivo)
-    {
-        sprite.setPosition(posicao);
-        pGG->DesenharEnte(&sprite);
-    }
+    sprite.setPosition(posicao);
+    pGG->DesenharEnte(&sprite); 
 }
 
 void Projetil::Salvar() {}

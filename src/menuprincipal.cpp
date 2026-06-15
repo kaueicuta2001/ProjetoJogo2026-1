@@ -1,6 +1,7 @@
 #include "menuprincipal.h"
 #include "jogo.h"
 #include "gerenciadorgrafico.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -23,8 +24,9 @@ MenuPrincipal::~MenuPrincipal()
 
 void MenuPrincipal::InicializaOpcoesMenu()
 {
-    opcoesMenu.push_back("Jogador 1");
-    opcoesMenu.push_back("Jogador 2");
+    opcoesMenu.push_back("1 Jogador");   // TEXTO CORRIGIDO AQUI
+    opcoesMenu.push_back("2 Jogadores"); // TEXTO CORRIGIDO AQUI
+    opcoesMenu.push_back("Ranking");
     opcoesMenu.push_back("Sair");
 }
 
@@ -39,29 +41,19 @@ void MenuPrincipal::PosicionaBotoes()
 void MenuPrincipal::InicializaTitulo()
 {
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-    std::cerr << "Erro ao carregar a fonte!" << std::endl;
+        std::cerr << "Erro ao carregar a fonte!" << std::endl;
 
     textoTitulo.setFont(fonte);
     textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(48);
-    textoTitulo.setFillColor(sf::Color::White);
-    textoTitulo.setPosition(400.f, 200.f);
-}
-
-void MenuPrincipal::DesenharTitulo()
-{
-    pGG->getWindow()->draw(textoTitulo);
+    textoTitulo.setCharacterSize(50);
+    textoTitulo.setFillColor(Color::Green);
+    textoTitulo.setPosition(375.f, 150.f);
 }
 
 void MenuPrincipal::Executar()
 {
-    Desenhar();
-    DesenharTitulo();
-
-    NavegarOpcao();
-    if (selecionado)
-    {
+    Menu::Executar(); 
+    if (selecionado) {
         pJog->setOpcaoMenuPrincipal(opcaoSelecionada);
     }
-    DesenharBotoes();
 }

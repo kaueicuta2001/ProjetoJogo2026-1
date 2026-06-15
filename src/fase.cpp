@@ -1,53 +1,65 @@
 #include "fase.h"
 #include "gerenciadorgrafico.h"
+#include "gerenciadorDeEventos.h"
 #include "inimigo.h"
+#include "besouro.h"
+#include "plataforma.h"
+#include "obstdificil.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
 
 Fase::Fase(int id, Jogador* jogador, Jogador* jogador2) :
 Ente(id),
+listaEntidades(),
+gerenciadorColisoes(jogador, jogador2),
+pJogador(jogador),
+pJogador2(jogador2),
 maxBesouros(5),
 maxPlataformas(5),
 maxObstDificil(5),
-pJogador(jogador),
-pJogador2(jogador2),
-gerenciadorColisoes(jogador, jogador2),
 faseAtiva(true)
 {
+    relogioFase.restart(); 
+
+    if (pJogador) {
+        listaEntidades.Incluir(pJogador);
+    }
+    if (pJogador2) {
+        listaEntidades.Incluir(pJogador2);
+    }
+
+    GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this);
 }
 
 Fase::~Fase()
 {
+    GerenciadorDeEventos::getGerenciadorDeEventos()->Desanexar(this);
 }
 
-void Fase::TratarEventos()
+int Fase::getTempoJogado() const
 {
-    Event event;
+    return static_cast<int>(relogioFase.getElapsedTime().asSeconds());
+}
 
-    while (pGG->getWindow()->pollEvent(event))
+void Fase::Notificar(sf::Event evento)
+{
+    if(evento.type == Event::KeyPressed)
     {
-        if (event.type == Event::Closed)
+        if(evento.key.code == Keyboard::Escape)
         {
             pGG->FecharJanela();
-        }
-
-        if(event.type == Event::KeyPressed)
-        {
-            if(event.key.code == Keyboard::Escape)
-            {
-                pGG->FecharJanela();
-            }
         }
     }
 }
 
 void Fase::CriarBesouros()
 {
-    int numBesouros = (rand() % (maxBesouros - 2)) + 3; // Gera um número aleatório entre 3 e maxBesouros
+    int numBesouros = (rand() % (maxBesouros - 2)) + 3; 
     for (int i = 0; i < numBesouros; i++)
     {
-        Besouro* pBesouro = new Besouro(i + 10, Vector2f(150.f + (i * 220.f), 650.f), 80.f);
+        Besouro* pBesouro = new Besouro(i + 10, Vector2f(100.f + (i * 200.f), 100.f), 100.f);
         listaEntidades.Incluir(pBesouro);
         gerenciadorColisoes.IncluirInimigo(pBesouro);
     }
@@ -57,7 +69,7 @@ void Fase::CriarPlataformas()
 {
     float posicoesY[5] = {600.f, 500.f, 400.f, 300.f, 400.f};
 
-    int numPlataformas = (rand() % (maxPlataformas - 2)) + 3;
+    int numPlataformas = (rand() % (maxPlataformas - 2)) + 3; 
     for (int i = 0; i < numPlataformas; i++)
     {
         Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(150.f + (i * 150.f), posicoesY[i]), false);
@@ -66,19 +78,12 @@ void Fase::CriarPlataformas()
     }
 }
 
-void Fase::CriarChao()
-{
-    Chao* pChao = new Chao(0, Vector2f(0.f, Ente::pGG->getWindow()->getSize().y - 32.f), false);
-    listaEntidades.Incluir(pChao);
-    gerenciadorColisoes.IncluirChao(pChao);
-}
-
 void Fase::CriarObstDificil()
 {
-    int numObstDificil = (rand() % (maxObstDificil - 2)) + 3;
-    float posicoesX[5] = {200.f, 450.f, 700.f, 950.f, 600.f};
-    float posicoesY[5] = {550.f, 450.f, 350.f, 250.f, 450.f};
-    
+    float posicoesX[5] = {250.f, 400.f, 550.f, 700.f, 850.f};
+    float posicoesY[5] = {200.f, 300.f, 150.f, 350.f, 250.f};
+
+    int numObstDificil = (rand() % (maxObstDificil - 2)) + 3; 
     for (int i = 0; i < numObstDificil; i++)
     {
         ObstDificil* pObstDificil = new ObstDificil(i + 100, Vector2f(posicoesX[i % 5], posicoesY[i % 5]), true, 50);
@@ -89,7 +94,7 @@ void Fase::CriarObstDificil()
 
 bool Fase::VerificarEstadoFase()
 {
-    if (pJogador->getVidas() <= 0)
+    if (pJogador && pJogador->getVidas() <= 0)
     {
         cout << "GAME OVER! Jogador 1 foi derrotado!" << endl;
         faseAtiva = false;
@@ -109,7 +114,6 @@ bool Fase::VerificarEstadoFase()
         faseAtiva = false;
         return false;
     }
-    
     return true;
 }
 
@@ -120,26 +124,22 @@ int Fase::ContarInimigosVivos()
     
     while (atual != nullptr)
     {
-        Entidade* pEntidade = atual->getInfo();
-        Inimigo* pInimigo = dynamic_cast<Inimigo*>(pEntidade);
-        
-        if (pInimigo && pInimigo->getVivo())
+        Entidade* pEnt = atual->getInfo();
+        if (pEnt->getNome() == "Besouro" || pEnt->getNome() == "Vespa" || pEnt->getNome() == "Rei Besouro")
         {
-            countInimigos++;
+            if (pEnt->getVivo()) {
+                countInimigos++;
+            }
         }
-        
         atual = atual->getProximo();
     }
-    
     return countInimigos;
 }
 
-void Fase::CriarCenario()
+void Fase::Executar()
 {
-    sprite.setTexture(textura);
-    sprite.setPosition(0.f, 0.f);
-    sprite.setScale(
-        tamanho.x / textura.getSize().x,
-        tamanho.y / textura.getSize().y
-    );
+    pGG->DesenharEnte(&sprite); 
+    listaEntidades.Percorrer();
+    gerenciadorColisoes.Executar();
+    VerificarEstadoFase();
 }

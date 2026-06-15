@@ -1,6 +1,7 @@
 #include "menufase.h"
 #include "jogo.h"
 #include "gerenciadorgrafico.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -39,29 +40,19 @@ void MenuFase::PosicionaBotoes()
 void MenuFase::InicializaTitulo()
 {
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-    std::cerr << "Erro ao carregar a fonte!" << std::endl;
+        std::cerr << "Erro ao carregar a fonte!" << std::endl;
 
     textoTitulo.setFont(fonte);
     textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(48);
-    textoTitulo.setFillColor(sf::Color::White);
-    textoTitulo.setPosition(400.f, 200.f);
-}
-
-void MenuFase::DesenharTitulo()
-{
-    pGG->getWindow()->draw(textoTitulo);
+    textoTitulo.setCharacterSize(50);
+    textoTitulo.setFillColor(Color::Green);
+    textoTitulo.setPosition(375.f, 150.f);
 }
 
 void MenuFase::Executar()
 {
-    Desenhar();
-    DesenharTitulo();
-
-    NavegarOpcao();
-    if (selecionado)
-    {
+    Menu::Executar(); 
+    if (selecionado) {
         pJog->setOpcaoMenuFase(opcaoSelecionada);
     }
-    DesenharBotoes();
 }

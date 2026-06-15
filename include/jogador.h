@@ -1,27 +1,31 @@
 #pragma once
-
 #include "personagem.h"
 #include "inimigo.h"
 
 class Jogador : public Personagem
 {
-    private:
-        int pontos;
-        bool imune;
-        int tempoImune;
-        int maxTempoImune;
-        const bool jogador2;
-    public:
-        Jogador(int id, sf::Vector2f pos, bool isJogador2);
-        ~Jogador();
-        void Mover();
-        void Pular();
-        void setVelY(float velY);
-        void Pisar(Inimigo* inimigo);
-        int getVidas() const;
-        bool getImune() const;
-        void IniciarImunidade();
-        void AtualizarImunidade();
-        void Executar();
-        void Salvar();
+private:
+    int pontos;
+    bool imune;
+    int tempoImune;
+    int maxTempoImune;
+    bool jogador2;
+
+public:
+    Jogador(int id, sf::Vector2f pos, bool isJogador2 = false);
+    ~Jogador();
+
+    void Mover() override;
+    void Pular();
+    void setVelY(float velY);
+    void Pisar(Inimigo* inimigo);
+    
+    void Executar() override;
+    void Salvar() override;
+    
+    int getVidas() const;
+    bool getImune() const;
+    void IniciarImunidade();
+    
+    int getPontos() const { return pontos; } // NOVO: Retorna os pontos para salvar
 };

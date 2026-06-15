@@ -1,5 +1,9 @@
 #include "fase1.h"
 #include "gerenciadorgrafico.h"
+#include "vespa.h"
+#include "cogumelopulante.h"
+#include "chao.h"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -26,7 +30,7 @@ void Fase1::CriarVespas()
 {
     float posicoesY[5] = {600.f, 500.f, 400.f, 300.f, 400.f};
 
-    int numVespas = (rand() % (maxVespas - 2)) + 3; // Gera um número aleatório entre 3 e maxVespas
+    int numVespas = (rand() % (maxVespas - 2)) + 3; 
     for (int i = 0; i < numVespas; i++)
     {
         Vespa* pVespa = new Vespa(i + 30, Vector2f(160.f + (i * 150.f), posicoesY[i]), 60.f);
@@ -50,39 +54,27 @@ void Fase1::CriarCogumelosPulantes()
     }
 }
 
+void Fase1::CriarCenario()
+{
+    sprite.setTexture(textura);
+    sprite.setScale(
+        tamanho.x / textura.getSize().x,
+        tamanho.y / textura.getSize().y
+    );
+
+    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
+    listaEntidades.Incluir(chao);
+    gerenciadorColisoes.IncluirChao(chao);
+}
+
 void Fase1::CriarInimigos()
 {
+    CriarVespas();
     CriarBesouros();
-    CriarVespas(); 
 }
 
 void Fase1::CriarObstaculos()
 {
     CriarPlataformas();
-    CriarChao();
     CriarCogumelosPulantes();
 }
-
-void Fase1::Executar()
-{
-    if (!VerificarEstadoFase())
-    {
-        Desenhar();
-        pJogador->Executar();
-        if (pJogador2) {
-            pJogador2->Executar();
-        }
-        TratarEventos();
-        return;
-    }
-    
-    Desenhar();
-    pJogador->Executar();
-    if (pJogador2) {
-        pJogador2->Executar();
-    }
-    listaEntidades.Percorrer();
-    gerenciadorColisoes.Executar();
-    TratarEventos();
-}
-

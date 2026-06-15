@@ -1,4 +1,6 @@
 #include "jogador.h"
+#include "gerenciadorgrafico.h"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -16,44 +18,28 @@ jogador2(isJogador2)
     dano = 10;
     vel = Vector2f(5.f, 5.f);
     tamanho = Vector2f(40.f, 40.f);
-    if(!textura.loadFromFile("../assets/jogador1.png"))
+    
+    if(!textura.loadFromFile(jogador2 ? "../assets/jogador2.png" : "../assets/jogador1.png"))
         cerr << "Erro ao carregar a textura do jogador!" << endl;
-    InicializarSprite(textura);//parâmetro por refência escondida
+        
+    InicializarSprite(textura);
 }
 
 Jogador::~Jogador() {}
 
 void Jogador::Mover()
 {
+   
     if(!jogador2){
-        if (Keyboard::isKeyPressed(Keyboard::A))
-        {
-            posicao.x -= vel.x;
-        }
-        if (Keyboard::isKeyPressed(Keyboard::D))
-        {
-            posicao.x += vel.x;
-        }
-        if (Keyboard::isKeyPressed(Keyboard::W) && noChao)
-        {
-            Pular();
-        }
-        AplicarGravidade();
+        if (Keyboard::isKeyPressed(Keyboard::A)) posicao.x -= vel.x;
+        if (Keyboard::isKeyPressed(Keyboard::D)) posicao.x += vel.x;
+        if (Keyboard::isKeyPressed(Keyboard::W) && noChao) Pular();
     } else {
-        if (Keyboard::isKeyPressed(Keyboard::Left))
-        {
-            posicao.x -= vel.x;
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Right))
-        {
-            posicao.x += vel.x;
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Up) && noChao)
-        {
-            Pular();
-        }
-        AplicarGravidade();
+        if (Keyboard::isKeyPressed(Keyboard::Left)) posicao.x -= vel.x;
+        if (Keyboard::isKeyPressed(Keyboard::Right)) posicao.x += vel.x;
+        if (Keyboard::isKeyPressed(Keyboard::Up) && noChao) Pular();
     }
+    AplicarGravidade();
 }
 
 void Jogador::Pular() {
@@ -86,23 +72,16 @@ void Jogador::IniciarImunidade() {
     tempoImune = maxTempoImune;
 }
 
-void Jogador::AtualizarImunidade() {
-    if (imune && tempoImune > 0) {
-        int visivel = tempoImune % 5 == 0 ? 255 : 128; 
-        sprite.setColor(Color(255, 255, 255, visivel)); 
-        tempoImune--;
-    } else {
-        imune = false;
-        sprite.setColor(Color(255, 255, 255, 255)); 
-    }
-}
-
 void Jogador::Executar()
 {
-    sprite.setPosition(posicao);
+    if(imune) {
+        tempoImune--;
+        if(tempoImune <= 0) imune = false;
+    }
+    
     Mover();
-    AtualizarImunidade();
-    Desenhar();
+    sprite.setPosition(posicao);
+    pGG->DesenharEnte(&sprite);
 }
 
 void Jogador::Salvar() {}

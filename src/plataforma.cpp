@@ -12,13 +12,15 @@ tempo(180)
     tamanho = sf::Vector2f(75.f, 25.f);
     if (!textura.loadFromFile("../assets/plataforma.png"))
         std::cerr << "Erro ao carregar a textura da plataforma!" << endl;
-    InicializarSprite(textura);//parâmetro por refência escondida
+    InicializarSprite(textura);
 }
 
 Plataforma::~Plataforma() {}
 
- void Plataforma::Obstaculizar(Jogador* pJogador)
+void Plataforma::Obstaculizar(Jogador* pJogador)
 {
+    (void)pJogador; // <-- CALA O AVISO AMARELO
+
     if(tempo > 0)
         tempo--;
     else

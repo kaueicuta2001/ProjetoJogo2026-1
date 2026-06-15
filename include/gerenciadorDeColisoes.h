@@ -1,13 +1,10 @@
 #pragma once
 
-#include "Jogador.h"
-#include "Inimigo.h"
-#include "Obstaculo.h"
-#include "cogumelopulante.h"
+#include "jogador.h"
+#include "inimigo.h"
+#include "obstaculo.h"
 #include "chao.h"
 #include "projetil.h"
-
-#include <iostream>
 #include <list>
 
 class GerenciadorDeColisoes {
@@ -16,24 +13,26 @@ private:
     std::list<Obstaculo*> listaObstaculos;
     std::list<Chao*> listaChao;
     std::list<Projetil*> listaProjeteis;
+
+public:
     Jogador* pJogador;
     Jogador* pJogador2;
-public:
-    GerenciadorDeColisoes(Jogador* jogador, Jogador* jogador2 = nullptr);
+
+    GerenciadorDeColisoes(Jogador* pJ = nullptr, Jogador* pJ2 = nullptr);
     ~GerenciadorDeColisoes();
-    void setJogador2(Jogador* jogador2);
-    void IncluirInimigo(Inimigo* inimigo);
-    void IncluirObstaculo(Obstaculo* obstaculo);
-    void IncluirChao(Chao* chao);
-    void IncluirProjetil(Projetil* projetil);
-    bool VerificarColisao(Entidade* pe1, Entidade* pe2) const;
-    void VerificarColisoes(Jogador* pJogador);
-    void TratarColisoesJogsObstacs();
-    void TratarColisoesInimigoObstacs();
-    void TratarColisoesJogsInimigo();
-    void TratarColisoesJogsProjeteis();
+
+    void setJogador(Jogador* pJ);
+    void setJogador2(Jogador* pJ2);
+
+    void IncluirInimigo(Inimigo* pI);
+    void IncluirObstaculo(Obstaculo* pO);
+    void IncluirChao(Chao* pC);
+    void IncluirProjetil(Projetil* pP);
+
+    void Executar();
+    bool VerificarColisao(Entidade* ent1, Entidade* ent2);
+
     void RemoverInimigoInativo();
     void RemoverObstaculoInativo();
     void RemoverProjetilInativo();
-    void Executar();
 };

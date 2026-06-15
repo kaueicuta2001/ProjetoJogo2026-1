@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entidade.h"
+#include <SFML/Graphics.hpp>
 
 class Jogador;
 
@@ -9,16 +10,17 @@ class Projetil : public Entidade
 private:
     sf::Vector2f vel;
     int dano;
-    int direcao; // 1 = direita, -1 = esquerda
+    sf::Vector2f direcaoTiro; // Vetor de direção bidirecional normalizado
 
 public:
-    Projetil(int id, sf::Vector2f pos, int direcao, int dano = 5);
+    Projetil(int id, sf::Vector2f pos, sf::Vector2f dirNormalizada, int dano);
     ~Projetil();
 
     void Mover();
     void AumentarDano();
     int getDano() const;
     void Danificar(Jogador* pJogador);
-    void Executar();
-    void Salvar();
+
+    void Executar() override;
+    void Salvar() override;
 };
