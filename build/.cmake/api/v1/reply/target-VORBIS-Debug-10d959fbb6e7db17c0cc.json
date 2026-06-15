@@ -1,0 +1,100 @@
+{
+	"abstract" : true,
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"sfml_add_external",
+			"sfml_find_package",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"SFML-2.6.2/cmake/Macros.cmake",
+			"SFML-2.6.2/src/SFML/Audio/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 72,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 401,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 341,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 357,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 357,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 357,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 357,
+				"parent" : 2
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	},
+	"id" : "VORBIS::@d003962d395656f29e4c",
+	"interfaceLinkLibraries" : 
+	[
+		{
+			"backtrace" : 4,
+			"fragment" : "C:/msys64/ucrt64/lib/libvorbisenc.dll.a"
+		},
+		{
+			"backtrace" : 5,
+			"fragment" : "C:/msys64/ucrt64/lib/libvorbisfile.dll.a"
+		},
+		{
+			"backtrace" : 6,
+			"fragment" : "C:/msys64/ucrt64/lib/libvorbis.dll.a"
+		},
+		{
+			"backtrace" : 7,
+			"fragment" : "C:/msys64/ucrt64/lib/libogg.dll.a"
+		}
+	],
+	"name" : "VORBIS",
+	"paths" : 
+	{
+		"build" : "SFML-2.6.2/src/SFML/Audio",
+		"source" : "SFML-2.6.2/src/SFML/Audio"
+	},
+	"sources" : [],
+	"type" : "INTERFACE_LIBRARY"
+}
