@@ -22,6 +22,7 @@ int Ente::getId() const
 {
     return id;
 }
+sf::Sprite& Ente::getSprite() { return sprite; }
 
 void Ente::InicializarSprite(sf::Texture& textura)
 {
@@ -37,10 +38,7 @@ void Ente::InicializarSprite(sf::Texture& textura)
     }
 }
 
-sf::Sprite& Ente::getSprite()
-{
-    return sprite;
-}
+
 
 void Ente::Desenhar()
 {

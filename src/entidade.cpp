@@ -1,4 +1,5 @@
 #include "entidade.h"
+#include "gerenciadorgrafico.h"
 
 using namespace std;
 using namespace sf;
@@ -6,7 +7,9 @@ using namespace sf;
 Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
 vivo(true),
-gravidade(0.5f)
+vel(0.f, 0.f),
+gravidade(0.5f),
+noChao(false)
 {
     posicao = pos;
     tamanho = Vector2f(0.f, 0.f);
@@ -14,7 +17,6 @@ gravidade(0.5f)
 
 Entidade::~Entidade()
 {
-    
 }
 
 void Entidade::setPosicao(sf::Vector2f pos)
@@ -22,12 +24,12 @@ void Entidade::setPosicao(sf::Vector2f pos)
     posicao = pos;
 }
 
-const sf::Vector2f Entidade::getPosicao()
+sf::Vector2f Entidade::getPosicao() const
 {
     return posicao;
 }
 
-const sf::Vector2f Entidade::getTamanho()
+sf::Vector2f Entidade::getTamanho() const
 {
     return tamanho;
 }
@@ -42,15 +44,64 @@ void Entidade::Desativar()
     vivo = false;
 }
 
+void Entidade::InicializarSprite(sf::Texture& textura)
+{
+    sprite.setTexture(textura);
+     
+    sf::Vector2u texSize = textura.getSize();
+    if (texSize.x > 0 && texSize.y > 0)
+    {
+        sprite.setScale(
+            tamanho.x / texSize.x,
+            tamanho.y / texSize.y
+        );
+    }
+}
+
 void Entidade::AplicarGravidade()
 {
-    vel.y += gravidade;
-    if (vel.y > 15.f)
-        vel.y = 15.f;
+    if (!noChao)
+    {
+        vel.y += gravidade;
+        if (vel.y > 15.f)
+            vel.y = 15.f;
+    }
     posicao.y += vel.y;
 }
 
-string Entidade::getNome()
+void Entidade::Gravitropismo()
+{
+    vel.y -= gravidade; 
+}
+
+void Entidade::SetNoChao(bool chao)
+{
+    noChao = chao;
+    if (chao)
+        vel.y = 0.f;
+}
+
+bool Entidade::getNoChao() const
+{
+    return noChao;
+}
+
+void Entidade::setVelY(float vY)
+{
+    vel.y = vY;
+}
+
+void Entidade::setVelX(float vX)
+{
+    vel.x = vX;
+}
+
+float Entidade::getVelY() const
+{
+    return vel.y;
+}
+
+string Entidade::getNome() const
 {
     return nome;
 }

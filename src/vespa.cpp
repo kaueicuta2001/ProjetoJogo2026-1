@@ -79,7 +79,7 @@ void Vespa::Executar()
     
     Mover();
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    pGG->DesenharEnte(this);
 }
 
 void Vespa::Salvar() {}

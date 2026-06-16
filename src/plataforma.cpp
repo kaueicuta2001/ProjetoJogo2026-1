@@ -29,8 +29,11 @@ void Plataforma::Obstaculizar(Jogador* pJogador)
 
 void Plataforma::Executar()
 {
+    AplicarGravidade();
+    Gravitropismo();
+
     sprite.setPosition(posicao);
-    Desenhar();
+    Desenhar(); 
 }
 
 void Plataforma::Salvar() {}

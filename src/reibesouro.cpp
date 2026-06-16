@@ -53,7 +53,10 @@ void ReiBesouro::AtualizarEstado()
 
     estadoAtual = (pJogadorAlvo != nullptr) ? EstadoIA::Perseguindo : EstadoIA::Patrulhando;
 }
-
+sf::Vector2f ReiBesouro::getDirecaoTiro()
+{
+    return direcaoTiro;
+}
 void ReiBesouro::Mover()
 {
     if (estadoAtual == EstadoIA::Patrulhando) {
@@ -104,8 +107,10 @@ void ReiBesouro::Executar()
 
 void ReiBesouro::Salvar()
 {
-    // Método obrigatório da herança, pode deixar vazio se não for usar agora
 }
+
+
+
 
 void ReiBesouro::Danificar(Jogador* pJog)
 {
@@ -114,4 +119,13 @@ void ReiBesouro::Danificar(Jogador* pJog)
         pJog->PerderVidas(dano);
     }
     AprimorarMaldade();
+}
+bool ReiBesouro::getAtirar()
+{
+    if(atirar)
+    {
+        atirar = false; // Reseta a flag após o disparo
+        return true;
+    }
+    return false;
 }

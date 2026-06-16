@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/src/SFML/Audio
+# Install script for directory: C:/Users/joao/Documents/PROJETOTECPROG-REPOSITORIO-GITHUB/ProjetoJogo2026-1/SFML-2.6.2/src/SFML/Audio
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,12 +38,12 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-audio-s-d.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/joao/Documents/PROJETOTECPROG-REPOSITORIO-GITHUB/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-audio-s-d.a")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/src/SFML/Audio/install_local_manifest.txt"
+  file(WRITE "C:/Users/joao/Documents/PROJETOTECPROG-REPOSITORIO-GITHUB/ProjetoJogo2026-1/build/SFML-2.6.2/src/SFML/Audio/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

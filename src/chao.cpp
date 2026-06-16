@@ -21,8 +21,11 @@ Chao::~Chao() {}
 
 void Chao::Executar()
 {
+    AplicarGravidade();
+    Gravitropismo();
+
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    Desenhar(); 
 }
 
 void Chao::Salvar() {}

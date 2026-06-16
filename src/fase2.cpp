@@ -9,7 +9,7 @@
 using namespace sf;
 using namespace std;
 
-Fase2::Fase2(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr) :
+Fase2::Fase2(int id, Jogador* pJogador, Jogador* pJogador2) :
 Fase(id, pJogador, pJogador2),
 maxVespas(5),         
 maxReiBesouro(5)
@@ -56,7 +56,7 @@ void Fase2::CriarReiBesouro()
 
 void Fase2::CriarObstDificilFase2()
 {
-    CriarObstDificil();
+    //CriarObstDificil();
 }
 
 void Fase2::CriarCenario()

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
+class Ente;
 class Entidade;
 
 class GerenciadorGrafico
