@@ -1,10 +1,14 @@
 #pragma once
 #include "ente.h"
 #include "jogador.h"
+#include "besouro.h"
+#include "plataforma.h"
+#include "chao.h"
 #include "listaentidades.h"
 #include "gerenciadorDeColisoes.h"
 #include "observador.h"
-#include <SFML/System.hpp> 
+#include <iostream>
+#include <SFML/System.hpp>
 
 class Fase : public Ente, public Observador
 {
@@ -24,8 +28,8 @@ public:
     virtual ~Fase();
 
     void CriarCenario();
-    void CriarInimigos();
-    void CriarObstaculos();
+    virtual void CriarInimigos() = 0;
+    virtual void CriarObstaculos() = 0;
 
     void CriarBesouros();
     void CriarPlataformas();

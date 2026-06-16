@@ -1,5 +1,7 @@
 #pragma once
 #include "fase.h"
+#include "vespa.h"
+#include "cogumelopulante.h"
 
 class Fase1 : public Fase
 {
@@ -17,4 +19,6 @@ public:
     // Funções específicas da Fase 1
     void CriarVespas();
     void CriarCogumelosPulantes();
+
+    void Executar() override;
 };

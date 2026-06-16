@@ -9,10 +9,9 @@
 using namespace sf;
 using namespace std;
 
-Fase2::Fase2(int id, Jogador* pJogador, Jogador* pJogador2) :
+Fase2::Fase2(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr) :
 Fase(id, pJogador, pJogador2),
 maxVespas(5),         
-maxCogumelos(5),
 maxReiBesouro(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
@@ -41,21 +40,6 @@ void Fase2::CriarVespas()
     }
 }
 
-void Fase2::CriarCogumelosPulantes()
-{
-    int numCogumelos = (rand() % (maxCogumelos - 2)) + 3;
-
-    float posicoesX[5] = {250.f, 550.f, 850.f, 400.f, 700.f};
-    float altura = Ente::pGG->getWindow()->getSize().y - 64.f - 32.f;
-
-    for (int i = 0; i < numCogumelos; i++)
-    {
-        CogumeloPulante* pCogumelo = new CogumeloPulante(i + 50, Vector2f(posicoesX[i], altura), false);
-        listaEntidades.Incluir(pCogumelo);
-        gerenciadorColisoes.IncluirObstaculo(pCogumelo);
-    }
-}
-
 void Fase2::CriarReiBesouro()
 {
     float posicoesX[5] = {200.f, 450.f, 700.f, 950.f, 600.f};
@@ -63,10 +47,9 @@ void Fase2::CriarReiBesouro()
     int numReiBesouro = (rand() % (maxReiBesouro - 2)) + 3; 
     for (int i = 0; i < numReiBesouro; i++)
     {
-        ReiBesouro* pReiBesouro = new ReiBesouro(i + 70, Vector2f(posicoesX[i % 5], 200.f), 100.f);
-        pReiBesouro->setGerenciadorColisoes(&gerenciadorColisoes);
-        pReiBesouro->setListaEntidades(&listaEntidades);
+        ReiBesouro* pReiBesouro = new ReiBesouro(i + 70, Vector2f(posicoesX[i % 5], 200.f), pJogador, pJogador2);
         listaEntidades.Incluir(pReiBesouro);
+        vReiBesouros.push_back(pReiBesouro); // Armazena o ponteiro do Rei Besouro no vetor
         gerenciadorColisoes.IncluirInimigo(pReiBesouro);
     }
 }
@@ -99,6 +82,27 @@ void Fase2::CriarInimigos()
 void Fase2::CriarObstaculos()
 {
     CriarPlataformas();
-    CriarCogumelosPulantes();
     CriarObstDificilFase2();
+}
+
+void Fase2::VerificarAtirarReiBesouro()
+{
+    for(ReiBesouro* rei : vReiBesouros)
+    {
+        if (rei->getAtirar())
+        {
+            Projetil* pProjetil = new Projetil(100 + rei->getId(), rei->getPosicao(), rei->getDirecaoTiro(), rei->getDano());
+            listaEntidades.Incluir(pProjetil);
+            gerenciadorColisoes.IncluirProjetil(pProjetil);
+            rei->AprimorarMaldade();
+        }
+    }
+}
+
+void Fase2::Executar()
+{
+    Desenhar();
+    listaEntidades.Percorrer();
+    gerenciadorColisoes.Executar();
+    Fase::Executar();
 }

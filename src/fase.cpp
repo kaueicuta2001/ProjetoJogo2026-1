@@ -1,9 +1,6 @@
 #include "fase.h"
 #include "gerenciadorgrafico.h"
 #include "gerenciadorDeEventos.h"
-#include "inimigo.h"
-#include "besouro.h"
-#include "plataforma.h"
 #include <iostream>
 
 using namespace std;
@@ -141,8 +138,5 @@ bool Fase::getFaseAtiva() const
 
 void Fase::Executar()
 {
-    Desenhar(); 
-    listaEntidades.Percorrer();
-    gerenciadorColisoes.Executar();
     VerificarEstadoFase();
 }

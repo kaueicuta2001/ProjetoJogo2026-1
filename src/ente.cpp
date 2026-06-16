@@ -18,6 +18,11 @@ void Ente::setGG(GerenciadorGrafico* gg)
     pGG = gg;
 }
 
+int Ente::getId() const
+{
+    return id;
+}
+
 void Ente::InicializarSprite(sf::Texture& textura)
 {
     sprite.setTexture(textura);

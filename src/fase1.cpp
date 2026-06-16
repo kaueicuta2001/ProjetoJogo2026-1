@@ -1,9 +1,5 @@
 #include "fase1.h"
 #include "gerenciadorgrafico.h"
-#include "vespa.h"
-#include "cogumelopulante.h"
-#include "chao.h"
-#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -65,4 +61,12 @@ void Fase1::CriarObstaculos()
 {
     CriarPlataformas();
     CriarCogumelosPulantes();
+}
+
+void Fase1::Executar()
+{
+    Desenhar();
+    listaEntidades.Percorrer();
+    gerenciadorColisoes.Executar();
+    Fase::Executar();
 }
