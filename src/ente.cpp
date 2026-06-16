@@ -18,7 +18,26 @@ void Ente::setGG(GerenciadorGrafico* gg)
     pGG = gg;
 }
 
+void Ente::InicializarSprite(sf::Texture& textura)
+{
+    sprite.setTexture(textura);
+    sprite.setPosition(posicao);
+    sf::Vector2u texSize = textura.getSize();
+    if (texSize.x > 0 && texSize.y > 0)
+    {
+        sprite.setScale(
+            tamanho.x / texSize.x,
+            tamanho.y / texSize.y
+        );
+    }
+}
+
+sf::Sprite& Ente::getSprite()
+{
+    return sprite;
+}
+
 void Ente::Desenhar()
 {
-    pGG->DesenharEnte(&sprite);
+    pGG->DesenharEnte(this);
 }

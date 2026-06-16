@@ -4,7 +4,7 @@
 #include "listaentidades.h"
 #include "gerenciadorDeColisoes.h"
 #include "observador.h"
-#include <SFML/System.hpp> // <-- Necessário para o sf::Clock
+#include <SFML/System.hpp> 
 
 class Fase : public Ente, public Observador
 {
@@ -20,23 +20,22 @@ protected:
     sf::Clock relogioFase; // <-- RELÓGIO ADICIONADO AQUI
 
 public:
-    Fase(int id, Jogador* jogador = nullptr, Jogador* jogador2 = nullptr);
+    Fase(int id, Jogador* jogador, Jogador* jogador2 = nullptr);
     virtual ~Fase();
 
-    virtual void CriarCenario() = 0;
-    virtual void CriarInimigos() = 0;
-    virtual void CriarObstaculos() = 0;
+    void CriarCenario();
+    void CriarInimigos();
+    void CriarObstaculos();
 
     void CriarBesouros();
     void CriarPlataformas();
-    void CriarObstDificil();
 
-    void Executar() override;
+    virtual void Executar();
     bool VerificarEstadoFase();
     int ContarInimigosVivos();
 
     void Notificar(sf::Event evento) override; 
     
-    bool getFaseAtiva() const { return faseAtiva; } 
+    bool getFaseAtiva() const;
     int getTempoJogado() const; 
 };

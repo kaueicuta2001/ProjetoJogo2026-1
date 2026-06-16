@@ -1,15 +1,17 @@
 #pragma once
+
 #include "ente.h"
-#include <SFML/Graphics.hpp>
 #include <string>
 
 class Entidade : public Ente
 {
 protected:
+    bool vivo;
+    float gravidade;
+    std::string nome;
     sf::Vector2f posicao;
     sf::Vector2f tamanho;
-    bool vivo;
-    std::string nome; 
+    sf::Vector2f vel;
 
 public:
     Entidade(int id, sf::Vector2f pos);
@@ -23,7 +25,7 @@ public:
     const sf::Vector2f getTamanho();
     bool getVivo() const;
     void Desativar();
-    void InicializarSprite(sf::Texture& textura);
+    void AplicarGravidade();
     
-    std::string getNome() const { return nome; }
+    std::string getNome();
 };

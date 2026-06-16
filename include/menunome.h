@@ -7,7 +7,6 @@ private:
     std::string titulo; 
     std::string nomeDigitado;
     sf::Text textoNome;
-    sf::Text instrucao;
 
 public:
     MenuNome(int id, Jogo* jogo);
@@ -20,6 +19,6 @@ public:
     void Notificar(sf::Event evento) override;
     void Executar() override;
 
-    std::string getNomeDigitado() const { return nomeDigitado; }
-    void resetNome() { nomeDigitado = ""; selecionado = false; }
+    std::string getNomeDigitado() const;
+    void resetNome();
 };

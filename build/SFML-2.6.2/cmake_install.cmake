@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2
+# Install script for directory: C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,30 +38,30 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include" FILES_MATCHING REGEX "/[^/]*\\.hpp$" REGEX "/[^/]*\\.inl$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include" FILES_MATCHING REGEX "/[^/]*\\.hpp$" REGEX "/[^/]*\\.inl$")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/SFML" TYPE FILE FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/license.md")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/SFML" TYPE FILE FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/license.md")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/SFML" TYPE FILE FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/readme.md")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/SFML" TYPE FILE FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/readme.md")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE DIRECTORY FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/bin/x64/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE DIRECTORY FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/bin/x64/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE DIRECTORY FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/libs-mingw/x64/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE DIRECTORY FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/libs-mingw/x64/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML/SFMLStaticTargets.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML/SFMLStaticTargets.cmake"
-         "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets.cmake")
+         "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML/SFMLStaticTargets-*.cmake")
       if(_cmake_old_config_files)
@@ -74,29 +74,29 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets-debug.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/CMakeFiles/Export/3937c6824958577f216dad0a66bc6149/SFMLStaticTargets-debug.cmake")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES
-    "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfig.cmake"
-    "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfigDependencies.cmake"
-    "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfigVersion.cmake"
+    "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfig.cmake"
+    "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfigDependencies.cmake"
+    "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/SFMLConfigVersion.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/src/SFML/cmake_install.cmake")
+  include("C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/src/SFML/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/install_local_manifest.txt"
+  file(WRITE "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

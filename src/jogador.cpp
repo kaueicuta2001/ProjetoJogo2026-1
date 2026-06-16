@@ -39,12 +39,18 @@ void Jogador::Mover()
         if (Keyboard::isKeyPressed(Keyboard::Right)) posicao.x += vel.x;
         if (Keyboard::isKeyPressed(Keyboard::Up) && noChao) Pular();
     }
-    AplicarGravidade();
+
+    if(!noChao)
+        AplicarGravidade();
 }
 
 void Jogador::Pular() {
     vel.y = -10.f;
     noChao = false;
+}
+
+void Jogador::setVelX(float velX) {
+    vel.x = velX;
 }
 
 void Jogador::setVelY(float velY) {
@@ -72,16 +78,23 @@ void Jogador::IniciarImunidade() {
     tempoImune = maxTempoImune;
 }
 
-void Jogador::Executar()
-{
-    if(imune) {
+void Jogador::AtualizarImunidade() {
+    if (imune && tempoImune > 0) {
+        int visivel = tempoImune % 5 == 0 ? 255 : 128; // Pisca entre visível e semi-transparente
+        sprite.setColor(Color(255, 255, 255, visivel)); // Transparente quando invisível
         tempoImune--;
-        if(tempoImune <= 0) imune = false;
+    } else {
+        imune = false;
+        sprite.setColor(Color(255, 255, 255, 255)); // Volta a ser totalmente visível
     }
-    
-    Mover();
+}
+
+void Jogador::Executar()
+{    
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    Mover();
+    AtualizarImunidade();
+    Desenhar();
 }
 
 void Jogador::Salvar() {}

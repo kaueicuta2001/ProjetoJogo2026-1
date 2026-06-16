@@ -98,3 +98,23 @@ void Menu::Executar()
     pGG->getWindow()->draw(textoTitulo);
     DesenharBotoes();
 }
+
+int Menu::getOpcaoSelecionada() const
+{
+    return opcaoSelecionada;
+}
+
+bool Menu::getSelecionado() const
+{
+    return selecionado;
+}
+
+void Menu::resetSelecionado()
+{
+    selecionado = false;
+}
+
+void Menu::setAtivo(bool estado)
+{
+    ativo = estado;
+}

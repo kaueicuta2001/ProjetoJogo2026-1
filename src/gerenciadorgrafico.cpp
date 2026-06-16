@@ -38,11 +38,11 @@ void GerenciadorGrafico::LimpaJanela()
     window->clear();
 }
 
-void GerenciadorGrafico::DesenharEnte(sf::Sprite* pSprite)
+void GerenciadorGrafico::DesenharEnte(Ente* pEnte)
 {
-    if(pSprite != nullptr)
+    if(pEnte != nullptr)
     {
-        window->draw(*pSprite);
+        window->draw(pEnte->getSprite());
     }
 }
 

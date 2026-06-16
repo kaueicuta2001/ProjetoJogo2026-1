@@ -34,8 +34,8 @@ public:
     void Executar() override;
     void Notificar(sf::Event evento) override;
 
-    int getOpcaoSelecionada() const { return opcaoSelecionada; }
-    bool getSelecionado() const { return selecionado; }
-    void resetSelecionado() { selecionado = false; }
-    void setAtivo(bool estado) { ativo = estado; } // <- NOVO SETTER
+    int getOpcaoSelecionada() const;
+    bool getSelecionado() const;
+    void resetSelecionado();
+    void setAtivo(bool estado); // <- NOVO SETTER
 };

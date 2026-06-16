@@ -8,13 +8,13 @@ using namespace std;
 
 Projetil::Projetil(int id, Vector2f pos, Vector2f dirNormalizada, int dano) :
 Entidade(id, pos),
-vel(Vector2f(3.75f, 3.75f)), // Três quartos da velocidade do jogador (3/4 de 5.f)
 dano(dano),
 direcaoTiro(dirNormalizada)
 {
     nome = "Projetil";
-    tamanho = Vector2f(26.6f, 26.6f); // Um terço do tamanho do Rei Besouro (80.f / 3)
-    
+    tamanho = Vector2f(26.6f, 26.6f);
+    vel = Vector2f(2.5f, 2.5f); 
+
     if (!textura.loadFromFile("../assets/projetilbesouro.png"))
         cerr << "Erro ao carregar a textura do projetil!" << endl;
         
@@ -58,8 +58,7 @@ void Projetil::Danificar(Jogador* pJogador)
 void Projetil::Executar()
 {
     Mover();
-    sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite); 
+    Desenhar();
 }
 
 void Projetil::Salvar() {}

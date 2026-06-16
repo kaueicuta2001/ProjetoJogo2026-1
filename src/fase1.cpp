@@ -14,6 +14,7 @@ maxVespas(5),
 maxCogumelos(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
+    CriarCenario();
     CriarObstaculos();
     CriarInimigos();
     if (!textura.loadFromFile("../assets/fase1BG.png"))
@@ -52,19 +53,6 @@ void Fase1::CriarCogumelosPulantes()
         listaEntidades.Incluir(pCogumelo);
         gerenciadorColisoes.IncluirObstaculo(pCogumelo);
     }
-}
-
-void Fase1::CriarCenario()
-{
-    sprite.setTexture(textura);
-    sprite.setScale(
-        tamanho.x / textura.getSize().x,
-        tamanho.y / textura.getSize().y
-    );
-
-    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
-    listaEntidades.Incluir(chao);
-    gerenciadorColisoes.IncluirChao(chao);
 }
 
 void Fase1::CriarInimigos()

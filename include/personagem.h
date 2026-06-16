@@ -8,7 +8,6 @@ class Personagem : public Entidade
 {
 protected:
     int num_vidas;
-    sf::Vector2f vel;
     float gravidade;
     bool noChao;
     int dano;
@@ -18,8 +17,8 @@ public:
     ~Personagem();
 
     virtual void Mover() = 0;
-    void AplicarGravidade();
     void SetNoChao(bool chao);
+    bool getNoChao();
     void PerderVidas(int danos);
     int getVidas() const;
     int getDano() const; 

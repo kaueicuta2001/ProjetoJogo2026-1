@@ -10,18 +10,19 @@
 using namespace sf;
 using namespace std;
 
-ReiBesouro::ReiBesouro(int id, Vector2f pos, float dist) :
+ReiBesouro::ReiBesouro(int id, Vector2f pos, Jogador* pJogador, Jogador* pJogador2) :
 Inimigo(id, pos),
-forca(100),
-distancia(dist),
-limiteDir(pos.x + distancia),
-limiteEsq(pos.x - distancia),
+estadoAtual(EstadoIA::Patrulhando),
+forca(10),
+raioDeteccao(100.f),
+limiteDir(pos.x + 25.f),
+limiteEsq(pos.x - 25.f),
 direcao(1),
-carapaçaEndurecida(false),
 tempoTiro(600),       // Inicializa com 10 segundos em frames (10 * 60 FPS)
 maxTempoTiro(600),    // Intervalo fixo de 10 segundos
-pGerenciadorColisoes(nullptr),
-pListaEntidades(nullptr)
+pJogadorAlvo(nullptr),
+pJogador(pJogador),
+pJogador2(pJogador2)
 {
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(80.f, 80.f);
@@ -30,31 +31,59 @@ pListaEntidades(nullptr)
     dano = 10;
     nome = "Rei Besouro";
     if (!textura.loadFromFile("../assets/reibesouro.png"))
-        std::cerr << "Erro ao carregar a textura do Rei Besouro!" << endl;
+        cerr << "Erro ao carregar a textura do Rei Besouro!" << endl;
     InicializarSprite(textura);
 }
 
 ReiBesouro::~ReiBesouro() {}
 
+void ReiBesouro::AtualizarEstado()
+{
+    pJogadorAlvo = nullptr;
+    float menorDistancia = raioDeteccao;
+
+    if (pJogador) {
+        float dist1 = std::sqrt(std::pow(pJogador->getPosicao().x - posicao.x, 2) + std::pow(pJogador->getPosicao().y - posicao.y, 2));
+        if (dist1 < menorDistancia) { menorDistancia = dist1; pJogadorAlvo = pJogador; }
+    }
+    if (pJogador2) {
+        float dist2 = std::sqrt(std::pow(pJogador2->getPosicao().x - posicao.x, 2) + std::pow(pJogador2->getPosicao().y - posicao.y, 2));
+        if (dist2 < menorDistancia) { menorDistancia = dist2; pJogadorAlvo = pJogador2; }
+    }
+
+    estadoAtual = (pJogadorAlvo != nullptr) ? EstadoIA::Perseguindo : EstadoIA::Patrulhando;
+}
+
 void ReiBesouro::Mover()
 {
-    posicao.x += vel.x * direcao;
-
-    if (posicao.x > limiteDir)
-    {
-        direcao = -1;
+    if (estadoAtual == EstadoIA::Patrulhando) {
+        posicao.x += direcao * vel.x;
+        if (posicao.x >= limiteDir) direcao = -1;
+        else if (posicao.x <= limiteEsq) direcao = 1;
+    } 
+    else if (estadoAtual == EstadoIA::Perseguindo && pJogadorAlvo != nullptr) {
+        if (pJogadorAlvo->getPosicao().x > posicao.x) posicao.x += vel.x;
+        else posicao.x -= vel.x;
     }
-    else if (posicao.x < limiteEsq)
-    {
-        direcao = 1;
-    }
 
-    AplicarGravidade();
+    if(!noChao)
+        AplicarGravidade();
+}
+
+void ReiBesouro::VerificarAtaque() {
+    if (estadoAtual == EstadoIA::Perseguindo && pJogadorAlvo != nullptr) {
+        tempoTiro += 1;
+        if (tempoTiro >= maxTempoTiro) {
+            direcaoTiro = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
+            atirar = true; 
+            tempoTiro = 0;
+        }
+    }
 }
 
 void ReiBesouro::AprimorarMaldade()
 {
-    dano *= 2;
+    dano += (nivel_maldade * forca);
     AlterarSpriteMeiaVida();
 }
 
@@ -65,94 +94,12 @@ void ReiBesouro::AlterarSpriteMeiaVida()
     sprite.setTexture(textura);
 }
 
-void ReiBesouro::Atirar()
-{
-    if (!pGerenciadorColisoes || !pListaEntidades) return;
-
-    Jogador* jogadorAlvo = nullptr;
-    float distMin = 1e9f;
-
-    // Mede a distância do Jogador 1
-    if (pGerenciadorColisoes->pJogador && pGerenciadorColisoes->pJogador->getVivo())
-    {
-        Vector2f posJ1 = pGerenciadorColisoes->pJogador->getPosicao();
-        float dist1 = sqrt(pow(posJ1.x - posicao.x, 2) + pow(posJ1.y - posicao.y, 2));
-        if (dist1 < distMin)
-        {
-            distMin = dist1;
-            jogadorAlvo = pGerenciadorColisoes->pJogador;
-        }
-    }
-
-    // Mede a distância do Jogador 2 para verificar quem está mais perto
-    if (pGerenciadorColisoes->pJogador2 && pGerenciadorColisoes->pJogador2->getVivo())
-    {
-        Vector2f posJ2 = pGerenciadorColisoes->pJogador2->getPosicao();
-        float dist2 = sqrt(pow(posJ2.x - posicao.x, 2) + pow(posJ2.y - posicao.y, 2));
-        if (dist2 < distMin)
-        {
-            jogadorAlvo = pGerenciadorColisoes->pJogador2;
-        }
-    }
-
-    // Se houver algum jogador válido por perto, calcula a direção e atira
-    if (jogadorAlvo)
-    {
-        Vector2f posProjetil = Vector2f(
-            posicao.x + (direcao > 0 ? tamanho.x : -26.6f),
-            posicao.y + tamanho.y / 2.f - 13.3f
-        );
-
-        // Calcula o vetor de direção em direção ao alvo
-        Vector2f dir = jogadorAlvo->getPosicao() - posProjetil;
-        float magnitude = sqrt(dir.x * dir.x + dir.y * dir.y);
-        
-        if (magnitude != 0.f)
-            dir /= magnitude; // Normaliza o vetor para manter velocidade constante
-
-        Projetil* pProjetil = new Projetil(id * 1000 + tempoTiro, posProjetil, dir, 5);
-
-        if (carapaçaEndurecida)
-        {
-            pProjetil->AumentarDano();
-        }
-
-        pListaEntidades->Incluir(pProjetil); // <-- Corrigido para Incluir
-        pGerenciadorColisoes->IncluirProjetil(pProjetil); 
-    }
-}
-
 void ReiBesouro::Executar()
 {
+    AtualizarEstado();
     Mover();
-
-    // Contador baseado no framerate de 60 FPS (600 frames = 10 segundos)
-    if (tempoTiro > 0)
-    {
-        tempoTiro--;
-    }
-    else
-    {
-        Atirar();
-        tempoTiro = maxTempoTiro; 
-    }
-
-    sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
-}
-
-// ==========================================
-// FUNÇÕES QUE FALTAVAM PARA O LINKER (C++)
-// ==========================================
-
-void ReiBesouro::setGerenciadorColisoes(GerenciadorDeColisoes* pGC)
-{
-    pGerenciadorColisoes = pGC;
-}
-
-void ReiBesouro::setListaEntidades(ListaEntidades* pLE)
-{
-    pListaEntidades = pLE;
+    VerificarAtaque();
+    Desenhar();
 }
 
 void ReiBesouro::Salvar()
@@ -160,10 +107,11 @@ void ReiBesouro::Salvar()
     // Método obrigatório da herança, pode deixar vazio se não for usar agora
 }
 
-void ReiBesouro::Danificar(Jogador* pJogador)
+void ReiBesouro::Danificar(Jogador* pJog)
 {
-    if (pJogador)
+    if (pJog)
     {
-        pJogador->PerderVidas(dano);
+        pJog->PerderVidas(dano);
     }
+    AprimorarMaldade();
 }

@@ -19,7 +19,7 @@ Plataforma::~Plataforma() {}
 
 void Plataforma::Obstaculizar(Jogador* pJogador)
 {
-    (void)pJogador; // <-- CALA O AVISO AMARELO
+    pJogador->setVelX(1.f);//desliza para direita
 
     if(tempo > 0)
         tempo--;
@@ -30,7 +30,7 @@ void Plataforma::Obstaculizar(Jogador* pJogador)
 void Plataforma::Executar()
 {
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    Desenhar();
 }
 
 void Plataforma::Salvar() {}

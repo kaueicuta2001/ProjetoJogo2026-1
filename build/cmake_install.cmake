@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1
+# Install script for directory: C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,14 +39,14 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/cmake_install.cmake")
+  include("C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/install_local_manifest.txt"
+  file(WRITE "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -62,6 +62,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

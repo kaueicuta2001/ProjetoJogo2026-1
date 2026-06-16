@@ -40,7 +40,8 @@ void Besouro::Mover()
         direcao = 1;
     }
 
-    AplicarGravidade();
+    if(!noChao)
+        AplicarGravidade();
 }
 
 void Besouro::AtivarAntenaVenenosa()

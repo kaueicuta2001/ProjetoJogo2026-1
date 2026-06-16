@@ -4,7 +4,6 @@
 #include "inimigo.h"
 #include "besouro.h"
 #include "plataforma.h"
-#include "obstdificil.h"
 #include <iostream>
 
 using namespace std;
@@ -54,6 +53,19 @@ void Fase::Notificar(sf::Event evento)
     }
 }
 
+void Fase::CriarCenario()
+{
+    sprite.setTexture(textura);
+    sprite.setScale(
+        tamanho.x / textura.getSize().x,
+        tamanho.y / textura.getSize().y
+    );
+
+    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
+    listaEntidades.Incluir(chao);
+    gerenciadorColisoes.IncluirChao(chao);
+}
+
 void Fase::CriarBesouros()
 {
     int numBesouros = (rand() % (maxBesouros - 2)) + 3; 
@@ -75,20 +87,6 @@ void Fase::CriarPlataformas()
         Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(150.f + (i * 150.f), posicoesY[i]), false);
         listaEntidades.Incluir(pPlataforma);
         gerenciadorColisoes.IncluirObstaculo(pPlataforma);
-    }
-}
-
-void Fase::CriarObstDificil()
-{
-    float posicoesX[5] = {250.f, 400.f, 550.f, 700.f, 850.f};
-    float posicoesY[5] = {200.f, 300.f, 150.f, 350.f, 250.f};
-
-    int numObstDificil = (rand() % (maxObstDificil - 2)) + 3; 
-    for (int i = 0; i < numObstDificil; i++)
-    {
-        ObstDificil* pObstDificil = new ObstDificil(i + 100, Vector2f(posicoesX[i % 5], posicoesY[i % 5]), true, 50);
-        listaEntidades.Incluir(pObstDificil);
-        gerenciadorColisoes.IncluirObstaculo(pObstDificil);
     }
 }
 
@@ -136,9 +134,14 @@ int Fase::ContarInimigosVivos()
     return countInimigos;
 }
 
+bool Fase::getFaseAtiva() const
+{
+    return faseAtiva;
+}
+
 void Fase::Executar()
 {
-    pGG->DesenharEnte(&sprite); 
+    Desenhar(); 
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
     VerificarEstadoFase();

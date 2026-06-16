@@ -16,7 +16,7 @@ public:
     static GerenciadorGrafico* getGerenciadorGrafico();
     sf::RenderWindow* getWindow();
     void LimpaJanela();
-    void DesenharEnte(sf::Sprite* pSprite);
+    void DesenharEnte(Ente* pEnte);
     void Renderizar();
     void FecharJanela();
     bool VerificaJanelaAberta() const;

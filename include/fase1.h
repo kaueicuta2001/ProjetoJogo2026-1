@@ -11,9 +11,8 @@ public:
     Fase1(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr);
     ~Fase1();
 
-    void CriarCenario() override;
-    void CriarInimigos() override;
-    void CriarObstaculos() override;
+    void CriarInimigos();
+    void CriarObstaculos();
 
     // Funções específicas da Fase 1
     void CriarVespas();

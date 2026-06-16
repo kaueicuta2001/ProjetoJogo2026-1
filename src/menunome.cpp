@@ -17,18 +17,20 @@ nomeDigitado("")
     textoNome.setCharacterSize(60);
     textoNome.setFillColor(Color::Yellow);
     textoNome.setPosition(560.f, 350.f);
-    
-    instrucao.setFont(fonte);
-    instrucao.setString("Pressione ENTER para confirmar");
-    instrucao.setCharacterSize(20);
-    instrucao.setFillColor(Color::White);
-    instrucao.setPosition(420.f, 500.f);
 }
 
 MenuNome::~MenuNome() {}
 
-void MenuNome::InicializaOpcoesMenu() {}
-void MenuNome::PosicionaBotoes() {}
+void MenuNome::InicializaOpcoesMenu() {
+    opcoesMenu.push_back("Pressione ENTER para confirmar");
+}
+
+void MenuNome::PosicionaBotoes() {
+    for (size_t i = 0; i < botoesMenu.size(); ++i)
+    {
+        botoesMenu[i].setPosition(420.f, 500.f + i * 40.f);
+    }
+}
 
 void MenuNome::InicializaTitulo() {
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
@@ -48,7 +50,10 @@ void MenuNome::Notificar(sf::Event evento) {
             pGG->getWindow()->close();
         }
         else if (evento.key.code == Keyboard::Backspace) {
-            if (!nomeDigitado.empty()) nomeDigitado.pop_back();
+            if (!nomeDigitado.empty())
+            {
+                nomeDigitado.pop_back();
+            }
         }
         else if (evento.key.code == Keyboard::Enter) {
             if (nomeDigitado.size() == 3) {
@@ -73,6 +78,17 @@ void MenuNome::Executar() {
     pGG->getWindow()->draw(textoNome);
     
     if(nomeDigitado.size() == 3) {
-        pGG->getWindow()->draw(instrucao);
+        DesenharBotoes();
     }
+}
+
+string MenuNome::getNomeDigitado() const
+{
+    return nomeDigitado;
+}
+
+void MenuNome::resetNome()
+{
+    nomeDigitado = "";
+    selecionado = false;
 }

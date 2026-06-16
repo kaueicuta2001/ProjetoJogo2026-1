@@ -19,6 +19,8 @@ class Ente
         Ente(int id);
         virtual ~Ente();
         static void setGG(GerenciadorGrafico* gg);
+        void InicializarSprite(sf::Texture& textura);
+        sf::Sprite& getSprite();
         virtual void Executar() = 0;
         void Desenhar();
 };

@@ -17,6 +17,8 @@ public:
 
     void Mover() override;
     void Pular();
+
+    void setVelX(float velX);
     void setVelY(float velY);
     void Pisar(Inimigo* inimigo);
     
@@ -26,6 +28,7 @@ public:
     int getVidas() const;
     bool getImune() const;
     void IniciarImunidade();
+    void AtualizarImunidade();
     
     int getPontos() const { return pontos; } // NOVO: Retorna os pontos para salvar
 };

@@ -51,7 +51,7 @@ add_library(sfml-system STATIC IMPORTED)
 
 set_target_properties(sfml-system PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
   INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:winmm>"
 )
 
@@ -60,7 +60,7 @@ add_library(sfml-main STATIC IMPORTED)
 
 set_target_properties(sfml-main PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
 )
 
 # Create imported target sfml-window
@@ -68,7 +68,7 @@ add_library(sfml-window STATIC IMPORTED)
 
 set_target_properties(sfml-window PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
   INTERFACE_LINK_LIBRARIES "sfml-system;\$<LINK_ONLY:OpenGL>;\$<LINK_ONLY:winmm>;\$<LINK_ONLY:gdi32>"
 )
 
@@ -84,7 +84,7 @@ add_library(sfml-network STATIC IMPORTED)
 
 set_target_properties(sfml-network PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
   INTERFACE_LINK_LIBRARIES "sfml-system;\$<LINK_ONLY:ws2_32>"
 )
 
@@ -93,7 +93,7 @@ add_library(sfml-graphics STATIC IMPORTED)
 
 set_target_properties(sfml-graphics PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
   INTERFACE_LINK_LIBRARIES "sfml-window;\$<LINK_ONLY:Freetype>"
 )
 
@@ -101,7 +101,7 @@ set_target_properties(sfml-graphics PROPERTIES
 add_library(Freetype INTERFACE IMPORTED)
 
 set_target_properties(Freetype PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers/freetype2;C:/msys64/ucrt64/include/freetype2"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers/freetype2;C:/msys64/ucrt64/include/freetype2"
   INTERFACE_LINK_LIBRARIES "C:/msys64/ucrt64/lib/libfreetype.dll.a"
 )
 
@@ -110,7 +110,7 @@ add_library(VORBIS INTERFACE IMPORTED)
 
 set_target_properties(VORBIS PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "OV_EXCLUDE_STATIC_CALLBACKS"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers;C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers;C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers"
   INTERFACE_LINK_LIBRARIES "C:/msys64/ucrt64/lib/libvorbisenc.dll.a;C:/msys64/ucrt64/lib/libvorbisfile.dll.a;C:/msys64/ucrt64/lib/libvorbis.dll.a;C:/msys64/ucrt64/lib/libogg.dll.a"
 )
 
@@ -119,7 +119,7 @@ add_library(FLAC INTERFACE IMPORTED)
 
 set_target_properties(FLAC PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "FLAC__NO_DLL"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/extlibs/headers"
   INTERFACE_LINK_LIBRARIES "C:/msys64/ucrt64/lib/libFLAC.dll.a"
 )
 
@@ -128,7 +128,7 @@ add_library(sfml-audio STATIC IMPORTED)
 
 set_target_properties(sfml-audio PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/SFML-2.6.2/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/SFML-2.6.2/include"
   INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:OpenAL::OpenAL>;sfml-system;\$<LINK_ONLY:VORBIS>;\$<LINK_ONLY:FLAC>"
 )
 
@@ -136,42 +136,42 @@ set_target_properties(sfml-audio PROPERTIES
 set_property(TARGET sfml-system APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-system PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-system-s-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-system-s-d.a"
   )
 
 # Import target "sfml-main" for configuration "Debug"
 set_property(TARGET sfml-main APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-main PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-main-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-main-d.a"
   )
 
 # Import target "sfml-window" for configuration "Debug"
 set_property(TARGET sfml-window APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-window PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-window-s-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-window-s-d.a"
   )
 
 # Import target "sfml-network" for configuration "Debug"
 set_property(TARGET sfml-network APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-network PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-network-s-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-network-s-d.a"
   )
 
 # Import target "sfml-graphics" for configuration "Debug"
 set_property(TARGET sfml-graphics APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-graphics PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-graphics-s-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-graphics-s-d.a"
   )
 
 # Import target "sfml-audio" for configuration "Debug"
 set_property(TARGET sfml-audio APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-audio PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/riell/Documents/joaoUTFPR/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-audio-s-d.a"
+  IMPORTED_LOCATION_DEBUG "C:/Users/kauei/Desktop/kaue/TecProg/ProjetoJogo2026-1/build/SFML-2.6.2/lib/libsfml-audio-s-d.a"
   )
 
 # This file does not depend on other imported targets which have

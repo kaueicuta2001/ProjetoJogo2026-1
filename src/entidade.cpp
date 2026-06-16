@@ -5,7 +5,8 @@ using namespace sf;
 
 Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
-vivo(true)
+vivo(true),
+gravidade(0.5f)
 {
     posicao = pos;
     tamanho = Vector2f(0.f, 0.f);
@@ -41,17 +42,15 @@ void Entidade::Desativar()
     vivo = false;
 }
 
-void Entidade::InicializarSprite(sf::Texture& textura)
+void Entidade::AplicarGravidade()
 {
-    sprite.setTexture(textura);
-     
-// Faz a conta de escala UMA ÚNICA VEZ aqui no início
-    sf::Vector2u texSize = textura.getSize();
-    if (texSize.x > 0 && texSize.y > 0)
-    {
-        sprite.setScale(
-            tamanho.x / texSize.x,
-            tamanho.y / texSize.y
-        );
-    }
+    vel.y += gravidade;
+    if (vel.y > 15.f)
+        vel.y = 15.f;
+    posicao.y += vel.y;
+}
+
+string Entidade::getNome()
+{
+    return nome;
 }
