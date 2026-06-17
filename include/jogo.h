@@ -10,7 +10,7 @@
 
 enum class EstadoJogo {
     MenuPrincipal,
-    MenuNome, // NOVO ESTADO AQUI
+    MenuNome, 
     MenuFase,
     Ranking, 
     Jogando,
