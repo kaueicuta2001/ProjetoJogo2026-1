@@ -27,7 +27,7 @@ private:
     MenuPrincipal* menuPrincipal;
     MenuFase* menuFase;
     MenuRanking* menuRanking;
-    MenuNome* menuNome; // PONTEIRO PARA O NOVO ECRÃ
+    MenuNome* menuNome; 
     EstadoJogo estadoAtual;
     int opcaoMenuPrincipal;
     int opcaoMenuFase;
