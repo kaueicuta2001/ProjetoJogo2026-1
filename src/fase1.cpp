@@ -10,12 +10,13 @@ maxVespas(5),
 maxCogumelos(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-    CriarCenario();
-    CriarObstaculos();
-    CriarInimigos();
+
     if (!textura.loadFromFile("../assets/fase1BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
+    CriarObstaculos();
+    CriarInimigos();   
+    CriarChao();
 }
 
 Fase1::~Fase1()
@@ -66,6 +67,15 @@ void Fase1::CriarObstaculos()
 void Fase1::Executar()
 {
     Desenhar();
+
+if (pJogador) {
+        sf::FloatRect bounds = pJogador->getSprite().getGlobalBounds();
+        sf::Vector2f escala = pJogador->getSprite().getScale();
+        std::cout << "[DEBUG JOGADOR] Pos: (" << pJogador->getPosicao().x << ", " << pJogador->getPosicao().y 
+                  << ") | Bounds: (" << bounds.width << "x" << bounds.height 
+                  << ") | Escala: (" << escala.x << ", " << escala.y << ")" << std::endl;
+    }
+
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
     Fase::Executar();

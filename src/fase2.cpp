@@ -15,11 +15,11 @@ maxVespas(5),
 maxReiBesouro(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-    CriarObstaculos();
-    CriarInimigos();
     if (!textura.loadFromFile("../assets/backgroundfase2.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
+    CriarObstaculos();
+    CriarInimigos();
 }
 
 Fase2::~Fase2()
@@ -54,10 +54,10 @@ void Fase2::CriarReiBesouro()
     }
 }
 
-void Fase2::CriarObstDificilFase2()
+/*void Fase2::CriarObstDificilFase2()
 {
     CriarObstDificil();
-}
+}*/
 
 void Fase2::CriarCenario()
 {
@@ -82,7 +82,7 @@ void Fase2::CriarInimigos()
 void Fase2::CriarObstaculos()
 {
     CriarPlataformas();
-    CriarObstDificilFase2();
+    //CriarObstDificilFase2();
 }
 
 void Fase2::VerificarAtirarReiBesouro()
@@ -91,10 +91,13 @@ void Fase2::VerificarAtirarReiBesouro()
     {
         if (rei->getAtirar())
         {
+            // Instancia o projétil com a direção corrigida e normalizada
             Projetil* pProjetil = new Projetil(100 + rei->getId(), rei->getPosicao(), rei->getDirecaoTiro(), rei->getDano());
             listaEntidades.Incluir(pProjetil);
             gerenciadorColisoes.IncluirProjetil(pProjetil);
-            rei->AprimorarMaldade();
+            
+            // CRUCIAL: Reseta o estado de tiro do inimigo!
+            rei->ResetAtirar(); 
         }
     }
 }
@@ -104,5 +107,6 @@ void Fase2::Executar()
     Desenhar();
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
+    VerificarAtirarReiBesouro();
     Fase::Executar();
 }

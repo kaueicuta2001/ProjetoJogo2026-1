@@ -23,6 +23,11 @@ int Ente::getId() const
     return id;
 }
 
+sf::Sprite& Ente::getSprite()
+{
+    return sprite; 
+}
+
 void Ente::InicializarSprite(sf::Texture& textura)
 {
     sprite.setTexture(textura);
@@ -35,11 +40,6 @@ void Ente::InicializarSprite(sf::Texture& textura)
             tamanho.y / texSize.y
         );
     }
-}
-
-sf::Sprite& Ente::getSprite()
-{
-    return sprite;
 }
 
 void Ente::Desenhar()

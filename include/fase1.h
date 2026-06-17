@@ -8,7 +8,7 @@ class Fase1 : public Fase
 private:
     int maxVespas;
     int maxCogumelos;
-
+    Plataforma* pPlataforma;
 public:
     Fase1(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr);
     ~Fase1();

@@ -33,6 +33,7 @@ public:
 
     void CriarBesouros();
     void CriarPlataformas();
+    void CriarChao();
 
     virtual void Executar();
     bool VerificarEstadoFase();

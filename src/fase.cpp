@@ -87,6 +87,13 @@ void Fase::CriarPlataformas()
     }
 }
 
+void Fase::CriarChao()
+{
+    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
+    listaEntidades.Incluir(chao);
+    gerenciadorColisoes.IncluirChao(chao);
+}
+
 bool Fase::VerificarEstadoFase()
 {
     if (pJogador && pJogador->getVidas() <= 0)

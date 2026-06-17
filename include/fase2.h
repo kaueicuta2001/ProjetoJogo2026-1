@@ -10,7 +10,7 @@ private:
     int maxReiBesouro;
     std::vector<ReiBesouro*> vReiBesouros; // Vetor para armazenar os ponteiros dos Rei Besouros
 public:
-    Fase2(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr);
+    Fase2(int id, Jogador* pJogador, Jogador* pJogador2);
     ~Fase2();
 
     void CriarCenario();
@@ -21,7 +21,7 @@ public:
     void CriarVespas();
     void CriarCogumelosPulantes();
     void CriarReiBesouro();
-    void CriarObstDificilFase2();
+    //void CriarObstDificilFase2();
 
     void VerificarAtirarReiBesouro();
 

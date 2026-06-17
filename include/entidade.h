@@ -1,31 +1,42 @@
 #pragma once
-
-#include "ente.h"
+#include "Ente.h"
 #include <string>
+#include <SFML/Graphics.hpp>
 
 class Entidade : public Ente
 {
-protected:
-    bool vivo;
-    float gravidade;
-    std::string nome;
-    sf::Vector2f posicao;
-    sf::Vector2f tamanho;
-    sf::Vector2f vel;
+    protected:
+        bool vivo;
+        std::string nome;
+        sf::Vector2f vel;
+        float gravidade;
+        bool noChao;
 
-public:
-    Entidade(int id, sf::Vector2f pos);
-    virtual ~Entidade();
+    public:
+        Entidade(int id, sf::Vector2f pos);
+        virtual ~Entidade();
 
-    virtual void Executar() = 0;
-    virtual void Salvar() = 0;
+        virtual void setPosicao(sf::Vector2f pos);
+        virtual sf::Vector2f getPosicao() const;
+        virtual sf::Vector2f getTamanho() const;
 
-    void setPosicao(sf::Vector2f pos);
-    const sf::Vector2f getPosicao();
-    const sf::Vector2f getTamanho();
-    bool getVivo() const;
-    void Desativar();
-    void AplicarGravidade();
-    
-    std::string getNome();
+        virtual bool getVivo() const;
+        virtual void Desativar();
+        void InicializarSprite(sf::Texture& textura);
+
+        void AplicarGravidade();
+        void Gravitropismo();
+        
+        // Física e Movimento
+        void SetNoChao(bool chao);
+        bool getNoChao() const;
+        void setVelY(float vY);
+        void setVelX(float vX);
+        float getVelY() const;
+
+        std::string getNome() const;
+        sf::Sprite getSprite() const;
+
+        virtual void Executar() = 0;
+        virtual void Salvar() = 0;
 };

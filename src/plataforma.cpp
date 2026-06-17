@@ -19,7 +19,7 @@ Plataforma::~Plataforma() {}
 
 void Plataforma::Obstaculizar(Jogador* pJogador)
 {
-    pJogador->setVelX(1.f);//desliza para direita
+    pJogador->setPosicao(sf::Vector2f(pJogador->getPosicao().x + 1.f, pJogador->getPosicao().y));//desliza para direita
 
     if(tempo > 0)
         tempo--;
@@ -29,8 +29,11 @@ void Plataforma::Obstaculizar(Jogador* pJogador)
 
 void Plataforma::Executar()
 {
+    Gravitropismo();
+    AplicarGravidade();
+
     sprite.setPosition(posicao);
-    Desenhar();
+    Desenhar(); 
 }
 
 void Plataforma::Salvar() {}

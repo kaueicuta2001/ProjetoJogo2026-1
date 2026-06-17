@@ -14,10 +14,11 @@ ReiBesouro::ReiBesouro(int id, Vector2f pos, Jogador* pJogador, Jogador* pJogado
 Inimigo(id, pos),
 estadoAtual(EstadoIA::Patrulhando),
 forca(10),
-raioDeteccao(100.f),
+raioDeteccao(350.f),
 limiteDir(pos.x + 25.f),
 limiteEsq(pos.x - 25.f),
 direcao(1),
+atirar(false),
 tempoTiro(600),       // Inicializa com 10 segundos em frames (10 * 60 FPS)
 maxTempoTiro(600),    // Intervalo fixo de 10 segundos
 pJogadorAlvo(nullptr),
@@ -26,6 +27,7 @@ pJogador2(pJogador2)
 {
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(80.f, 80.f);
+    posicao = pos;
     num_vidas = 100;
     nivel_maldade = 3;
     dano = 10;
@@ -54,6 +56,14 @@ void ReiBesouro::AtualizarEstado()
     estadoAtual = (pJogadorAlvo != nullptr) ? EstadoIA::Perseguindo : EstadoIA::Patrulhando;
 }
 
+bool ReiBesouro::getAtirar() const{
+    return atirar;
+}
+
+Vector2f ReiBesouro::getDirecaoTiro(){
+    return direcaoTiro;
+}
+
 void ReiBesouro::Mover()
 {
     if (estadoAtual == EstadoIA::Patrulhando) {
@@ -74,13 +84,22 @@ void ReiBesouro::VerificarAtaque() {
     if (estadoAtual == EstadoIA::Perseguindo && pJogadorAlvo != nullptr) {
         tempoTiro += 1;
         if (tempoTiro >= maxTempoTiro) {
-            direcaoTiro = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
+            // 1. Calcula o vetor de distância pura
+            Vector2f dir = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
+            
+            // 2. Normaliza o vetor (Calcula a hipotenusa e divide os eixos)
+            float hipotenusa = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+            if (hipotenusa > 0.f) {
+                direcaoTiro = Vector2f(dir.x / hipotenusa, dir.y / hipotenusa);
+            } else {
+                direcaoTiro = Vector2f(1.f, 0.f); // Padrão se estiver exatamente na mesma coordenada
+            }
+
             atirar = true; 
             tempoTiro = 0;
         }
     }
 }
-
 void ReiBesouro::AprimorarMaldade()
 {
     dano += (nivel_maldade * forca);
@@ -99,6 +118,7 @@ void ReiBesouro::Executar()
     AtualizarEstado();
     Mover();
     VerificarAtaque();
+    sprite.setPosition(posicao);
     Desenhar();
 }
 
@@ -114,4 +134,8 @@ void ReiBesouro::Danificar(Jogador* pJog)
         pJog->PerderVidas(dano);
     }
     AprimorarMaldade();
+}
+
+void ReiBesouro::ResetAtirar(){
+    atirar = false;
 }

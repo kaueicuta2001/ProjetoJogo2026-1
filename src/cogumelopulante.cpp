@@ -9,9 +9,10 @@ Obstaculo(id, pos, danoso),
 forcaimpulso(20.f)
 {  
     tamanho = sf::Vector2f(64.f, 64.f);
+    nome = "Cogumelo Pulante";
     if (!textura.loadFromFile("../assets/cogumelopulante.png"))
         cerr << "Erro ao carregar a textura do cogumelo pulante!" << endl;
-    InicializarSprite(textura);//parâmetro por refência escondida
+    InicializarSprite(textura);
 }
 
 CogumeloPulante::~CogumeloPulante() {}
@@ -24,8 +25,11 @@ void CogumeloPulante::Obstaculizar(Jogador* pJogador)
 
 void CogumeloPulante::Executar()
 {
+    Gravitropismo();
+    AplicarGravidade();
+
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    Desenhar(); 
 }
 
 void CogumeloPulante::Salvar() {}

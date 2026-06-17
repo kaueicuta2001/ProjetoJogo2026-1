@@ -29,12 +29,12 @@ class ReiBesouro : public Inimigo
     public:
         ReiBesouro(int id, sf::Vector2f pos, Jogador* pJogador, Jogador* pJogador2 = nullptr);
         ~ReiBesouro();
-        bool getAtirar();
+        bool getAtirar() const;
         sf::Vector2f getDirecaoTiro();
         void Mover();
         void AprimorarMaldade();
         void Executar();
         void Salvar();
         void Danificar(Jogador* jogador);
-        void Atirar();
+        void ResetAtirar();
 };

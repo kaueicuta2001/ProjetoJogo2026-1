@@ -31,15 +31,11 @@ void Projetil::Mover()
 
     // Morre se encostar nas arestas laterais (x = 0 ou largura máxima)
     float larguraJanela = static_cast<float>(pGG->getWindow()->getSize().x);
-    if (posicao.x <= 0.f || posicao.x >= larguraJanela)
+    float alturaJanela = static_cast<float>(pGG->getWindow()->getSize().y);
+    if (posicao.x <= 0.f || posicao.x >= larguraJanela || posicao.y <= 0.f || posicao.y >= alturaJanela)
     {
         Desativar();
     }
-}
-
-void Projetil::AumentarDano()
-{
-    dano = 15;
 }
 
 int Projetil::getDano() const
@@ -58,6 +54,7 @@ void Projetil::Danificar(Jogador* pJogador)
 void Projetil::Executar()
 {
     Mover();
+    sprite.setPosition(posicao);
     Desenhar();
 }
 

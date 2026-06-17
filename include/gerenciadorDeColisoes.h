@@ -20,9 +20,6 @@ public:
 
     GerenciadorDeColisoes(Jogador* pJ = nullptr, Jogador* pJ2 = nullptr);
     ~GerenciadorDeColisoes();
-
-    void setJogador(Jogador* pJ);
-    void setJogador2(Jogador* pJ2);
     
     void IncluirInimigo(Inimigo* pI);
     void IncluirObstaculo(Obstaculo* pO);
