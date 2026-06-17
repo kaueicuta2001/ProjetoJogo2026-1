@@ -31,8 +31,8 @@ private:
     EstadoJogo estadoAtual;
     int opcaoMenuPrincipal;
     int opcaoMenuFase;
-    int qtdJogadores; // Guarda se foi selecionado 1 ou 2
-    std::string nomeJogador; // Guarda o nome do gajo
+    int qtdJogadores;
+    std::string nomeJogador; 
 
 public:
     Jogo();
