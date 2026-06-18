@@ -27,6 +27,7 @@ public:
     bool getImune() const;
     void IniciarImunidade();
     void AtualizarImunidade();
-    
+    void setVelY(float vY);
+    float getVelX() const;
     int getPontos() const; // NOVO: Retorna os pontos para salvar
 };

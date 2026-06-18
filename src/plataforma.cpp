@@ -9,6 +9,8 @@ Plataforma::Plataforma(int id, sf::Vector2f pos) :
 Obstaculo(id, pos), 
 tempo(180)
 {
+    nome = "Plataforma";
+    colideInimigo = true;
     tamanho = sf::Vector2f(75.f, 25.f);
     if (!textura.loadFromFile("../assets/plataforma.png"))
         std::cerr << "Erro ao carregar a textura da plataforma!" << endl;

@@ -81,6 +81,16 @@ void Jogador::AtualizarImunidade() {
     }
 }
 
+void Jogador::setVelY(float vY)
+{
+    vel.y = vY;
+}
+
+float Jogador::getVelX() const
+{
+    return vel.x;
+}
+
 void Jogador::Executar()
 {    
     sprite.setPosition(posicao);

@@ -28,8 +28,6 @@ class Entidade : public Ente
         // Física e Movimento
         void SetNoChao(bool chao);
         bool getNoChao() const;
-        void setVelY(float vY);
-        float getVelY() const;
 
         std::string getNome() const;
 

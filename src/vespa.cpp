@@ -20,6 +20,7 @@ glândulasVenenosas(false)
     tamanho = Vector2f(64.f, 64.f);
     num_vidas = 40;
     nivel_maldade = 2;
+    colideObstaculo = false;
     dano = 10; // O dano que a Vespa causa ao encostar no Sapo
     
     if (!textura.loadFromFile("../assets/vespa.png"))

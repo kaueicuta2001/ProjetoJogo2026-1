@@ -7,16 +7,16 @@ using namespace std;
 Fase1::Fase1(int id, Jogador* pJogador, Jogador* pJogador2) :
 Fase(id, pJogador, pJogador2),
 maxVespas(5),         
-maxCogumelos(5)
+maxLamalentos(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
 
     if (!textura.loadFromFile("../assets/fase1BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
+    CriarChao();
     CriarObstaculos();
     CriarInimigos();   
-    CriarChao();
 }
 
 Fase1::~Fase1()
@@ -37,18 +37,18 @@ void Fase1::CriarVespas()
     }
 }
 
-void Fase1::CriarCogumelosPulantes()
+void Fase1::CriarLamasLentas()
 {
-    int numCogumelos = (rand() % (maxCogumelos - 2)) + 3;
+    int numLamas = (rand() % (maxLamalentos - 2)) + 3;
 
     float posicoesX[5] = {250.f, 550.f, 850.f, 400.f, 700.f};
-    float altura = Ente::pGG->getWindow()->getSize().y - 64.f - 32.f;
+    float altura = Ente::pGG->getWindow()->getSize().y - 33.f;
 
-    for (int i = 0; i < numCogumelos; i++)
+    for (int i = 0; i < numLamas; i++)
     {
-        CogumeloPulante* pCogumelo = new CogumeloPulante(i + 50, Vector2f(posicoesX[i], altura));
-        listaEntidades.Incluir(pCogumelo);
-        gerenciadorColisoes.IncluirObstaculo(pCogumelo);
+        LamaLento* pLama = new LamaLento(i + 50, Vector2f(posicoesX[i], altura));
+        listaEntidades.Incluir(pLama);
+        gerenciadorColisoes.IncluirObstaculo(pLama);
     }
 }
 
@@ -61,7 +61,7 @@ void Fase1::CriarInimigos()
 void Fase1::CriarObstaculos()
 {
     CriarPlataformas();
-    CriarCogumelosPulantes();
+    CriarLamasLentas();
 }
 
 void Fase1::Executar()

@@ -3,7 +3,8 @@
 
 Inimigo::Inimigo(int id, sf::Vector2f pos) :
 Personagem(id, pos),
-nivel_maldade(1)
+nivel_maldade(1),
+colideObstaculo(true)
 {
 
 }
@@ -11,4 +12,9 @@ nivel_maldade(1)
 Inimigo::~Inimigo()
 {
 
+}
+
+bool Inimigo::getColideObstaculo() const
+{
+    return colideObstaculo;
 }

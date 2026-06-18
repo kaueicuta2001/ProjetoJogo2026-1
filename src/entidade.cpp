@@ -71,16 +71,6 @@ bool Entidade::getNoChao() const
     return noChao;
 }
 
-void Entidade::setVelY(float vY)
-{
-    vel.y = vY;
-}
-
-float Entidade::getVelY() const
-{
-    return vel.y;
-}
-
 string Entidade::getNome() const
 {
     return nome;
