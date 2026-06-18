@@ -10,6 +10,7 @@ private:
     int tempoImune;
     int maxTempoImune;
     bool jogador2;
+    float velOriginal;
 
 public:
     Jogador(int id, sf::Vector2f pos, bool isJogador2 = false);
@@ -17,6 +18,7 @@ public:
 
     void Mover() override;
     void Pular();
+    void resetVelX();
 
     void Pisar(Inimigo* inimigo);
     
@@ -29,5 +31,6 @@ public:
     void AtualizarImunidade();
     void setVelY(float vY);
     float getVelX() const;
+    void setVelX(float vX);
     int getPontos() const; // NOVO: Retorna os pontos para salvar
 };
