@@ -17,6 +17,7 @@ jogador2(isJogador2)
     num_vidas = 100;
     dano = 10;
     vel = Vector2f(5.f, 5.f);
+    velOriginal = vel.x;
     tamanho = Vector2f(40.f, 40.f);
     
     if(!textura.loadFromFile(jogador2 ? "../assets/jogador2.png" : "../assets/jogador1.png"))
@@ -29,6 +30,7 @@ Jogador::~Jogador() {}
 
 void Jogador::Mover()
 {
+    
    
     if(!jogador2){
         if (Keyboard::isKeyPressed(Keyboard::A)) posicao.x -= vel.x;
@@ -43,7 +45,10 @@ void Jogador::Mover()
     if(!noChao)
         AplicarGravidade();
 }
-
+void Jogador::resetVelX() 
+{   
+    vel.x = velOriginal;
+}
 void Jogador::Pular() {
     vel.y = -10.f;
     noChao = false;
@@ -89,6 +94,10 @@ void Jogador::setVelY(float vY)
 float Jogador::getVelX() const
 {
     return vel.x;
+}
+void Jogador::setVelX(float vX)
+{
+    vel.x = vX;
 }
 
 void Jogador::Executar()
