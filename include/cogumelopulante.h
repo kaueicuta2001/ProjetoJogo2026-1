@@ -9,7 +9,7 @@ class CogumeloPulante : public Obstaculo
 private:
     float forcaimpulso;
 public:
-    CogumeloPulante(int id, sf::Vector2f pos, bool danoso);
+    CogumeloPulante(int id, sf::Vector2f pos);
     ~CogumeloPulante();
     void Obstaculizar(Jogador* pJogador);
     void Executar();

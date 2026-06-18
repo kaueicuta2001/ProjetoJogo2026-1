@@ -5,8 +5,8 @@
 using namespace sf;
 using namespace std;
 
-Plataforma::Plataforma(int id, sf::Vector2f pos, bool danoso) : 
-Obstaculo(id, pos, danoso), 
+Plataforma::Plataforma(int id, sf::Vector2f pos) : 
+Obstaculo(id, pos), 
 tempo(180)
 {
     tamanho = sf::Vector2f(75.f, 25.f);
@@ -17,9 +17,14 @@ tempo(180)
 
 Plataforma::~Plataforma() {}
 
+void Plataforma::DeslizarJogador(Jogador* pJogador)
+{
+    pJogador->setPosicao(sf::Vector2f(pJogador->getPosicao().x + 1.f, pJogador->getPosicao().y));
+}
+
 void Plataforma::Obstaculizar(Jogador* pJogador)
 {
-    pJogador->setPosicao(sf::Vector2f(pJogador->getPosicao().x + 1.f, pJogador->getPosicao().y));//desliza para direita
+    DeslizarJogador(pJogador);
 
     if(tempo > 0)
         tempo--;

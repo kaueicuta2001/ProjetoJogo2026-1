@@ -6,10 +6,10 @@
 using namespace sf;
 using namespace std;
 
-Projetil::Projetil(int id, Vector2f pos, Vector2f dirNormalizada, int dano) :
+Projetil::Projetil(int id, Vector2f pos, Vector2f dir, int dano) :
 Entidade(id, pos),
 dano(dano),
-direcaoTiro(dirNormalizada)
+direcaoTiro(dir)
 {
     nome = "Projetil";
     tamanho = Vector2f(26.6f, 26.6f);

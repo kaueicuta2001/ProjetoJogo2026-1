@@ -12,6 +12,9 @@ listaEntidades(),
 gerenciadorColisoes(jogador, jogador2),
 pJogador(jogador),
 pJogador2(jogador2),
+barraLargura(200.f),
+barraAltura(20.f),
+margem(7.5f),
 maxBesouros(5),
 maxPlataformas(5),
 maxObstDificil(5),
@@ -25,6 +28,8 @@ faseAtiva(true)
     if (pJogador2) {
         listaEntidades.Incluir(pJogador2);
     }
+
+    InicializarBarrasDeVida();
 
     GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this);
 }
@@ -81,7 +86,7 @@ void Fase::CriarPlataformas()
     int numPlataformas = (rand() % (maxPlataformas - 2)) + 3; 
     for (int i = 0; i < numPlataformas; i++)
     {
-        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(150.f + (i * 150.f), posicoesY[i]), false);
+        Plataforma* pPlataforma = new Plataforma(i + 20, Vector2f(150.f + (i * 150.f), posicoesY[i]));
         listaEntidades.Incluir(pPlataforma);
         gerenciadorColisoes.IncluirObstaculo(pPlataforma);
     }
@@ -92,6 +97,68 @@ void Fase::CriarChao()
     Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
     listaEntidades.Incluir(chao);
     gerenciadorColisoes.IncluirChao(chao);
+}
+
+void Fase::InicializarBarrasDeVida()
+{
+    if(!fonteVida.loadFromFile("../assets/Frijole-Regular.ttf"))
+        cerr << "Erro ao carregar a fonte de vida!" << endl;
+        
+    //fundo da barra de vida do jogador 1
+    fundoBarraj1.setSize(Vector2f(barraLargura + margem * 2, barraAltura + margem * 2));
+    fundoBarraj1.setFillColor(Color(50, 50, 50));
+    fundoBarraj1.setPosition(margem, margem);
+
+    //barra de vida do jogador 1
+    barraVidaj1.setSize(Vector2f(pJogador->getVidas() * (barraLargura / 100.0f), barraAltura));
+    barraVidaj1.setFillColor(Color(200, 0, 0));
+    barraVidaj1.setPosition(margem * 2, margem * 2);
+
+    textoVidaJ1.setFont(fonteVida);
+    textoVidaJ1.setString("Vida J1: 100/100");
+    textoVidaJ1.setCharacterSize(10);
+    textoVidaJ1.setPosition(margem * 2, margem * 2);
+
+    if (pJogador2) {
+        //fundo da barra de vida do jogador 2
+        fundoBarraj2.setSize(Vector2f(barraLargura + margem * 2, barraAltura + margem * 2));
+        fundoBarraj2.setFillColor(Color(50, 50, 50));
+        fundoBarraj2.setPosition(tamanho.x - barraLargura - margem * 3, margem);
+
+        //barra de vida do jogador 2
+        barraVidaj2.setSize(Vector2f(pJogador2->getVidas() * (barraLargura / 100.0f), barraAltura));
+        barraVidaj2.setFillColor(Color(200, 0, 0));
+        barraVidaj2.setPosition(tamanho.x - barraLargura - margem * 2, margem * 2);
+
+        textoVidaJ2.setFont(fonteVida);
+        textoVidaJ2.setString("Vida J2: 100/100");
+        textoVidaJ2.setCharacterSize(10);
+        textoVidaJ2.setPosition(tamanho.x - barraLargura - margem * 2, margem * 2);
+    }
+}
+
+void Fase::AtualizarBarrasDeVida()
+{
+    barraVidaj1.setSize(Vector2f(pJogador->getVidas() * (barraLargura / 100.0f), barraAltura));
+    textoVidaJ1.setString("Vida J1: " + to_string(pJogador->getVidas()) + "/100");
+
+    if (pJogador2) {
+        barraVidaj2.setSize(Vector2f(pJogador2->getVidas() * (barraLargura / 100.0f), barraAltura));
+        textoVidaJ2.setString("Vida J2: " + to_string(pJogador2->getVidas()) + "/100");
+    }
+}
+
+void Fase::DesenharBarrasDeVida()
+{
+    pGG->getWindow()->draw(fundoBarraj1);
+    pGG->getWindow()->draw(barraVidaj1);
+    pGG->getWindow()->draw(textoVidaJ1);
+
+    if (pJogador2) {
+        pGG->getWindow()->draw(fundoBarraj2);
+        pGG->getWindow()->draw(barraVidaj2);
+        pGG->getWindow()->draw(textoVidaJ2);
+    }
 }
 
 bool Fase::VerificarEstadoFase()
@@ -145,5 +212,7 @@ bool Fase::getFaseAtiva() const
 
 void Fase::Executar()
 {
+    AtualizarBarrasDeVida();
+    DesenharBarrasDeVida();
     VerificarEstadoFase();
 }

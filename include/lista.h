@@ -54,7 +54,7 @@ public:
 
     ~Lista()
     {
-        Esvaziar();
+        Limpar();
     }
 
     void Incluir(TL* info)
@@ -109,7 +109,7 @@ public:
         quantidade--;
     }
 
-    void Esvaziar()
+    void Limpar()
     {
         Elemento* atual = pPrimeiro;
 

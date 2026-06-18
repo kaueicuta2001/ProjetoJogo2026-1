@@ -1,6 +1,9 @@
 #pragma once
-#include "fase.h"
 
+#include <iostream>
+
+#include "fase.h"
+#include "cactopulante.h"
 #include "ReiBesouro.h"
 
 class Fase2 : public Fase
@@ -18,10 +21,8 @@ public:
     void CriarObstaculos() override;
 
     // Funções específicas da Fase 2
-    void CriarVespas();
-    void CriarCogumelosPulantes();
     void CriarReiBesouro();
-    //void CriarObstDificilFase2();
+    void CriarCactosPulantes();
 
     void VerificarAtirarReiBesouro();
 

@@ -21,7 +21,7 @@ maxCogumelos(5)
 
 Fase1::~Fase1()
 {
-    listaEntidades.Esvaziar();
+    listaEntidades.Limpar();
 }
 
 void Fase1::CriarVespas()
@@ -46,7 +46,7 @@ void Fase1::CriarCogumelosPulantes()
 
     for (int i = 0; i < numCogumelos; i++)
     {
-        CogumeloPulante* pCogumelo = new CogumeloPulante(i + 50, Vector2f(posicoesX[i], altura), false);
+        CogumeloPulante* pCogumelo = new CogumeloPulante(i + 50, Vector2f(posicoesX[i], altura));
         listaEntidades.Incluir(pCogumelo);
         gerenciadorColisoes.IncluirObstaculo(pCogumelo);
     }
@@ -67,14 +67,6 @@ void Fase1::CriarObstaculos()
 void Fase1::Executar()
 {
     Desenhar();
-
-if (pJogador) {
-        sf::FloatRect bounds = pJogador->getSprite().getGlobalBounds();
-        sf::Vector2f escala = pJogador->getSprite().getScale();
-        std::cout << "[DEBUG JOGADOR] Pos: (" << pJogador->getPosicao().x << ", " << pJogador->getPosicao().y 
-                  << ") | Bounds: (" << bounds.width << "x" << bounds.height 
-                  << ") | Escala: (" << escala.x << ", " << escala.y << ")" << std::endl;
-    }
 
     listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();

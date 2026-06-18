@@ -43,20 +43,6 @@ void Entidade::Desativar()
     vivo = false;
 }
 
-void Entidade::InicializarSprite(sf::Texture& textura)
-{
-    sprite.setTexture(textura);
-     
-    sf::Vector2u texSize = textura.getSize();
-    if (texSize.x > 0 && texSize.y > 0)
-    {
-        sprite.setScale(
-            tamanho.x / texSize.x,
-            tamanho.y / texSize.y
-        );
-    }
-}
-
 void Entidade::AplicarGravidade()
 {
     if (!noChao)
@@ -90,11 +76,6 @@ void Entidade::setVelY(float vY)
     vel.y = vY;
 }
 
-void Entidade::setVelX(float vX)
-{
-    vel.x = vX;
-}
-
 float Entidade::getVelY() const
 {
     return vel.y;
@@ -103,9 +84,4 @@ float Entidade::getVelY() const
 string Entidade::getNome() const
 {
     return nome;
-}
-
-sf::Sprite Entidade::getSprite() const
-{
-    return sprite;
 }

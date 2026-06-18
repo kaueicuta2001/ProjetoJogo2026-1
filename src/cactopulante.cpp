@@ -6,13 +6,14 @@
 using namespace sf;
 using namespace std;
 
-CactoPulante::CactoPulante(int id, sf::Vector2f pos, bool danoso, short int danosidade) : 
-Obstaculo(id, pos, danoso), 
-danosidade(danosidade),
+CactoPulante::CactoPulante(int id, sf::Vector2f pos) : 
+Obstaculo(id, pos),
+danosidade(10),
 espinhosFlamejantes(false)
 {
     nome = "Cacto Pulante";
-    tamanho = Vector2f(50.f, 50.f); 
+    tamanho = Vector2f(48.f, 64.f);
+    danoso = true; 
     
     if (!textura.loadFromFile("../assets/cactopulante.png")) {
         cerr << "Aviso: textura cactopulante.png não encontrada!" << endl;
@@ -22,6 +23,15 @@ espinhosFlamejantes(false)
 }
 
 CactoPulante::~CactoPulante() {}
+
+void CactoPulante::FlamejarEspinhos() {
+    if (!textura.loadFromFile("../assets/cactoflamejante.png")) {
+        cerr << "Aviso: textura cactoflamejante.png não encontrada!" << endl;
+        InicializarSprite(textura);
+    }
+    danosidade *= 2;
+
+}
 
 void CactoPulante::Obstaculizar(Jogador* pJogador)
 {
@@ -34,15 +44,15 @@ void CactoPulante::Obstaculizar(Jogador* pJogador)
 
         if (!espinhosFlamejantes) {
             espinhosFlamejantes = true;
-            danosidade *= 2; 
+            FlamejarEspinhos(); 
         }
     }
 }
 
 void CactoPulante::Executar() 
 {
-    AplicarGravidade();
     Gravitropismo();
+    AplicarGravidade();
 
     sprite.setPosition(posicao);
     Desenhar(); 

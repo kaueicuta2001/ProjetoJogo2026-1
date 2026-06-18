@@ -49,14 +49,6 @@ void Jogador::Pular() {
     noChao = false;
 }
 
-void Jogador::setVelX(float velX) {
-    vel.x = velX;
-}
-
-void Jogador::setVelY(float velY) {
-    vel.y = velY;
-}
-
 void Jogador::Pisar(Inimigo* inimigo) {
     if (inimigo) {
         inimigo->PerderVidas(dano);
@@ -98,3 +90,7 @@ void Jogador::Executar()
 }
 
 void Jogador::Salvar() {}
+
+int Jogador::getPontos() const {
+    return pontos;
+}

@@ -1,10 +1,5 @@
 #include "fase2.h"
 #include "gerenciadorgrafico.h"
-#include "vespa.h"
-#include "cogumelopulante.h"
-#include "reibesouro.h"
-#include "chao.h"
-#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -15,7 +10,7 @@ maxVespas(5),
 maxReiBesouro(5)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-    if (!textura.loadFromFile("../assets/backgroundfase2.png"))
+    if (!textura.loadFromFile("../assets/fase2BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
     CriarObstaculos();
@@ -24,20 +19,7 @@ maxReiBesouro(5)
 
 Fase2::~Fase2()
 {
-    listaEntidades.Esvaziar();
-}
-
-void Fase2::CriarVespas()
-{
-    float posicoesY[5] = {600.f, 500.f, 400.f, 300.f, 400.f};
-
-    int numVespas = (rand() % (maxVespas - 2)) + 3; 
-    for (int i = 0; i < numVespas; i++)
-    {
-        Vespa* pVespa = new Vespa(i + 30, Vector2f(160.f + (i * 150.f), posicoesY[i]), 60.f);
-        listaEntidades.Incluir(pVespa);
-        gerenciadorColisoes.IncluirInimigo(pVespa);
-    }
+    listaEntidades.Limpar();
 }
 
 void Fase2::CriarReiBesouro()
@@ -54,11 +36,6 @@ void Fase2::CriarReiBesouro()
     }
 }
 
-/*void Fase2::CriarObstDificilFase2()
-{
-    CriarObstDificil();
-}*/
-
 void Fase2::CriarCenario()
 {
     sprite.setTexture(textura);
@@ -66,15 +43,29 @@ void Fase2::CriarCenario()
         tamanho.x / textura.getSize().x,
         tamanho.y / textura.getSize().y
     );
-
+    
     Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
     listaEntidades.Incluir(chao);
     gerenciadorColisoes.IncluirChao(chao);
 }
 
+void Fase2::CriarCactosPulantes()
+{
+    int numCactos = (rand() % (maxObstDificil - 2)) + 3;
+
+    float posicoesX[5] = {250.f, 550.f, 850.f, 400.f, 700.f};
+    float altura = tamanho.y - 32.f - 64.f;
+
+    for (int i = 0; i < numCactos; i++)
+    {
+        CactoPulante* pCacto = new CactoPulante(i + 50, Vector2f(posicoesX[i], altura));
+        listaEntidades.Incluir(pCacto);
+        gerenciadorColisoes.IncluirObstaculo(pCacto);
+    }
+}
+
 void Fase2::CriarInimigos()
 {
-    CriarVespas();
     CriarBesouros();
     CriarReiBesouro();
 }
@@ -82,7 +73,7 @@ void Fase2::CriarInimigos()
 void Fase2::CriarObstaculos()
 {
     CriarPlataformas();
-    //CriarObstDificilFase2();
+    CriarCactosPulantes();
 }
 
 void Fase2::VerificarAtirarReiBesouro()
@@ -91,12 +82,10 @@ void Fase2::VerificarAtirarReiBesouro()
     {
         if (rei->getAtirar())
         {
-            // Instancia o projétil com a direção corrigida e normalizada
             Projetil* pProjetil = new Projetil(100 + rei->getId(), rei->getPosicao(), rei->getDirecaoTiro(), rei->getDano());
             listaEntidades.Incluir(pProjetil);
             gerenciadorColisoes.IncluirProjetil(pProjetil);
             
-            // CRUCIAL: Reseta o estado de tiro do inimigo!
             rei->ResetAtirar(); 
         }
     }

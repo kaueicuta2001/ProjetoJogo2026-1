@@ -72,7 +72,7 @@ void Besouro::Executar()
     
     Mover();
     sprite.setPosition(posicao);
-    pGG->DesenharEnte(&sprite);
+    Desenhar();
 }
 
 // Lógica de dar dano ao Sapo se ele encostar no Besouro (pela lateral)

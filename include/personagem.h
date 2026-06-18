@@ -10,7 +10,7 @@ class Personagem : public Entidade
         
     public:
         Personagem(int id, sf::Vector2f pos);
-        ~Personagem();
+        virtual ~Personagem();
         
         virtual void Mover() = 0;
         void PerderVidas(int danos);

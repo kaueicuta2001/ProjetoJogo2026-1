@@ -4,8 +4,8 @@
 
 using namespace std;
 
-CogumeloPulante::CogumeloPulante(int id, sf::Vector2f pos, bool danoso) :
-Obstaculo(id, pos, danoso),
+CogumeloPulante::CogumeloPulante(int id, sf::Vector2f pos) :
+Obstaculo(id, pos),
 forcaimpulso(20.f)
 {  
     tamanho = sf::Vector2f(64.f, 64.f);

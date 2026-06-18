@@ -13,7 +13,7 @@ public:
     ~ListaEntidades();
     void Incluir(Entidade* entidade);
     void Remover(Entidade* entidade);
-    void Esvaziar();
+    void Limpar();
     int getQuantidade() const;
     Lista<Entidade>::Elemento* getPrimeiro();
     void Percorrer();

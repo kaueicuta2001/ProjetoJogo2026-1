@@ -4,7 +4,7 @@ ListaEntidades::ListaEntidades() {}
 
 ListaEntidades::~ListaEntidades()
 {
-    Esvaziar();
+    Limpar();
 }
 
 void ListaEntidades::Incluir(Entidade* entidade)
@@ -17,9 +17,9 @@ void ListaEntidades::Remover(Entidade* entidade)
     LEs.Remover(entidade);
 }
 
-void ListaEntidades::Esvaziar()
+void ListaEntidades::Limpar()
 {
-    LEs.Esvaziar();
+    LEs.Limpar();
 }
 
 int ListaEntidades::getQuantidade() const
