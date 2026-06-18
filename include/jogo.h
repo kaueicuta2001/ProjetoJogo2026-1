@@ -10,7 +10,7 @@
 
 enum class EstadoJogo {
     MenuPrincipal,
-    MenuNome, // NOVO ESTADO AQUI
+    MenuNome, 
     MenuFase,
     Ranking, 
     Jogando,
@@ -27,12 +27,12 @@ private:
     MenuPrincipal* menuPrincipal;
     MenuFase* menuFase;
     MenuRanking* menuRanking;
-    MenuNome* menuNome; // PONTEIRO PARA O NOVO ECRÃ
+    MenuNome* menuNome; 
     EstadoJogo estadoAtual;
     int opcaoMenuPrincipal;
     int opcaoMenuFase;
-    int qtdJogadores; // Guarda se foi selecionado 1 ou 2
-    std::string nomeJogador; // Guarda o nome do gajo
+    int qtdJogadores;
+    std::string nomeJogador; 
 
 public:
     Jogo();
