@@ -6,7 +6,7 @@ using namespace std;
 
 LamaLento::LamaLento(int id, sf::Vector2f pos) :
 Obstaculo(id, pos),
-lentidao(0.5f)
+lentidao(0.1f)
 {  
     tamanho = sf::Vector2f(50.f, 25.f);
     nome = "Lama Lento";
@@ -24,7 +24,7 @@ void LamaLento::Obstaculizar(Jogador* pJogador)
 
 void LamaLento::LentificarJogador(Jogador* pJogador)
 {
-    pJogador->setPosicao(pJogador->getPosicao() + sf::Vector2f(pJogador->getVelX() * lentidao, 0.f));
+    pJogador->setVelX(pJogador->getVelX() * lentidao);
 }
 
 void LamaLento::Executar()
