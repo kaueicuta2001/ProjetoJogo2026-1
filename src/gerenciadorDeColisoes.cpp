@@ -126,6 +126,9 @@ void GerenciadorDeColisoes::TratarColisoesPersChao() {
 }
 
 void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
+    if (pJogador) pJogador->resetVelX();
+    if (pJogador2) pJogador2->resetVelX();
+    
     for (auto obstaculo : listaObstaculos) {
         if (pJogador && obstaculo && VerificarColisao(pJogador, obstaculo)) {
             sf::Vector2f posJ = pJogador->getPosicao();
@@ -218,7 +221,9 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                     }
                 }
             }
+            
         }
+
     }
 }
 
