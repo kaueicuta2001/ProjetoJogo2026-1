@@ -36,7 +36,7 @@ protected:
     bool faseAtiva;
     sf::Clock relogioFase;
 public:
-    Fase(int id, Jogador* jogador, Jogador* jogador2 = nullptr);
+    Fase(int id, Jogador* jogador, Jogador* jogador2);
     virtual ~Fase();
 
     void CriarCenario();

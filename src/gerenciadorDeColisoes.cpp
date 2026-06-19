@@ -176,54 +176,55 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 }
             }   
 
-            if (pJogador2 && obstaculo && VerificarColisao(pJogador2, obstaculo)) {
-                sf::Vector2f posJ2 = pJogador2->getPosicao();
-                sf::Vector2f tamJ2 = pJogador2->getTamanho();
-                sf::Vector2f posO = obstaculo->getPosicao();
-
-                if(intersecao.x < intersecao.y) {
-                    if (posJ2.x < posO.x) {
-                        pJogador2->setPosicao(sf::Vector2f(posO.x - tamJ2.x, posJ2.y));
-                        if(obstaculo->getDanoso()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            if(!pJogador2->getImune()) {
-                                pJogador2->IniciarImunidade();
-                            }
+            
+        }
+        if (pJogador2 && obstaculo && VerificarColisao(pJogador2, obstaculo)) {
+            sf::Vector2f posJ2 = pJogador2->getPosicao();
+            sf::Vector2f tamJ2 = pJogador2->getTamanho();
+            sf::Vector2f posO = obstaculo->getPosicao();
+            sf::Vector2f tamO = obstaculo->getTamanho();
+            
+            if(intersecao.x < intersecao.y) {
+                if (posJ2.x < posO.x) {
+                    pJogador2->setPosicao(sf::Vector2f(posO.x - tamJ2.x, posJ2.y));
+                    if(obstaculo->getDanoso()) {
+                        obstaculo->Obstaculizar(pJogador2);
+                        if(!pJogador2->getImune()) {
+                            pJogador2->IniciarImunidade();
                         }
                     }
-                    else {
-                        pJogador2->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ2.y));
-                        if(obstaculo->getDanoso()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            if(!pJogador2->getImune()) {
-                                pJogador2->IniciarImunidade();
-                            }
+                }
+                else {
+                    pJogador2->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ2.y));
+                    if(obstaculo->getDanoso()) {
+                        obstaculo->Obstaculizar(pJogador2);
+                        if(!pJogador2->getImune()) {
+                            pJogador2->IniciarImunidade();
+                        }
+                    }
+                }
+            } else {
+                if (posJ2.y < posO.y) {
+                    pJogador2->SetNoChao(true);
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y - tamJ2.y));
+                    obstaculo->Obstaculizar(pJogador2);
+                    if(obstaculo->getDanoso()) {
+                        if(!pJogador2->getImune()) {
+                            pJogador2->IniciarImunidade();
                         }
                     }
                 } else {
-                    if (posJ2.y < posO.y) {
-                        pJogador2->SetNoChao(true);
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y - tamJ2.y));
+                    pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y + tamO.y));
+                    if(obstaculo->getDanoso()) {
                         obstaculo->Obstaculizar(pJogador2);
-                        if(obstaculo->getDanoso()) {
-                            if(!pJogador2->getImune()) {
-                                pJogador2->IniciarImunidade();
-                            }
-                        }
-                    } else {
-                        pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y + tamO.y));
-                        if(obstaculo->getDanoso()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            if(!pJogador2->getImune()) {
-                                pJogador2->IniciarImunidade();
-                            }
+                        if(!pJogador2->getImune()) {
+                            pJogador2->IniciarImunidade();
                         }
                     }
                 }
             }
-            
         }
-
+        
     }
 }
 

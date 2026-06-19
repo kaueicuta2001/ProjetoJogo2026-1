@@ -115,25 +115,27 @@ void Fase::InicializarBarrasDeVida()
     barraVidaj1.setPosition(margem * 2, margem * 2);
 
     textoVidaJ1.setFont(fonteVida);
-    textoVidaJ1.setString("Vida J1: 100/100");
+    textoVidaJ1.setString("Vida J1: " + to_string(pJogador->getVidas()) + "/100");
     textoVidaJ1.setCharacterSize(10);
     textoVidaJ1.setPosition(margem * 2, margem * 2);
 
     if (pJogador2) {
+        Vector2f tamanhoJanela = static_cast<Vector2f>(pGG->getWindow()->getSize());
+
         //fundo da barra de vida do jogador 2
         fundoBarraj2.setSize(Vector2f(barraLargura + margem * 2, barraAltura + margem * 2));
         fundoBarraj2.setFillColor(Color(50, 50, 50));
-        fundoBarraj2.setPosition(tamanho.x - barraLargura - margem * 3, margem);
+        fundoBarraj2.setPosition(tamanhoJanela.x - barraLargura - margem * 3, margem);
 
         //barra de vida do jogador 2
         barraVidaj2.setSize(Vector2f(pJogador2->getVidas() * (barraLargura / 100.0f), barraAltura));
         barraVidaj2.setFillColor(Color(200, 0, 0));
-        barraVidaj2.setPosition(tamanho.x - barraLargura - margem * 2, margem * 2);
+        barraVidaj2.setPosition(tamanhoJanela.x - barraLargura - margem * 2, margem * 2);
 
         textoVidaJ2.setFont(fonteVida);
-        textoVidaJ2.setString("Vida J2: 100/100");
+        textoVidaJ2.setString("Vida J2: " + to_string(pJogador2->getVidas()) + "/100");
         textoVidaJ2.setCharacterSize(10);
-        textoVidaJ2.setPosition(tamanho.x - barraLargura - margem * 2, margem * 2);
+        textoVidaJ2.setPosition(tamanhoJanela.x - barraLargura - margem * 2, margem * 2);
     }
 }
 
