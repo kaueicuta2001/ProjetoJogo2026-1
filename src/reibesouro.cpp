@@ -13,14 +13,16 @@ using namespace std;
 ReiBesouro::ReiBesouro(int id, Vector2f pos, Jogador* pJogador, Jogador* pJogador2) :
 Inimigo(id, pos),
 estadoAtual(EstadoIA::Patrulhando),
-forca(10),
+maldade(false),
+forca(5),
 raioDeteccao(350.f),
 limiteDir(pos.x + 10.f),
 limiteEsq(pos.x - 10.f),
 direcao(1),
 atirar(false),
-tempoTiro(600),       // Inicializa com 10 segundos em frames (10 * 60 FPS)
-maxTempoTiro(600),    // Intervalo fixo de 10 segundos
+tempoTiro(0),
+maxTempoTiro(300),    // Intervalo fixo de 5 segundos
+pProjetil(nullptr),
 pJogadorAlvo(nullptr),
 pJogador(pJogador),
 pJogador2(pJogador2)
@@ -30,7 +32,7 @@ pJogador2(pJogador2)
     posicao = pos;
     num_vidas = 100;
     nivel_maldade = 3;
-    dano = 10;
+    dano = forca * nivel_maldade;
     nome = "Rei Besouro";
     if (!textura.loadFromFile("../assets/reibesouro.png"))
         cerr << "Erro ao carregar a textura do Rei Besouro!" << endl;
@@ -60,6 +62,10 @@ bool ReiBesouro::getAtirar() const{
     return atirar;
 }
 
+void ReiBesouro::setProjetil(Projetil* proj){
+    pProjetil = proj;
+}
+
 Vector2f ReiBesouro::getDirecaoTiro(){
     return direcaoTiro;
 }
@@ -81,29 +87,30 @@ void ReiBesouro::Mover()
 }
 
 void ReiBesouro::VerificarAtaque() {
-    if (estadoAtual == EstadoIA::Perseguindo && pJogadorAlvo != nullptr) {
-        tempoTiro += 1;
-        if (tempoTiro >= maxTempoTiro) {
-            // 1. Calcula o vetor de distância pura
-            Vector2f dir = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
-            
-            // 2. Normaliza o vetor (Calcula a hipotenusa e divide os eixos)
-            float hipotenusa = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-            if (hipotenusa > 0.f) {
-                direcaoTiro = Vector2f(dir.x / hipotenusa, dir.y / hipotenusa);
-            } else {
-                direcaoTiro = Vector2f(1.f, 0.f); // Padrão se estiver exatamente na mesma coordenada
-            }
-
-            atirar = true; 
-            tempoTiro = 0;
+    if (estadoAtual == EstadoIA::Perseguindo && tempoTiro >= maxTempoTiro) {
+        // distância entre o Rei Besouro e o jogador alvo
+        Vector2f dir = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
+        
+        // 2. Normaliza o vetor (Calcula a hipotenusa e divide os eixos)
+        float hipotenusa = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+        if (hipotenusa > 0.f) {
+            direcaoTiro = Vector2f(dir.x / hipotenusa, dir.y / hipotenusa);
+        } else {
+            direcaoTiro = Vector2f(1.f, 0.f); // Padrão se estiver exatamente na mesma coordenada
         }
+        atirar = true; 
+        tempoTiro = 0;
     }
 }
+
 void ReiBesouro::AprimorarMaldade()
 {
-    dano += (nivel_maldade * forca);
-    AlterarSpriteMeiaVida();
+    if(!maldade){
+        dano += (nivel_maldade * forca);
+        vel.x += 0.2f; // Aumenta a velocidade para tornar o inimigo mais difícil
+        AlterarSpriteMeiaVida();
+        maldade = true;
+    }
 }
 
 void ReiBesouro::AlterarSpriteMeiaVida()
@@ -117,14 +124,20 @@ void ReiBesouro::Executar()
 {
     AtualizarEstado();
     Mover();
+    tempoTiro += 1;
+    if(tempoTiro >= maxTempoTiro)
+        tempoTiro = maxTempoTiro; // Evita overflow
     VerificarAtaque();
+    if(pProjetil && maldade) {
+        pProjetil->AumentarDano(); 
+    }    
     sprite.setPosition(posicao);
     Desenhar();
 }
 
 void ReiBesouro::Salvar()
 {
-    // Método obrigatório da herança, pode deixar vazio se não for usar agora
+   
 }
 
 void ReiBesouro::Danificar(Jogador* pJog)

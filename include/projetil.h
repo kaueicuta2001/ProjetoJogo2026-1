@@ -3,19 +3,21 @@
 #include "entidade.h"
 
 class Jogador;
+class ReiBesouro;
 
 class Projetil : public Entidade
 {
 private:
     int dano;
-    sf::Vector2f direcaoTiro; // Vetor de direção bidirecional normalizado
+    sf::Vector2f direcaoTiro; 
+    ReiBesouro* pReiBesouro; 
 public:
-    Projetil(int id, sf::Vector2f pos, sf::Vector2f dir, int dano);
+    Projetil(int id, sf::Vector2f pos, ReiBesouro* rei);
     ~Projetil();
 
     void Mover();
     void AumentarDano();
-    int getDano() const;
+    void AumentarDanoReiBesouro();
     void Danificar(Jogador* pJogador);
 
     void Executar();

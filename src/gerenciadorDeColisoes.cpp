@@ -295,7 +295,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsProjeis() {
         for (auto projetil : listaProjeteis) {
             if (projetil->getVivo() && VerificarColisao(pJogador, projetil)) {
                 if(!pJogador->getImune()) {
-                    pJogador->PerderVidas(projetil->getDano());
+                    projetil->Danificar(pJogador);
                     pJogador->IniciarImunidade();
                 }
                 projetil->Desativar();
@@ -306,7 +306,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsProjeis() {
         for (auto projetil : listaProjeteis) {
             if (projetil->getVivo() && VerificarColisao(pJogador2, projetil)) {
                 if(!pJogador2->getImune()) {
-                    pJogador2->PerderVidas(projetil->getDano());
+                    projetil->Danificar(pJogador2);
                     pJogador2->IniciarImunidade();
                 }
                 projetil->Desativar();

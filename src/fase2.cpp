@@ -81,7 +81,8 @@ void Fase2::VerificarAtirarReiBesouro()
     {
         if (rei->getAtirar())
         {
-            Projetil* pProjetil = new Projetil(100 + rei->getId(), rei->getPosicao(), rei->getDirecaoTiro(), rei->getDano());
+            Projetil* pProjetil = new Projetil(100 + rei->getId(), rei->getPosicao(), rei);
+            rei->setProjetil(pProjetil);
             listaEntidades.Incluir(pProjetil);
             gerenciadorColisoes.IncluirProjetil(pProjetil);
             

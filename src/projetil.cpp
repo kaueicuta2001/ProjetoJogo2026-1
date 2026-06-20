@@ -1,18 +1,21 @@
 #include "projetil.h"
 #include "gerenciadorgrafico.h"
 #include "jogador.h"
+#include "reibesouro.h"
 #include <iostream>
 
 using namespace sf;
 using namespace std;
 
-Projetil::Projetil(int id, Vector2f pos, Vector2f dir, int dano) :
+Projetil::Projetil(int id, Vector2f pos, ReiBesouro* rei) :
 Entidade(id, pos),
-dano(dano),
-direcaoTiro(dir)
+pReiBesouro(rei)
 {
+    pReiBesouro = rei;
+    dano = 5;
+    direcaoTiro = rei ? rei->getDirecaoTiro() : Vector2f(1.f, 0.f); // Define a direção do tiro com base no Rei Besouro, ou para a direita por padrão
     nome = "Projetil";
-    tamanho = Vector2f(26.6f, 26.6f);
+    tamanho = Vector2f(20.0f, 20.0f);
     vel = Vector2f(2.5f, 2.5f); 
 
     if (!textura.loadFromFile("../assets/projetilbesouro.png"))
@@ -21,7 +24,10 @@ direcaoTiro(dir)
     InicializarSprite(textura);
 }
 
-Projetil::~Projetil() {}
+Projetil::~Projetil() {
+    if(pReiBesouro)
+        pReiBesouro->setProjetil(nullptr); // Limpa a referência ao projétil no Rei Besouro
+}
 
 void Projetil::Mover()
 {
@@ -38,16 +44,24 @@ void Projetil::Mover()
     }
 }
 
-int Projetil::getDano() const
+void Projetil::AumentarDano()
 {
-    return dano;
-}
+    if(pReiBesouro) {
+        dano = (10 + (pReiBesouro->getDano() / 2));
+    }
 
+    else {
+       cerr << "Erro: Rei Besouro não encontrado para aumentar o dano do projétil!" << endl;
+    }
+}
 void Projetil::Danificar(Jogador* pJogador)
 {
     if (pJogador)
     {
         pJogador->PerderVidas(dano);
+        pReiBesouro->ResetAtirar(); // Reseta o estado de atirar do Rei Besouro para evitar múltiplos projéteis
+        pReiBesouro->AprimorarMaldade();
+        Desativar();
     }
 }
 
