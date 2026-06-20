@@ -7,10 +7,10 @@ class Entidade : public Ente
 {
     protected:
         bool vivo;
+        sf::Vector2f vel;
         float gravidade;
         bool noChao;
         std::string nome;
-        sf::Vector2f vel;
     public:
         Entidade(int id, sf::Vector2f pos);
         virtual ~Entidade();
