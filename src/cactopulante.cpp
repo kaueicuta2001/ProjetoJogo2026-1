@@ -36,13 +36,23 @@ void CactoPulante::FlamejarEspinhos() {
 void CactoPulante::Obstaculizar(Jogador* pJogador)
 {
     if (pJogador)
-    {        
+    {  
+        Danificar(pJogador);     
         pJogador->setVelY(-15.f);
         pJogador->SetNoChao(false);
 
         if (!espinhosFlamejantes) {
             espinhosFlamejantes = true;
             FlamejarEspinhos(); 
+        }
+    }
+}
+
+void CactoPulante::Danificar(Jogador* pJogador) {
+    if (pJogador) {
+        if(!pJogador->getImune()) {
+            pJogador->PerderVidas(danosidade);
+            pJogador->IniciarImunidade();
         }
     }
 }

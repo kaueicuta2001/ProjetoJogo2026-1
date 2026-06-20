@@ -140,19 +140,13 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 if (posJ.x < posO.x) {
                     pJogador->setPosicao(sf::Vector2f(posO.x - tamJ.x, posJ.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador->getImune()) {
-                            obstaculo->Obstaculizar(pJogador);
-                            pJogador->IniciarImunidade();
-                        }
+                        obstaculo->Obstaculizar(pJogador);
                     }
                 }
                 else {
                     pJogador->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador->getImune()) {
-                            obstaculo->Obstaculizar(pJogador);
-                            pJogador->IniciarImunidade();
-                        }
+                        obstaculo->Obstaculizar(pJogador);
                     }
                 }
             } else {
@@ -160,23 +154,13 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                     pJogador->SetNoChao(true);
                     pJogador->setPosicao(sf::Vector2f(posJ.x, posO.y - tamJ.y));
                     obstaculo->Obstaculizar(pJogador);
-                    if(obstaculo->getDanoso()) {
-                        if(!pJogador->getImune()) {
-                            pJogador->IniciarImunidade();
-                        }
-                    }
                 } else {
                     pJogador->setPosicao(sf::Vector2f(posJ.x, posO.y + tamO.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador->getImune()) {
-                            pJogador->IniciarImunidade();
-                            obstaculo->Obstaculizar(pJogador);
-                        }
+                        obstaculo->Obstaculizar(pJogador);
                     }
                 }
             }   
-
-            
         }
         if (pJogador2 && obstaculo && VerificarColisao(pJogador2, obstaculo)) {
             sf::Vector2f posJ2 = pJogador2->getPosicao();
@@ -188,19 +172,13 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 if (posJ2.x < posO.x) {
                     pJogador2->setPosicao(sf::Vector2f(posO.x - tamJ2.x, posJ2.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador2->getImune()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            pJogador2->IniciarImunidade();
-                        }
+                        obstaculo->Obstaculizar(pJogador2);
                     }
                 }
                 else {
                     pJogador2->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ2.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador2->getImune()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            pJogador2->IniciarImunidade();
-                        }
+                        obstaculo->Obstaculizar(pJogador2);
                     }
                 }
             } else {
@@ -208,18 +186,10 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                     pJogador2->SetNoChao(true);
                     pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y - tamJ2.y));
                     obstaculo->Obstaculizar(pJogador2);
-                    if(obstaculo->getDanoso()) {
-                        if(!pJogador2->getImune()) {
-                            pJogador2->IniciarImunidade();
-                        }
-                    }
                 } else {
                     pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y + tamO.y));
                     if(obstaculo->getDanoso()) {
-                        if(!pJogador2->getImune()) {
-                            obstaculo->Obstaculizar(pJogador2);
-                            pJogador2->IniciarImunidade();
-                        }
+                        obstaculo->Obstaculizar(pJogador2);
                     }
                 }
             }
