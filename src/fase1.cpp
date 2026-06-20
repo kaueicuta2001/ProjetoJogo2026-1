@@ -9,8 +9,6 @@ Fase(id, pJogador, pJogador2),
 maxVespas(5),         
 maxLamalentos(5)
 {
-    tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-
     if (!textura.loadFromFile("../assets/fase1BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();

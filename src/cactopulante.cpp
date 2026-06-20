@@ -35,10 +35,8 @@ void CactoPulante::FlamejarEspinhos() {
 
 void CactoPulante::Obstaculizar(Jogador* pJogador)
 {
-    if (pJogador != nullptr && danoso)
-    {
-        pJogador->PerderVidas(danosidade);
-        
+    if (pJogador)
+    {        
         pJogador->setVelY(-15.f);
         pJogador->SetNoChao(false);
 

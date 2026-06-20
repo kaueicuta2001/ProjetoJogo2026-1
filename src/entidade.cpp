@@ -56,7 +56,9 @@ void Entidade::AplicarGravidade()
 
 void Entidade::Gravitropismo()
 {
-    gravidade = 0.f; 
+    if (vel.y > 0.f)
+        vel.y = 0.f;
+    vel.y -= gravidade - 0.0000001f;
 }
 
 void Entidade::SetNoChao(bool chao)

@@ -140,8 +140,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 if (posJ.x < posO.x) {
                     pJogador->setPosicao(sf::Vector2f(posO.x - tamJ.x, posJ.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador);
                         if(!pJogador->getImune()) {
+                            obstaculo->Obstaculizar(pJogador);
                             pJogador->IniciarImunidade();
                         }
                     }
@@ -149,8 +149,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 else {
                     pJogador->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador);
                         if(!pJogador->getImune()) {
+                            obstaculo->Obstaculizar(pJogador);
                             pJogador->IniciarImunidade();
                         }
                     }
@@ -168,9 +168,9 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 } else {
                     pJogador->setPosicao(sf::Vector2f(posJ.x, posO.y + tamO.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador);
                         if(!pJogador->getImune()) {
                             pJogador->IniciarImunidade();
+                            obstaculo->Obstaculizar(pJogador);
                         }
                     }
                 }
@@ -188,8 +188,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 if (posJ2.x < posO.x) {
                     pJogador2->setPosicao(sf::Vector2f(posO.x - tamJ2.x, posJ2.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador2);
                         if(!pJogador2->getImune()) {
+                            obstaculo->Obstaculizar(pJogador2);
                             pJogador2->IniciarImunidade();
                         }
                     }
@@ -197,8 +197,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 else {
                     pJogador2->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ2.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador2);
                         if(!pJogador2->getImune()) {
+                            obstaculo->Obstaculizar(pJogador2);
                             pJogador2->IniciarImunidade();
                         }
                     }
@@ -216,8 +216,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 } else {
                     pJogador2->setPosicao(sf::Vector2f(posJ2.x, posO.y + tamO.y));
                     if(obstaculo->getDanoso()) {
-                        obstaculo->Obstaculizar(pJogador2);
                         if(!pJogador2->getImune()) {
+                            obstaculo->Obstaculizar(pJogador2);
                             pJogador2->IniciarImunidade();
                         }
                     }
@@ -324,8 +324,10 @@ void GerenciadorDeColisoes::TratarColisoesJogsProjeis() {
     if(pJogador) {
         for (auto projetil : listaProjeteis) {
             if (projetil->getVivo() && VerificarColisao(pJogador, projetil)) {
-                pJogador->PerderVidas(projetil->getDano());
-                pJogador->IniciarImunidade();
+                if(!pJogador->getImune()) {
+                    pJogador->PerderVidas(projetil->getDano());
+                    pJogador->IniciarImunidade();
+                }
                 projetil->Desativar();
             }
         }
@@ -333,8 +335,10 @@ void GerenciadorDeColisoes::TratarColisoesJogsProjeis() {
     if(pJogador2) {
         for (auto projetil : listaProjeteis) {
             if (projetil->getVivo() && VerificarColisao(pJogador2, projetil)) {
-                pJogador2->PerderVidas(projetil->getDano());
-                pJogador2->IniciarImunidade();
+                if(!pJogador2->getImune()) {
+                    pJogador2->PerderVidas(projetil->getDano());
+                    pJogador2->IniciarImunidade();
+                }
                 projetil->Desativar();
             }
         }

@@ -30,8 +30,6 @@ Jogador::~Jogador() {}
 
 void Jogador::Mover()
 {
-    
-   
     if(!jogador2){
         if (Keyboard::isKeyPressed(Keyboard::A)) posicao.x -= vel.x;
         if (Keyboard::isKeyPressed(Keyboard::D)) posicao.x += vel.x;

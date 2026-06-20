@@ -13,6 +13,7 @@ public:
 
     void FlamejarEspinhos();
     void Obstaculizar(Jogador* pJogador) override;
+    void Danificar(Jogador* pJogador);
     void Executar() override;
     void Salvar() override;
 };
