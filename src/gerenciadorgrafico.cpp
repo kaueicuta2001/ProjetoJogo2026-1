@@ -2,11 +2,12 @@
 #include "entidade.h"
 
 using namespace sf;
+using namespace TheFrog::Gerenciadores;
 
 GerenciadorGrafico* GerenciadorGrafico::pGG = nullptr;
 
 GerenciadorGrafico::GerenciadorGrafico() :
-window(new RenderWindow(VideoMode({1280, 720}), "Projeto Jogo")),
+window(new RenderWindow(VideoMode({1280, 720}), "The Frog++")),
 vsyncAtivo(true)
 {
     window->setFramerateLimit(60);

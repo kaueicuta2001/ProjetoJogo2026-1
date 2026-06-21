@@ -13,49 +13,54 @@
 #include <vector>
 #include <SFML/System.hpp>
 
-class Fase : public Ente, public Observador
-{
-protected:
-    ListaEntidades listaEntidades;
-    GerenciadorDeColisoes gerenciadorColisoes;
-    Jogador* pJogador;
-    Jogador* pJogador2;
-    float barraLargura;
-    float barraAltura;
-    float margem;
-    sf::RectangleShape fundoBarraj1;
-    sf::RectangleShape barraVidaj1;
-    sf::RectangleShape fundoBarraj2;
-    sf::RectangleShape barraVidaj2;
-    sf::Font fonteVida;
-    sf::Text textoVidaJ1;
-    sf::Text textoVidaJ2;
-    int maxBesouros;
-    int maxPlataformas;
-    int maxObstDificil;
-    bool faseAtiva;
-    sf::Clock relogioFase;
-public:
-    Fase(int id, Jogador* jogador, Jogador* jogador2);
-    virtual ~Fase();
-
-    void CriarCenario();
-    virtual void CriarInimigos() = 0;
-    virtual void CriarObstaculos() = 0;
-
-    void CriarBesouros();
-    void CriarPlataformas();
-    void CriarChao();
-    void InicializarBarrasDeVida();
-    void AtualizarBarrasDeVida();
-    void DesenharBarrasDeVida();
-
-    virtual void Executar();
-    bool VerificarEstadoFase();
-    int ContarInimigosVivos();
-
-    void Notificar(sf::Event evento) override; 
-    
-    bool getFaseAtiva() const;
-    int getTempoJogado() const; 
-};
+namespace TheFrog{
+    namespace Fases{
+        class Fase : public TheFrog::Ente, public Observador
+        {
+            protected:
+            Listas::ListaEntidades listaEntidades;
+            Gerenciadores::GerenciadorDeColisoes gerenciadorColisoes;
+            Entidades::Personagens::Jogador* pJogador;
+            Entidades::Personagens::Jogador* pJogador2;
+            float barraLargura;
+            float barraAltura;
+            float margem;
+            sf::RectangleShape fundoBarraj1;
+            sf::RectangleShape barraVidaj1;
+            sf::RectangleShape fundoBarraj2;
+            sf::RectangleShape barraVidaj2;
+            sf::Font fonteVida;
+            sf::Text textoVidaJ1;
+            sf::Text textoVidaJ2;
+            int maxBesouros;
+            int maxPlataformas;
+            int maxObstDificil;
+            bool faseAtiva;
+            sf::Clock relogioFase;
+            
+            public:
+            Fase(int id, Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2);
+            virtual ~Fase();
+            
+            void CriarCenario();
+            virtual void CriarInimigos() = 0;
+            virtual void CriarObstaculos() = 0;
+            
+            void CriarBesouros();
+            void CriarPlataformas();
+            void CriarChao();
+            void InicializarBarrasDeVida();
+            void AtualizarBarrasDeVida();
+            void DesenharBarrasDeVida();
+            
+            virtual void Executar();
+            bool VerificarEstadoFase();
+            int ContarInimigosVivos();
+            
+            void Notificar(sf::Event evento) override; 
+            
+            bool getFaseAtiva() const;
+            int getTempoJogado() const; 
+        };
+    }
+}

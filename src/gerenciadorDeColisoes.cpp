@@ -3,8 +3,9 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Gerenciadores;
 
-GerenciadorDeColisoes::GerenciadorDeColisoes(Jogador* jogador, Jogador* jogador2) :
+GerenciadorDeColisoes::GerenciadorDeColisoes(Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2) :
 pJogador(jogador),
 pJogador2(jogador2),
 listaInimigos(),
@@ -29,31 +30,31 @@ void GerenciadorDeColisoes::getTotalColisoes() const
     cout << "Total de Colisões: " << totalColisoes << endl;
 }
 
-void GerenciadorDeColisoes::IncluirInimigo(Inimigo* inimigo) {
+void GerenciadorDeColisoes::IncluirInimigo(Entidades::Personagens::Inimigo* inimigo) {
     if (inimigo) {
         listaInimigos.push_back(inimigo);
     }
 }
 
-void GerenciadorDeColisoes::IncluirObstaculo(Obstaculo* obstaculo) {
+void GerenciadorDeColisoes::IncluirObstaculo(Entidades::Obstaculos::Obstaculo* obstaculo) {
     if (obstaculo) {
         listaObstaculos.push_back(obstaculo);
     }
 }
 
-void GerenciadorDeColisoes::IncluirChao(Chao* chao) {
+void GerenciadorDeColisoes::IncluirChao(Entidades::Chao* chao) {
     if (chao) {
         listaChao.push_back(chao);
     }
 }
 
-void GerenciadorDeColisoes::IncluirProjetil(Projetil* projetil) {
+void GerenciadorDeColisoes::IncluirProjetil(Entidades::Projetil* projetil) {
     if (projetil) {
         listaProjeteis.push_back(projetil);
     }
 }
 
-bool GerenciadorDeColisoes::VerificarColisao(Entidade* ent1, Entidade* ent2) {
+bool GerenciadorDeColisoes::VerificarColisao(Entidades::Entidade* ent1, Entidades::Entidade* ent2) {
     sf::Vector2f pos1 = ent1->getPosicao();
     sf::Vector2f tam1 = ent1->getTamanho();
     sf::Vector2f pos2 = ent2->getPosicao();

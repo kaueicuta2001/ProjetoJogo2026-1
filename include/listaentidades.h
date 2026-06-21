@@ -3,18 +3,22 @@
 #include "lista.h"
 #include "entidade.h"
 
-class ListaEntidades
-{
-private:
-    Lista<Entidade> LEs;
-
-public:
-    ListaEntidades();
-    ~ListaEntidades();
-    void Incluir(Entidade* entidade);
-    void Remover(Entidade* entidade);
-    void Limpar();
-    int getQuantidade() const;
-    Lista<Entidade>::Elemento* getPrimeiro();
-    void Percorrer();
-};
+namespace TheFrog{
+    namespace Listas{
+        class ListaEntidades
+        {
+            private:
+            Lista<Entidades::Entidade> LEs;
+            
+            public:
+            ListaEntidades();
+            ~ListaEntidades();
+            void Incluir(Entidades::Entidade* entidade);
+            void Remover(Entidades::Entidade* entidade);
+            void Limpar();
+            int getQuantidade() const;
+            Lista<Entidades::Entidade>::Elemento* getPrimeiro();
+            void Percorrer();
+        };
+    }
+}

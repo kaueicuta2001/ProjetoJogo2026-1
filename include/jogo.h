@@ -17,28 +17,29 @@ enum class EstadoJogo {
     Sair
 };
 
-class Jogo {
-private:
-    GerenciadorGrafico* GG;
-    GerenciadorDeEventos* GE;
-    Jogador* pJogador;
-    Jogador* pJogador2;
-    Fase* faseAtual;
-    MenuPrincipal* menuPrincipal;
-    MenuFase* menuFase;
-    MenuRanking* menuRanking;
-    MenuNome* menuNome; 
-    EstadoJogo estadoAtual;
-    int opcaoMenuPrincipal;
-    int opcaoMenuFase;
-    int qtdJogadores;
-    std::string nomeJogador; 
-
-public:
-    Jogo();
-    ~Jogo();
-
-    void Executar();
-    void setOpcaoMenuPrincipal(int opcao);
-    void setOpcaoMenuFase(int opcao);
-};
+namespace TheFrog{
+    class Jogo {
+    private:
+        TheFrog::Gerenciadores::GerenciadorGrafico* GG;
+        TheFrog::Gerenciadores::GerenciadorDeEventos* GE;
+        TheFrog::Entidades::Personagens::Jogador* pJogador;
+        TheFrog::Entidades::Personagens::Jogador* pJogador2;
+        TheFrog::Fases::Fase* faseAtual;
+        TheFrog::Menus::MenuPrincipal* menuPrincipal;
+        TheFrog::Menus::MenuFase* menuFase;
+        TheFrog::Menus::MenuRanking* menuRanking;
+        TheFrog::Menus::MenuNome* menuNome; 
+        EstadoJogo estadoAtual;
+        int opcaoMenuPrincipal;
+        int opcaoMenuFase;
+        int qtdJogadores;
+        std::string nomeJogador; 
+    public:
+        Jogo();
+        ~Jogo();
+    
+        void Executar();
+        void setOpcaoMenuPrincipal(int opcao);
+        void setOpcaoMenuFase(int opcao);
+    };
+}

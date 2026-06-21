@@ -1,8 +1,13 @@
 #include "fase1.h"
 #include "gerenciadorgrafico.h"
 
-using namespace sf;
 using namespace std;
+using namespace sf;
+using namespace TheFrog::Fases;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Listas;
+using namespace TheFrog::Entidades::Obstaculos;
+using namespace TheFrog::Entidades::Personagens;
 
 Fase1::Fase1(int id, Jogador* pJogador, Jogador* pJogador2) :
 Fase(id, pJogador, pJogador2),
@@ -12,14 +17,12 @@ maxLamalentos(5)
     if (!textura.loadFromFile("../assets/fase1BG.png"))
        cerr << "Erro ao carregar a textura de fundo!" << endl;
     CriarCenario();
-    CriarChao();
     CriarObstaculos();
     CriarInimigos();   
 }
 
 Fase1::~Fase1()
 {
-    listaEntidades.Limpar();
 }
 
 void Fase1::CriarVespas()

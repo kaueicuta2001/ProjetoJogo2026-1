@@ -1,24 +1,34 @@
 #pragma once
+
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "observador.h"
 
-class GerenciadorGrafico;
+namespace TheFrog{
+    namespace Gerenciadores{
+        class GerenciadorGrafico;
+    }
+}
 
-class GerenciadorDeEventos {
-private:
-    std::list<Observador*> observadores;
-    static GerenciadorDeEventos* pGE;
-    GerenciadorGrafico* pGG;
-    bool capturandoInput;
+namespace TheFrog{
+    namespace Gerenciadores{
+        class GerenciadorDeEventos {
+        private:
+            std::list<Observador*> observadores;
+            static GerenciadorDeEventos* pGE;
+            GerenciadorGrafico* pGG;
+            bool capturandoInput;
 
-    GerenciadorDeEventos(); 
+            GerenciadorDeEventos(); 
 
-public:
-    ~GerenciadorDeEventos();
-    static GerenciadorDeEventos* getGerenciadorDeEventos();
+        public:
+            ~GerenciadorDeEventos();
+            static GerenciadorDeEventos* getGerenciadorDeEventos();
 
-    void Anexar(Observador* obs);
-    void Desanexar(Observador* obs);
-    void Executar();
-};
+            void Anexar(Observador* obs);
+            void Desanexar(Observador* obs);
+            void Executar();
+        };
+    }
+}

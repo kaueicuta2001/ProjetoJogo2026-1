@@ -1,10 +1,11 @@
 #include "vespa.h"
 #include "gerenciadorgrafico.h"
-#include "jogador.h" // Necessário para a Vespa conseguir ferir o Jogador
+#include "jogador.h"
 #include <cmath>
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades::Personagens;
 
 Vespa::Vespa(int id, sf::Vector2f pos, float dist) :
 Inimigo(id, pos),
@@ -21,7 +22,7 @@ glândulasVenenosas(false)
     num_vidas = 40;
     nivel_maldade = 2;
     colideObstaculo = false;
-    dano = 10; // O dano que a Vespa causa ao encostar no Sapo
+    dano = 10;
     
     if (!textura.loadFromFile("../assets/vespa.png"))
         cerr << "Erro ao carregar a textura da vespa!" << endl;

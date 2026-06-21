@@ -1,6 +1,8 @@
 #include "inimigo.h"
 #include "jogador.h"
 
+using namespace TheFrog::Entidades::Personagens;
+
 Inimigo::Inimigo(int id, sf::Vector2f pos) :
 Personagem(id, pos),
 nivel_maldade(1),

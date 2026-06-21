@@ -1,9 +1,10 @@
 #include "besouro.h"
 #include "gerenciadorgrafico.h"
-#include "jogador.h" // Necessário para o Besouro conseguir ferir o Jogador
+#include "jogador.h"
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades::Personagens;
 
 Besouro::Besouro(int id, Vector2f pos, float dist) :
 Inimigo(id, pos),
@@ -15,7 +16,7 @@ antenasVenenosas(false)
 {
     nome = "Besouro";
     num_vidas = 20;
-    dano = 5; // O dano que o Besouro causa ao encostar no Sapo
+    dano = 5;
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(40.f, 40.f);
     nivel_maldade = 1;
@@ -75,7 +76,6 @@ void Besouro::Executar()
     Desenhar();
 }
 
-// Lógica de dar dano ao Sapo se ele encostar no Besouro (pela lateral)
 void Besouro::Danificar(Jogador* pJogador)
 {
     if(pJogador != nullptr)

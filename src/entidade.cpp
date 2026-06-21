@@ -3,6 +3,7 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Entidades;
 
 Entidade::Entidade(int id, sf::Vector2f pos) :
 Ente(id),
@@ -15,6 +16,10 @@ noChao(false)
 }
 
 Entidade::~Entidade()
+{
+}
+
+void Entidade::salvarDataBuffer()
 {
 }
 

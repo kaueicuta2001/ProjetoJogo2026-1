@@ -5,6 +5,8 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Menus;
+using namespace TheFrog::Gerenciadores;
 
 MenuRanking::MenuRanking(int id, Jogo* jogo) :
 Menu(id, jogo),
@@ -67,11 +69,10 @@ void MenuRanking::InicializaTitulo() {
 }
 
 void MenuRanking::Notificar(sf::Event evento) {
-    Menu::Notificar(evento); // Mantém Enter, Esc, Up, Down funcionando
+    Menu::Notificar(evento); 
     
     if (!ativo) return;
 
-    // Adiciona a leitura das setas Esquerda e Direita (ou A e D) para trocar a aba
     if (evento.type == Event::KeyPressed) {
         if (evento.key.code == Keyboard::Left || evento.key.code == Keyboard::A) {
             estadoFiltro = (estadoFiltro - 1 + 4) % 4; // Cicla para trás

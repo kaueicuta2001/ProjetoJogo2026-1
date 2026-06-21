@@ -5,6 +5,7 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Menus;
 
 MenuPrincipal::MenuPrincipal(int id, Jogo* jogo) :
 Menu(id, jogo),
@@ -24,8 +25,8 @@ MenuPrincipal::~MenuPrincipal()
 
 void MenuPrincipal::InicializaOpcoesMenu()
 {
-    opcoesMenu.push_back("1 Jogador");   // TEXTO CORRIGIDO AQUI
-    opcoesMenu.push_back("2 Jogadores"); // TEXTO CORRIGIDO AQUI
+    opcoesMenu.push_back("1 Jogador");   
+    opcoesMenu.push_back("2 Jogadores");
     opcoesMenu.push_back("Ranking");
     opcoesMenu.push_back("Sair");
 }

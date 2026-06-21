@@ -5,6 +5,7 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Menus;
 
 MenuFase::MenuFase(int id, Jogo* jogo) :
 Menu(id, jogo),

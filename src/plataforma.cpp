@@ -4,6 +4,7 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades::Obstaculos;
 
 Plataforma::Plataforma(int id, sf::Vector2f pos) : 
 Obstaculo(id, pos), 
@@ -19,12 +20,12 @@ tempo(180)
 
 Plataforma::~Plataforma() {}
 
-void Plataforma::DeslizarJogador(Jogador* pJogador)
+void Plataforma::DeslizarJogador(Personagens::Jogador* pJogador)
 {
     pJogador->setPosicao(sf::Vector2f(pJogador->getPosicao().x + 1.f, pJogador->getPosicao().y));
 }
 
-void Plataforma::Obstaculizar(Jogador* pJogador)
+void Plataforma::Obstaculizar(Personagens::Jogador* pJogador)
 {
     DeslizarJogador(pJogador);
 }

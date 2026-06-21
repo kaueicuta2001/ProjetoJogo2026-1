@@ -3,6 +3,8 @@
 
 #include "jogo.h"
 
+using namespace TheFrog;
+
 int main()
 {
     srand(time(nullptr));

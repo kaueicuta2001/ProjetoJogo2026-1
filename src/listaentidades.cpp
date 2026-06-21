@@ -1,5 +1,8 @@
 #include "listaentidades.h"
 
+using namespace TheFrog::Listas;
+using namespace TheFrog::Entidades;
+
 ListaEntidades::ListaEntidades() {}
 
 ListaEntidades::~ListaEntidades()

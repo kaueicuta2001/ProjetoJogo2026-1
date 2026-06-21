@@ -6,6 +6,9 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Menus;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Entidades::Personagens;
 
 Menu::Menu(int id, Jogo* jogo) :
 Ente(id),
@@ -18,7 +21,6 @@ pJog(jogo)
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
     posicao = Vector2f(0.f, 0.f);
     InicializaBG();
-    
     GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this); 
 }    
 

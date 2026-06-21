@@ -4,6 +4,7 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades::Obstaculos;
 
 CactoPulante::CactoPulante(int id, sf::Vector2f pos) : 
 Obstaculo(id, pos),
@@ -33,7 +34,7 @@ void CactoPulante::FlamejarEspinhos() {
 
 }
 
-void CactoPulante::Obstaculizar(Jogador* pJogador)
+void CactoPulante::Obstaculizar(Personagens::Jogador* pJogador)
 {
     if (pJogador)
     {  
@@ -48,7 +49,7 @@ void CactoPulante::Obstaculizar(Jogador* pJogador)
     }
 }
 
-void CactoPulante::Danificar(Jogador* pJogador) {
+void CactoPulante::Danificar(Personagens::Jogador* pJogador) {
     if (pJogador) {
         if(!pJogador->getImune()) {
             pJogador->PerderVidas(danosidade);
@@ -60,6 +61,7 @@ void CactoPulante::Danificar(Jogador* pJogador) {
 
 void CactoPulante::Executar() 
 {
+    Gravitropismo();
     AplicarGravidade();
 
     if (vidaJogador <= 50) {

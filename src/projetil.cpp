@@ -6,8 +6,9 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades;
 
-Projetil::Projetil(int id, Vector2f pos, ReiBesouro* rei) :
+Projetil::Projetil(int id, Vector2f pos, Personagens::ReiBesouro* rei) :
 Entidade(id, pos),
 pReiBesouro(rei)
 {
@@ -26,7 +27,7 @@ pReiBesouro(rei)
 
 Projetil::~Projetil() {
     if(pReiBesouro)
-        pReiBesouro->setProjetil(nullptr); // Limpa a referência ao projétil no Rei Besouro
+        pReiBesouro->setProjetil(nullptr);
 }
 
 void Projetil::Mover()
@@ -54,7 +55,7 @@ void Projetil::AumentarDano()
        cerr << "Erro: Rei Besouro não encontrado para aumentar o dano do projétil!" << endl;
     }
 }
-void Projetil::Danificar(Jogador* pJogador)
+void Projetil::Danificar(Personagens::Jogador* pJogador)
 {
     if (pJogador)
     {

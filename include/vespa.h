@@ -2,25 +2,37 @@
 
 #include "inimigo.h"
 
-class Jogador;
+namespace TheFrog{
+    namespace Entidades{
+        namespace Personagens{
+            class Jogador;
+        }
+    }
+}
 
-class Vespa : public Inimigo
-{
-    private:
-        float angulo;             // Controlador do tempo/ângulo para a fórmula
-        float velocidadeAngular;  // Velocidade do voo
-        float amplitudeX;         // Largura do símbolo do infinito
-        float amplitudeY;         // Altura do símbolo do infinito
-        sf::Vector2f posInicial;  // Ponto de âncora central do voo
-        bool glândulasVenenosas;
-        void AtivarGlândulaVenenosa();
-        void AlterarSpriteMeiaVida();
-    public:
-        Vespa(int id, sf::Vector2f pos, float dist);
-        ~Vespa();
-        void Mover();
-        void AprimorarMaldade();
-        void Danificar(Jogador* pJogador);
-        void Executar();
-        void Salvar();
-};
+namespace TheFrog{
+    namespace Entidades{
+        namespace Personagens{
+            class Vespa : public Inimigo
+            {
+            private:
+                float angulo;             
+                float velocidadeAngular;  
+                float amplitudeX;         
+                float amplitudeY;         
+                sf::Vector2f posInicial;  
+                bool glândulasVenenosas;
+                void AtivarGlândulaVenenosa();
+                void AlterarSpriteMeiaVida();
+            public:
+                Vespa(int id, sf::Vector2f pos, float dist);
+                ~Vespa();
+                void Mover();
+                void AprimorarMaldade();
+                void Danificar(Jogador* pJogador);
+                void Executar();
+                void Salvar();
+            };
+        }
+    }
+}

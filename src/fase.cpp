@@ -5,8 +5,14 @@
 
 using namespace std;
 using namespace sf;
+using namespace TheFrog::Fases;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Listas;
+using namespace TheFrog::Entidades;
+using namespace TheFrog::Entidades::Obstaculos;
+using namespace TheFrog::Entidades::Personagens;
 
-Fase::Fase(int id, Jogador* jogador, Jogador* jogador2) :
+Fase::Fase(int id, Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2) :
 Ente(id),
 listaEntidades(),
 gerenciadorColisoes(jogador, jogador2),
@@ -33,12 +39,13 @@ faseAtiva(true)
 
     InicializarBarrasDeVida();
 
-    GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this);
+    Gerenciadores::GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this);
 }
 
 Fase::~Fase()
 {
-    GerenciadorDeEventos::getGerenciadorDeEventos()->Desanexar(this);
+    Gerenciadores::GerenciadorDeEventos::getGerenciadorDeEventos()->Desanexar(this);
+    listaEntidades.Limpar();
 }
 
 int Fase::getTempoJogado() const
@@ -75,7 +82,7 @@ void Fase::CriarBesouros()
     int numBesouros = (rand() % (maxBesouros - 2)) + 3; 
     for (int i = 0; i < numBesouros; i++)
     {
-        Besouro* pBesouro = new Besouro(i + 10, Vector2f(100.f + (i * 200.f), 100.f), 100.f);
+        Entidades::Personagens::Besouro* pBesouro = new Entidades::Personagens::Besouro(i + 10, Vector2f(100.f + (i * 200.f), 100.f), 100.f);
         listaEntidades.Incluir(pBesouro);
         gerenciadorColisoes.IncluirInimigo(pBesouro);
     }
@@ -92,13 +99,6 @@ void Fase::CriarPlataformas()
         listaEntidades.Incluir(pPlataforma);
         gerenciadorColisoes.IncluirObstaculo(pPlataforma);
     }
-}
-
-void Fase::CriarChao()
-{
-    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
-    listaEntidades.Incluir(chao);
-    gerenciadorColisoes.IncluirChao(chao);
 }
 
 void Fase::InicializarBarrasDeVida()
@@ -217,4 +217,10 @@ void Fase::Executar()
     AtualizarBarrasDeVida();
     DesenharBarrasDeVida();
     VerificarEstadoFase();
+    if(pJogador)
+        if(pJogador->getPosicao().y > tamanho.y)
+            pJogador->PerderVidas(101);
+    if(pJogador2)
+        if(pJogador2->getPosicao().y > tamanho.y)
+            pJogador2->PerderVidas(101);
 }

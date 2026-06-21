@@ -3,10 +3,11 @@
 #include "gerenciadorgrafico.h"
 
 using namespace std;
+using namespace TheFrog::Entidades::Obstaculos;
 
 LamaLento::LamaLento(int id, sf::Vector2f pos) :
 Obstaculo(id, pos),
-lentidao(0.1f)
+lentidao(0.005f)
 {  
     tamanho = sf::Vector2f(50.f, 25.f);
     nome = "Lama Lento";
@@ -17,14 +18,14 @@ lentidao(0.1f)
 
 LamaLento::~LamaLento() {}
 
-void LamaLento::Obstaculizar(Jogador* pJogador)
+void LamaLento::Obstaculizar(Personagens::Jogador* pJogador)
 {
     LentificarJogador(pJogador);
 }
 
-void LamaLento::LentificarJogador(Jogador* pJogador)
+void LamaLento::LentificarJogador(Personagens::Jogador* pJogador)
 {
-    pJogador->setVelX(pJogador->getVelX() * lentidao);
+    pJogador->setVelX(lentidao);
 }
 
 void LamaLento::Executar()

@@ -1,14 +1,13 @@
 #include "reibesouro.h"
 #include "gerenciadorgrafico.h"
-#include "gerenciadorDeColisoes.h"
-#include "listaentidades.h"
 #include "projetil.h"
 #include "jogador.h"
-#include <iostream>
-#include <cmath>
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Entidades;
+using namespace TheFrog::Entidades::Personagens;
 
 ReiBesouro::ReiBesouro(int id, Vector2f pos, Jogador* pJogador, Jogador* pJogador2) :
 Inimigo(id, pos),
@@ -21,7 +20,7 @@ limiteEsq(pos.x - 10.f),
 direcao(1),
 atirar(false),
 tempoTiro(0),
-maxTempoTiro(300),    // Intervalo fixo de 5 segundos
+maxTempoTiro(300),
 pProjetil(nullptr),
 pJogadorAlvo(nullptr),
 pJogador(pJogador),
@@ -107,8 +106,7 @@ void ReiBesouro::AprimorarMaldade()
 {
     if(!maldade){
         dano += (nivel_maldade * forca);
-        vel.x += 0.2f; // Aumenta a velocidade para tornar o inimigo mais difícil
-        AlterarSpriteMeiaVida();
+        vel.x += 0.2f; 
         maldade = true;
     }
 }

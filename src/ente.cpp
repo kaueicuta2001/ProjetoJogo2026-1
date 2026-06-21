@@ -2,6 +2,8 @@
 #include "gerenciadorgrafico.h"
 
 using namespace sf;
+using namespace TheFrog;
+using namespace Gerenciadores;
 
 Ente::Ente(int id) :
 id(id),

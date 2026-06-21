@@ -3,6 +3,7 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades;
 
 Chao::Chao(int id, sf::Vector2f pos, bool danoso) :
 Entidade(id, pos),

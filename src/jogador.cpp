@@ -4,6 +4,7 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Entidades::Personagens;
 
 Jogador::Jogador(int id, sf::Vector2f pos, bool isJogador2) :
 Personagem(id, pos),

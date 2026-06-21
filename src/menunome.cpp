@@ -5,6 +5,7 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog::Menus;
 
 MenuNome::MenuNome(int id, Jogo* jogo) :
 Menu(id, jogo),

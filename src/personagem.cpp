@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace TheFrog::Entidades::Personagens;
 
 Personagem::Personagem(int id, sf::Vector2f pos) :
 Entidade(id, pos),

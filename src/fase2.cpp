@@ -1,8 +1,14 @@
 #include "fase2.h"
 #include "gerenciadorgrafico.h"
 
-using namespace sf;
 using namespace std;
+using namespace sf;
+using namespace TheFrog::Fases;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Listas;
+using namespace TheFrog::Entidades;
+using namespace TheFrog::Entidades::Obstaculos;
+using namespace TheFrog::Entidades::Personagens;
 
 Fase2::Fase2(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr) :
 Fase(id, pJogador, pJogador2),
@@ -18,7 +24,6 @@ maxReiBesouro(5)
 
 Fase2::~Fase2()
 {
-    listaEntidades.Limpar();
 }
 
 void Fase2::CriarReiBesouro()
@@ -33,19 +38,6 @@ void Fase2::CriarReiBesouro()
         vReiBesouros.push_back(pReiBesouro); // Armazena o ponteiro do Rei Besouro no vetor
         gerenciadorColisoes.IncluirInimigo(pReiBesouro);
     }
-}
-
-void Fase2::CriarCenario()
-{
-    sprite.setTexture(textura);
-    sprite.setScale(
-        tamanho.x / textura.getSize().x,
-        tamanho.y / textura.getSize().y
-    );
-    
-    Chao* chao = new Chao(1, Vector2f(0.f, tamanho.y - 32.f), false);
-    listaEntidades.Incluir(chao);
-    gerenciadorColisoes.IncluirChao(chao);
 }
 
 void Fase2::CriarCactosPulantes()

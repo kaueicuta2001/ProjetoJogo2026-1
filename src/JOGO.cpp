@@ -3,6 +3,11 @@
 
 using namespace sf;
 using namespace std;
+using namespace TheFrog;
+using namespace TheFrog::Gerenciadores;
+using namespace TheFrog::Menus;
+using namespace TheFrog::Fases;
+using namespace TheFrog::Entidades::Personagens;
 
 Jogo::Jogo() :
 GG(GerenciadorGrafico::getGerenciadorGrafico()),
@@ -60,7 +65,7 @@ void Jogo::Executar()
             case EstadoJogo::MenuPrincipal:
                 if (menuPrincipal) {
                     menuPrincipal->Executar();
-                    
+
                     if (opcaoMenuPrincipal == -2) {
                         opcaoMenuPrincipal = -1; 
                     }
@@ -151,32 +156,25 @@ void Jogo::Executar()
                     faseAtual->Executar();
                     
                     if (!faseAtual->getFaseAtiva()) {
-                        
                         int pontosFinais = pJogador->getPontos();
                         if (pJogador2) pontosFinais += pJogador2->getPontos();
-                        
                         int tempoFinal = faseAtual->getTempoJogado();
-                        
-                        // NOVO: Descobre qual foi a fase jogada baseada no menu
                         int faseJogada = (opcaoMenuFase == 0) ? 1 : 2;
                         
-                        // Salva usando as novas variáveis de filtro
                         GerenciadorDeArquivos::SalvarPontuacao(nomeJogador, pontosFinais, tempoFinal, qtdJogadores, faseJogada);
                         
                         delete faseAtual;
                         faseAtual = nullptr;
-                        pJogador = nullptr; 
+                        pJogador = nullptr;
                         pJogador2 = nullptr;
-                        
                         estadoAtual = EstadoJogo::MenuPrincipal;
                         menuPrincipal->setAtivo(true);
                     }
                 }
-                break;
-                
+                break;                
             case EstadoJogo::Sair:
                 GG->FecharJanela();
-                break;
+                return;
         }
         GG->Renderizar();
     }
