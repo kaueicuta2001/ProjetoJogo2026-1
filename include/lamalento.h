@@ -8,6 +8,7 @@ class LamaLento : public Obstaculo
 {
 private:
     float lentidao;
+    int vidasJogador;
 public:
     LamaLento(int id, sf::Vector2f pos);
     ~LamaLento();

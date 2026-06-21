@@ -7,6 +7,7 @@ class CactoPulante : public Obstaculo {
 private:
     short int danosidade;
     bool espinhosFlamejantes; 
+    int vidaJogador;
 public:
     CactoPulante(int id, sf::Vector2f pos);
     ~CactoPulante();

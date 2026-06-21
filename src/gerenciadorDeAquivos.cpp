@@ -5,19 +5,27 @@
 
 using namespace std;
 
-GerenciadorDeArquivos::GerenciadorDeArquivos() {}
+GerenciadorDeArquivos::GerenciadorDeArquivos()
+{
+    limiteRegistros = 5;
+}
+
 GerenciadorDeArquivos::~GerenciadorDeArquivos() {}
 
-void GerenciadorDeArquivos::SalvarPontuacao(string nome, int pontos, int tempo, int qtdJogadores, int fase) {
+void GerenciadorDeArquivos::SalvarPontuacao(string nome, int pontos, int tempo, int qtdJogadores, int fase)
+{
     string nomeArquivo = "ranking_" + to_string(qtdJogadores) + "P_F" + to_string(fase) + ".txt";
     
-    try {
+    try 
+    {
         ofstream arquivoSalvar(nomeArquivo, ios::app);
-        if (!arquivoSalvar) throw runtime_error("Erro ao abrir " + nomeArquivo);
+        if (!arquivoSalvar)
+            throw runtime_error("Erro ao abrir " + nomeArquivo);
         
         arquivoSalvar << nome << " " << pontos << " " << tempo << endl;
         arquivoSalvar.close();
-    } catch (const exception& e) {
+    } 
+    catch (const exception& e) {
         cerr << "Excecao: " << e.what() << endl;
     }
 }

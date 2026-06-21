@@ -27,11 +27,6 @@ void Plataforma::DeslizarJogador(Jogador* pJogador)
 void Plataforma::Obstaculizar(Jogador* pJogador)
 {
     DeslizarJogador(pJogador);
-
-    if(tempo > 0)
-        tempo--;
-    else
-        Desativar();
 }
 
 void Plataforma::Executar()
@@ -39,6 +34,10 @@ void Plataforma::Executar()
     Gravitropismo();
     AplicarGravidade();
 
+    if(tempo > 0)
+        tempo--;
+    else
+        tempo = 180;
     sprite.setPosition(posicao);
     Desenhar(); 
 }

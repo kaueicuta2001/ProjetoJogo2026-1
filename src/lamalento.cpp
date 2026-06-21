@@ -32,6 +32,10 @@ void LamaLento::Executar()
     Gravitropismo();
     AplicarGravidade();
 
+    if (vidasJogador <= 50) {
+        lentidao = 0.05f; 
+    }
+
     sprite.setPosition(posicao);
     Desenhar(); 
 }

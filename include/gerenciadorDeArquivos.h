@@ -3,6 +3,8 @@
 #include <string>
 
 class GerenciadorDeArquivos {
+private:
+    int limiteRegistros;
 public:
     GerenciadorDeArquivos();
     ~GerenciadorDeArquivos();

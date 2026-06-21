@@ -10,6 +10,7 @@ private:
     std::list<Observador*> observadores;
     static GerenciadorDeEventos* pGE;
     GerenciadorGrafico* pGG;
+    bool capturandoInput;
 
     GerenciadorDeEventos(); 
 

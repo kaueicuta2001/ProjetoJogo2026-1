@@ -9,6 +9,7 @@ class GerenciadorGrafico
 private:
     sf::RenderWindow* window;
     static GerenciadorGrafico* pGG;
+    bool vsyncAtivo;
     GerenciadorGrafico();
 
 public:
@@ -20,4 +21,5 @@ public:
     void Renderizar();
     void FecharJanela();
     bool VerificaJanelaAberta() const;
+    void setVsync(bool ativo);
 };

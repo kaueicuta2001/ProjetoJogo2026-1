@@ -1,7 +1,6 @@
 #include "cactopulante.h"
 #include "jogador.h"
 #include "gerenciadorgrafico.h"
-#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -14,6 +13,7 @@ espinhosFlamejantes(false)
     nome = "Cacto Pulante";
     tamanho = Vector2f(48.f, 64.f);
     danoso = true; 
+    vidaJogador = 100;
     
     if (!textura.loadFromFile("../assets/cactopulante.png")) {
         cerr << "Aviso: textura cactopulante.png não encontrada!" << endl;
@@ -55,12 +55,16 @@ void CactoPulante::Danificar(Jogador* pJogador) {
             pJogador->IniciarImunidade();
         }
     }
+        vidaJogador = pJogador->getVidas();
 }
 
 void CactoPulante::Executar() 
 {
-    Gravitropismo();
     AplicarGravidade();
+
+    if (vidaJogador <= 50) {
+        danosidade = 20;
+    }
 
     sprite.setPosition(posicao);
     Desenhar(); 

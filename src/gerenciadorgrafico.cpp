@@ -6,9 +6,11 @@ using namespace sf;
 GerenciadorGrafico* GerenciadorGrafico::pGG = nullptr;
 
 GerenciadorGrafico::GerenciadorGrafico() :
-window(new RenderWindow(VideoMode({1280, 720}), "Projeto Jogo"))
+window(new RenderWindow(VideoMode({1280, 720}), "Projeto Jogo")),
+vsyncAtivo(true)
 {
     window->setFramerateLimit(60);
+    window->setVerticalSyncEnabled(vsyncAtivo);
 }
 
 GerenciadorGrafico::~GerenciadorGrafico()
@@ -59,4 +61,10 @@ void GerenciadorGrafico::FecharJanela()
 bool GerenciadorGrafico::VerificaJanelaAberta() const
 {
     return window->isOpen();
+}
+
+void GerenciadorGrafico::setVsync(bool ativo) 
+{
+    vsyncAtivo = ativo;
+    window->setVerticalSyncEnabled(vsyncAtivo);
 }

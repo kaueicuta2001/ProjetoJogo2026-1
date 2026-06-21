@@ -16,11 +16,13 @@ private:
     std::list<Obstaculo*> listaObstaculos;
     std::list<Chao*> listaChao;
     std::list<Projetil*> listaProjeteis;
+    int totalColisoes;
 public:
 
     GerenciadorDeColisoes(Jogador* pJ = nullptr, Jogador* pJ2 = nullptr);
     ~GerenciadorDeColisoes();
-    
+
+    void getTotalColisoes() const;    
     void IncluirInimigo(Inimigo* pI);
     void IncluirObstaculo(Obstaculo* pO);
     void IncluirChao(Chao* pC);

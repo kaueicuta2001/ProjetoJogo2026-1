@@ -10,7 +10,9 @@ pJogador2(jogador2),
 listaInimigos(),
 listaObstaculos(),
 listaChao(),
-listaProjeteis() {}
+listaProjeteis(),
+totalColisoes(0)
+{}
 
 GerenciadorDeColisoes::~GerenciadorDeColisoes()
 {
@@ -20,6 +22,11 @@ GerenciadorDeColisoes::~GerenciadorDeColisoes()
     listaProjeteis.clear();
     pJogador = nullptr;
     pJogador2 = nullptr;
+}
+
+void GerenciadorDeColisoes::getTotalColisoes() const 
+{
+    cout << "Total de Colisões: " << totalColisoes << endl;
 }
 
 void GerenciadorDeColisoes::IncluirInimigo(Inimigo* inimigo) {
