@@ -1,6 +1,7 @@
 #pragma once
 #include "Ente.h"
 #include <string>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 
 namespace TheFrog{
@@ -13,6 +14,7 @@ namespace TheFrog{
                 float gravidade;
                 bool noChao;
                 std::string nome;
+                std::ofstream dataBuffer;
                 void salvarDataBuffer();
             public:
                 Entidade(int id, sf::Vector2f pos);

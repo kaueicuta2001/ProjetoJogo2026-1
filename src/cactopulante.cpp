@@ -74,3 +74,6 @@ void CactoPulante::Executar()
 }
 
 void CactoPulante::Salvar() {}
+
+void CactoPulante::salvarDataBuffer()
+{}

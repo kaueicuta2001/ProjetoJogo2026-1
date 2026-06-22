@@ -26,3 +26,8 @@ bool Obstaculo::getColide() const
 {
     return colide;
 }
+
+void Obstaculo::salvarDataBuffer()
+{
+    
+}

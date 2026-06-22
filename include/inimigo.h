@@ -26,6 +26,7 @@ namespace TheFrog{
                 virtual void Danificar(Jogador* jogador) = 0;
                 virtual void Executar() = 0;
                 virtual void Salvar() = 0;
+                void salvarDataBuffer();
                 bool getColideObstaculo() const;
             };
         }

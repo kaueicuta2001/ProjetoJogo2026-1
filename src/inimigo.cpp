@@ -16,6 +16,11 @@ Inimigo::~Inimigo()
 
 }
 
+void Inimigo::salvarDataBuffer()
+{
+    
+}
+
 bool Inimigo::getColideObstaculo() const
 {
     return colideObstaculo;

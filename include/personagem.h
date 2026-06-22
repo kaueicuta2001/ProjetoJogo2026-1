@@ -8,20 +8,21 @@ namespace TheFrog{
             class Personagem : public Entidade
             {
                 protected:
-                int num_vidas;
-                int dano;
+                    int num_vidas;
+                    int dano;
                 
                 public:
-                Personagem(int id, sf::Vector2f pos);
-                virtual ~Personagem();
-                
-                virtual void Mover() = 0;
-                void PerderVidas(int danos);
-                int getVidas() const;
-                int getDano() const;
-                
-                virtual void Executar() = 0;
-                virtual void Salvar() = 0;
+                    Personagem(int id, sf::Vector2f pos);
+                    virtual ~Personagem();
+                    
+                    virtual void Mover() = 0;
+                    void PerderVidas(int danos);
+                    int getVidas() const;
+                    int getDano() const;
+                    
+                    virtual void Executar() = 0;
+                    virtual void Salvar() = 0;
+                    void salvarDataBuffer();
             };
         }
     }

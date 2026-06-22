@@ -27,6 +27,7 @@ namespace TheFrog{
                 void Danificar(Personagens::Jogador* pJogador);
                 void Executar() override;
                 void Salvar() override;
+                void salvarDataBuffer();
             };
         }
     }

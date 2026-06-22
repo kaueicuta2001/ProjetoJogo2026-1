@@ -36,3 +36,8 @@ int Personagem::getDano() const
 {
     return dano;
 }
+
+void Personagem::salvarDataBuffer()
+{
+    
+}
