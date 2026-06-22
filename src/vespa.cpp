@@ -47,7 +47,8 @@ void Vespa::Mover()
 
 void Vespa::AprimorarMaldade()
 {
-    dano *= 2;
+    dano = 2 * nivel_maldade;
+    velocidadeAngular = 0.05f;
     AlterarSpriteMeiaVida();
 }
 
@@ -69,6 +70,8 @@ void Vespa::Danificar(Jogador* pJogador)
     if(pJogador != nullptr)
     {
         pJogador->PerderVidas(dano);
+        --(*pJogador);
+        pJogador->IniciarParalisia();
     }
 }
 

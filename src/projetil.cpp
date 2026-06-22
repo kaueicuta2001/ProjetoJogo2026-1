@@ -60,7 +60,8 @@ void Projetil::Danificar(Personagens::Jogador* pJogador)
     if (pJogador)
     {
         pJogador->PerderVidas(dano);
-        pReiBesouro->ResetAtirar(); // Reseta o estado de atirar do Rei Besouro para evitar múltiplos projéteis
+        --(*pJogador);
+        pReiBesouro->ResetAtirar();
         pReiBesouro->AprimorarMaldade();
         Desativar();
     }

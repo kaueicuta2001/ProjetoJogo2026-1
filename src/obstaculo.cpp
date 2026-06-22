@@ -6,7 +6,8 @@ using namespace TheFrog::Entidades::Obstaculos;
 Obstaculo::Obstaculo(int id, sf::Vector2f pos) :
 Entidade(id, pos),
 danoso(false),
-colideInimigo(false)
+colideInimigo(false),
+colide(true)
 {
     
 }
@@ -23,5 +24,5 @@ bool Obstaculo::getDanoso() const
 
 bool Obstaculo::getColide() const
 {
-    return colideInimigo;
+    return colide;
 }

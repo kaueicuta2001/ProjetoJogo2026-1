@@ -109,6 +109,7 @@ void ReiBesouro::AprimorarMaldade()
         vel.x += 0.2f; 
         maldade = true;
     }
+    AlterarSpriteMeiaVida();
 }
 
 void ReiBesouro::AlterarSpriteMeiaVida()
@@ -143,6 +144,11 @@ void ReiBesouro::Danificar(Jogador* pJog)
     if (pJog)
     {
         pJog->PerderVidas(dano);
+        --(*pJog);
+        if(pJog->getPosicao().x > posicao.x)
+            pJog->setPosicao(Vector2f(posicao.x + tamanho.x + 75.f, pJog->getPosicao().y - 75.f));
+        else
+            pJog->setPosicao(Vector2f(posicao.x - pJog->getTamanho().x - 75.f, pJog->getPosicao().y - 75.f));
     }
     AprimorarMaldade();
 }

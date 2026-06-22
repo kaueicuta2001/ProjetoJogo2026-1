@@ -15,11 +15,11 @@ direcao(1),
 antenasVenenosas(false)
 {
     nome = "Besouro";
-    num_vidas = 20;
     dano = 5;
     vel = Vector2f(1.f, 0.f);
     tamanho = Vector2f(40.f, 40.f);
     nivel_maldade = 1;
+    num_vidas = 20 * nivel_maldade;
     
     if (!textura.loadFromFile("../assets/besouro.png"))
         cerr << "Erro ao carregar a textura do besouro!" << endl;
@@ -78,9 +78,10 @@ void Besouro::Executar()
 
 void Besouro::Danificar(Jogador* pJogador)
 {
-    if(pJogador != nullptr)
+    if(pJogador)
     {
         pJogador->PerderVidas(dano);
+        --(*pJogador); 
     }
 }
 

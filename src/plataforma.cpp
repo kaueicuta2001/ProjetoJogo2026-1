@@ -30,6 +30,17 @@ void Plataforma::Obstaculizar(Personagens::Jogador* pJogador)
     DeslizarJogador(pJogador);
 }
 
+void Plataforma::AtualizarColisao()
+{
+    if(!colide) {
+        int visivel = tempo % 5 == 0 ? 255 : 128; // Pisca entre visível e semi-transparente
+        sprite.setColor(Color(255, 255, 255, visivel)); // Transparente quando invisível
+    }
+    else {
+        sprite.setColor(Color(255, 255, 255, 255)); // Totalmente visível
+    }
+}
+
 void Plataforma::Executar()
 {
     Gravitropismo();
@@ -37,8 +48,11 @@ void Plataforma::Executar()
 
     if(tempo > 0)
         tempo--;
-    else
-        tempo = 180;
+    else{
+        tempo = 300;
+        colide = !colide; // Alterna o estado de colisão
+    }
+    AtualizarColisao();
     sprite.setPosition(posicao);
     Desenhar(); 
 }

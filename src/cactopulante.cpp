@@ -53,10 +53,11 @@ void CactoPulante::Danificar(Personagens::Jogador* pJogador) {
     if (pJogador) {
         if(!pJogador->getImune()) {
             pJogador->PerderVidas(danosidade);
+            --(*pJogador);
             pJogador->IniciarImunidade();
+            vidaJogador = pJogador->getVidas();
         }
     }
-        vidaJogador = pJogador->getVidas();
 }
 
 void CactoPulante::Executar() 

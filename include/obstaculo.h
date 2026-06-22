@@ -18,6 +18,7 @@ namespace TheFrog{
                 protected:
                 bool danoso;
                 bool colideInimigo;
+                bool colide;
                 public:
                 Obstaculo(int id, sf::Vector2f pos);
                 ~Obstaculo();

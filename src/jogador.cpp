@@ -11,14 +11,17 @@ Personagem(id, pos),
 pontos(0),
 imune(false),
 tempoImune(0),
-maxTempoImune(180),
-jogador2(isJogador2)
+velLentidao(0.f),
+lentidao(false),
+tempoParalisia(0),
+paralisia(false),
+jogador2(isJogador2),
+velOriginal(Vector2f(5.f, 5.f))
 {
     nome = "Jogador";
     num_vidas = 100;
     dano = 10;
     vel = Vector2f(5.f, 5.f);
-    velOriginal = vel.x;
     tamanho = Vector2f(40.f, 40.f);
     
     if(!textura.loadFromFile(jogador2 ? "../assets/jogador2.png" : "../assets/jogador1.png"))
@@ -44,10 +47,7 @@ void Jogador::Mover()
     if(!noChao)
         AplicarGravidade();
 }
-void Jogador::resetVelX() 
-{   
-    vel.x = velOriginal;
-}
+
 void Jogador::Pular() {
     vel.y = -10.f;
     noChao = false;
@@ -71,7 +71,34 @@ bool Jogador::getImune() const {
 
 void Jogador::IniciarImunidade() {
     imune = true;
-    tempoImune = maxTempoImune;
+    tempoImune = 180;
+}
+
+void Jogador::IniciarLentidao(float fator) {
+    velLentidao = fator;
+    lentidao = true;
+}
+
+void Jogador::AtualizarLentidao() {
+    vel.x = lentidao ? velLentidao : velOriginal.x;
+    lentidao = false;
+}
+
+void Jogador::IniciarParalisia() {
+    tempoParalisia = 120;
+    paralisia = true;
+}
+
+void Jogador::AtualizarParalisia() {
+    if(paralisia){
+        vel.x = 0.f;
+        tempoParalisia--;
+        noChao = false;
+        if(tempoParalisia <= 0){
+            paralisia = false;
+            vel = velOriginal;
+        }
+    }
 }
 
 void Jogador::AtualizarImunidade() {
@@ -83,6 +110,12 @@ void Jogador::AtualizarImunidade() {
         imune = false;
         sprite.setColor(Color(255, 255, 255, 255)); // Volta a ser totalmente visível
     }
+}
+
+Jogador& Jogador::operator--() {
+    if(pontos > 0) 
+        pontos--;
+    return *this;
 }
 
 void Jogador::setVelY(float vY)
@@ -102,6 +135,8 @@ void Jogador::setVelX(float vX)
 void Jogador::Executar()
 {    
     sprite.setPosition(posicao);
+    AtualizarLentidao();
+    AtualizarParalisia();
     Mover();
     AtualizarImunidade();
     Desenhar();

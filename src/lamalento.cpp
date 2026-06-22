@@ -7,7 +7,7 @@ using namespace TheFrog::Entidades::Obstaculos;
 
 LamaLento::LamaLento(int id, sf::Vector2f pos) :
 Obstaculo(id, pos),
-lentidao(0.005f)
+lentidao(0.0000001f)
 {  
     tamanho = sf::Vector2f(50.f, 25.f);
     nome = "Lama Lento";
@@ -25,7 +25,7 @@ void LamaLento::Obstaculizar(Personagens::Jogador* pJogador)
 
 void LamaLento::LentificarJogador(Personagens::Jogador* pJogador)
 {
-    pJogador->setVelX(lentidao);
+    pJogador->IniciarLentidao(lentidao);
 }
 
 void LamaLento::Executar()

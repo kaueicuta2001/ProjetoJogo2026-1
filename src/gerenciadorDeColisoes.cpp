@@ -12,7 +12,8 @@ listaInimigos(),
 listaObstaculos(),
 listaChao(),
 listaProjeteis(),
-totalColisoes(0)
+totalColisoes(0),
+recuoJogador(25.f, 25.f)
 {}
 
 GerenciadorDeColisoes::~GerenciadorDeColisoes()
@@ -134,11 +135,13 @@ void GerenciadorDeColisoes::TratarColisoesPersChao() {
 }
 
 void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
-    if (pJogador) pJogador->resetVelX();
-    if (pJogador2) pJogador2->resetVelX();
     
-    for (auto obstaculo : listaObstaculos) {
-        if (pJogador && obstaculo && VerificarColisao(pJogador, obstaculo)) {
+    list<Entidades::Obstaculos::Obstaculo*>::iterator itO = listaObstaculos.begin();
+
+    while(itO != listaObstaculos.end()) {
+        Entidades::Obstaculos::Obstaculo* obstaculo = *itO;
+        
+        if (pJogador && obstaculo && VerificarColisao(pJogador, obstaculo) && obstaculo->getColide()) {
             sf::Vector2f posJ = pJogador->getPosicao();
             sf::Vector2f tamJ = pJogador->getTamanho();
             sf::Vector2f posO = obstaculo->getPosicao();
@@ -147,9 +150,8 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
             if(intersecao.x < intersecao.y) {
                 if (posJ.x < posO.x) {
                     pJogador->setPosicao(sf::Vector2f(posO.x - tamJ.x, posJ.y));
-                    if(obstaculo->getDanoso()) {
+                    if(obstaculo->getDanoso()) 
                         obstaculo->Obstaculizar(pJogador);
-                    }
                 }
                 else {
                     pJogador->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ.y));
@@ -170,6 +172,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 }
             }   
         }
+
         if (pJogador2 && obstaculo && VerificarColisao(pJogador2, obstaculo)) {
             sf::Vector2f posJ2 = pJogador2->getPosicao();
             sf::Vector2f tamJ2 = pJogador2->getTamanho();
@@ -179,15 +182,13 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
             if(intersecao.x < intersecao.y) {
                 if (posJ2.x < posO.x) {
                     pJogador2->setPosicao(sf::Vector2f(posO.x - tamJ2.x, posJ2.y));
-                    if(obstaculo->getDanoso()) {
+                    if(obstaculo->getDanoso()) 
                         obstaculo->Obstaculizar(pJogador2);
-                    }
                 }
                 else {
                     pJogador2->setPosicao(sf::Vector2f(posO.x + tamO.x, posJ2.y));
-                    if(obstaculo->getDanoso()) {
+                    if(obstaculo->getDanoso())
                         obstaculo->Obstaculizar(pJogador2);
-                    }
                 }
             } else {
                 if (posJ2.y < posO.y) {
@@ -202,7 +203,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsObstacs() {
                 }
             }
         }
-        
+        itO++;
     }
 }
 
@@ -218,16 +219,16 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimgs() {
                 if (intersecao.x < intersecao.y) {
                     if (posJ.x < posI.x) {
                         if(!pJogador->getImune()){
+                            pJogador->setPosicao(Vector2f(posI.x - tamJ.x - recuoJogador.x, posJ.y - recuoJogador.y));
                             inimigo->Danificar(pJogador);
                             pJogador->IniciarImunidade();
-                            pJogador->setPosicao(Vector2f(posI.x - tamJ.x - 10.f, posJ.y - 10.f));
                         }
                     }
                     else {
                         if(!pJogador->getImune()){
+                            pJogador->setPosicao(Vector2f(posI.x + tamI.x + recuoJogador.x, posJ.y - recuoJogador.y));
                             inimigo->Danificar(pJogador);
                             pJogador->IniciarImunidade();
-                            pJogador->setPosicao(Vector2f(posI.x + tamI.x + 10.f, posJ.y - 10.f));
                         }
                     }
                 } else {
@@ -237,14 +238,14 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimgs() {
                     else {
                         if(!pJogador->getImune()){
                             if(posJ.x < posI.x) {
+                                pJogador->setPosicao(Vector2f(posI.x - tamJ.x - recuoJogador.x, posJ.y - recuoJogador.y));
                                 inimigo->Danificar(pJogador);
                                 pJogador->IniciarImunidade();
-                                pJogador->setPosicao(Vector2f(posI.x - tamJ.x - 10.f, posJ.y - 10.f));
                             }
                             else {
+                                pJogador->setPosicao(Vector2f(posI.x + tamI.x + recuoJogador.x, posJ.y - recuoJogador.y));
                                 inimigo->Danificar(pJogador);
                                 pJogador->IniciarImunidade();
-                                pJogador->setPosicao(Vector2f(posI.x + tamI.x + 10.f, posJ.y - 10.f));
                             }
                         }
                     }
@@ -260,16 +261,16 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimgs() {
                 if (intersecao.x < intersecao.y) {
                     if(posJ2.x < posI.x) {
                         if(!pJogador2->getImune()){
+                            pJogador2->setPosicao(Vector2f(posI.x - tamJ2.x - recuoJogador.x, posJ2.y - recuoJogador.y));
                             inimigo->Danificar(pJogador2);
                             pJogador2->IniciarImunidade();
-                            pJogador2->setPosicao(Vector2f(posI.x - tamJ2.x - 10.f, posJ2.y - 10.f));
                         }
                     }
                     else {
                         if(!pJogador2->getImune()){
+                            pJogador2->setPosicao(Vector2f(posI.x + tamI.x + recuoJogador.x, posJ2.y - recuoJogador.y));
                             inimigo->Danificar(pJogador2);
                             pJogador2->IniciarImunidade();
-                            pJogador2->setPosicao(Vector2f(posI.x + tamI.x + 10.f, posJ2.y - 10.f));
                         }
                     }
                 } else{
@@ -279,16 +280,16 @@ void GerenciadorDeColisoes::TratarColisoesJogsInimgs() {
                     else {
                         if(!pJogador2->getImune()){
                             if(posJ2.x < posI.x) {
+                                pJogador2->setPosicao(Vector2f(posI.x - tamJ2.x - recuoJogador.x, posJ2.y - recuoJogador.y));
                                 inimigo->Danificar(pJogador2);
                                 pJogador2->IniciarImunidade();
-                                pJogador2->setPosicao(Vector2f(posI.x - tamJ2.x - 10.f, posJ2.y - 10.f));
                             }
                         }
                         else {
                             if(!pJogador2->getImune()){
+                                pJogador2->setPosicao(Vector2f(posI.x + tamI.x + recuoJogador.x, posJ2.y - recuoJogador.y));
                                 inimigo->Danificar(pJogador2);
                                 pJogador2->IniciarImunidade();
-                                pJogador2->setPosicao(Vector2f(posI.x + tamI.x + 10.f, posJ2.y - 10.f));
                             }
                         }
                     }
@@ -326,7 +327,7 @@ void GerenciadorDeColisoes::TratarColisoesJogsProjeis() {
 void GerenciadorDeColisoes::TratarColisoesInimgsObstacs(){
     for(auto inimigo : listaInimigos){
         for(auto obstaculo : listaObstaculos){
-            if(inimigo && obstaculo && VerificarColisao(inimigo, obstaculo) && obstaculo->getColide() && inimigo->getColideObstaculo()){
+            if(inimigo && obstaculo && VerificarColisao(inimigo, obstaculo) && inimigo->getColideObstaculo() && obstaculo->getColide()){
                 Vector2f posI = inimigo->getPosicao();
                 Vector2f tamI = inimigo->getTamanho();
                 Vector2f posO = obstaculo->getPosicao();

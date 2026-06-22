@@ -19,6 +19,7 @@ namespace TheFrog{
             std::list<Entidades::Chao*> listaChao;
             std::list<Entidades::Projetil*> listaProjeteis;
             int totalColisoes;
+            sf::Vector2f recuoJogador; 
             public:
             
             GerenciadorDeColisoes(Entidades::Personagens::Jogador* pJ = nullptr, Entidades::Personagens::Jogador* pJ2 = nullptr);

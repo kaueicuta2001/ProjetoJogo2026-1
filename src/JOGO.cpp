@@ -23,6 +23,7 @@ estadoAtual(EstadoJogo::MenuPrincipal),
 opcaoMenuPrincipal(-1),
 opcaoMenuFase(-1),
 qtdJogadores(1),
+ganhou(false),
 nomeJogador("")
 {
     Ente::setGG(GG);
@@ -163,12 +164,23 @@ void Jogo::Executar()
                         
                         GerenciadorDeArquivos::SalvarPontuacao(nomeJogador, pontosFinais, tempoFinal, qtdJogadores, faseJogada);
                         
+                        ganhou = faseAtual->getGanhou();
                         delete faseAtual;
                         faseAtual = nullptr;
                         pJogador = nullptr;
                         pJogador2 = nullptr;
-                        estadoAtual = EstadoJogo::MenuPrincipal;
-                        menuPrincipal->setAtivo(true);
+                        if(opcaoMenuFase == 0 && ganhou) {
+                            pJogador = new Jogador(1, Vector2f(50.f, 300.f), false);
+                            if (qtdJogadores == 2)
+                                pJogador2 = new Jogador(2, Vector2f(150.f, 300.f), true); 
+                            faseAtual = new Fase2(4, pJogador, pJogador2);
+                            opcaoMenuFase = 1;
+                            ganhou = false;
+                        }
+                        else {
+                            estadoAtual = EstadoJogo::MenuPrincipal;
+                            menuPrincipal->setAtivo(true);
+                        }
                     }
                 }
                 break;                

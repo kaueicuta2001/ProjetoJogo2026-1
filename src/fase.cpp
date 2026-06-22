@@ -24,7 +24,8 @@ margem(7.5f),
 maxBesouros(5),
 maxPlataformas(5),
 maxObstDificil(5),
-faseAtiva(true)
+faseAtiva(true),
+ganhou(false)
 {
     tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
 
@@ -163,29 +164,28 @@ void Fase::DesenharBarrasDeVida()
     }
 }
 
-bool Fase::VerificarEstadoFase()
+void Fase::VerificarEstadoFase()
 {
     if (pJogador && pJogador->getVidas() <= 0)
     {
         cout << "GAME OVER! Jogador 1 foi derrotado!" << endl;
         faseAtiva = false;
-        return false;
+        ganhou = false;
     }
     
     if (pJogador2 && pJogador2->getVidas() <= 0)
     {
         cout << "GAME OVER! Jogador 2 foi derrotado!" << endl;
         faseAtiva = false;
-        return false;
+        ganhou = false;
     }
     
     if (ContarInimigosVivos() <= 0)
     {
         cout << "VITORIA! Todos os inimigos foram derrotados!" << endl;
         faseAtiva = false;
-        return false;
+        ganhou = true;
     }
-    return true;
 }
 
 int Fase::ContarInimigosVivos()
@@ -210,6 +210,11 @@ int Fase::ContarInimigosVivos()
 bool Fase::getFaseAtiva() const
 {
     return faseAtiva;
+}
+
+bool Fase::getGanhou() const
+{
+    return ganhou;
 }
 
 void Fase::Executar()

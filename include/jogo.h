@@ -33,6 +33,7 @@ namespace TheFrog{
         int opcaoMenuPrincipal;
         int opcaoMenuFase;
         int qtdJogadores;
+        bool ganhou;
         std::string nomeJogador; 
     public:
         Jogo();

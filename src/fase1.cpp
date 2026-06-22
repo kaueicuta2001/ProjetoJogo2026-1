@@ -27,7 +27,7 @@ Fase1::~Fase1()
 
 void Fase1::CriarVespas()
 {
-    float posicoesY[5] = {600.f, 500.f, 400.f, 300.f, 400.f};
+    float posicoesY[5] = {575.f, 475.f, 375.f, 275.f, 375.f};
 
     int numVespas = (rand() % (maxVespas - 2)) + 3; 
     for (int i = 0; i < numVespas; i++)
@@ -69,7 +69,7 @@ void Fase1::Executar()
 {
     Desenhar();
 
-    listaEntidades.Percorrer();
     gerenciadorColisoes.Executar();
+    listaEntidades.Percorrer();
     Fase::Executar();
 }

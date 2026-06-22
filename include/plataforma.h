@@ -23,6 +23,7 @@ namespace TheFrog{
                 
                 void DeslizarJogador(Personagens::Jogador* pJogador);
                 void Obstaculizar(Personagens::Jogador* pJogador);
+                void AtualizarColisao();
                 void Executar();
                 void Salvar();
             };

@@ -36,6 +36,7 @@ namespace TheFrog{
             int maxPlataformas;
             int maxObstDificil;
             bool faseAtiva;
+            bool ganhou;
             sf::Clock relogioFase;
             
             public:
@@ -54,13 +55,14 @@ namespace TheFrog{
             void DesenharBarrasDeVida();
             
             virtual void Executar();
-            bool VerificarEstadoFase();
+            void VerificarEstadoFase();
             int ContarInimigosVivos();
             
             void Notificar(sf::Event evento) override; 
             
             bool getFaseAtiva() const;
             int getTempoJogado() const; 
+            bool getGanhou() const;
         };
     }
 }

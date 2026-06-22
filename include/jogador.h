@@ -11,9 +11,12 @@ namespace TheFrog{
                 int pontos;
                 bool imune;
                 int tempoImune;
-                int maxTempoImune;
+                float velLentidao;
+                bool lentidao;
+                int tempoParalisia;
+                bool paralisia;
                 bool jogador2;
-                float velOriginal;
+                sf::Vector2f velOriginal;
                 
                 public:
                 Jogador(int id, sf::Vector2f pos, bool isJogador2 = false);
@@ -21,7 +24,6 @@ namespace TheFrog{
                 
                 void Mover() override;
                 void Pular();
-                void resetVelX();
                 
                 void Pisar(Inimigo* inimigo);
                 
@@ -32,6 +34,11 @@ namespace TheFrog{
                 bool getImune() const;
                 void IniciarImunidade();
                 void AtualizarImunidade();
+                void IniciarLentidao(float fator);
+                void AtualizarLentidao();
+                void IniciarParalisia();
+                void AtualizarParalisia();
+                Jogador& operator--();
                 void setVelY(float vY);
                 float getVelX() const;
                 void setVelX(float vX);
