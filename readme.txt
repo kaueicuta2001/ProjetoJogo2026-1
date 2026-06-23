@@ -21,6 +21,9 @@ Certifique-se de ter as seguintes ferramentas instaladas no Windows:
   - O executável 'cmake.exe' deve estar configurado nas variáveis de 
     ambiente do sistema (PATH) para ser acessado via prompt.
 
+* VISUAL STUDIO CODE (VSCode)
+- Baixado e instalado a partir do site oficial do VSCode
+- Baixe as extensões: C/C++, C/C++ Extension Pack e CMake Tools
 ------------------------------------------------------------------------
 2. CONFIGURAÇÃO DAS VARIÁVEIS DE AMBIENTE (PATH)
 ------------------------------------------------------------------------
@@ -29,22 +32,15 @@ dos binários do UCRT64 deve estar no PATH do seu Windows:
 -> Adicione: C:\msys64\ucrt64\bin
 
 ------------------------------------------------------------------------
-3. PASSO A PASSO PARA COMPILAR (VIA TERMINAL)
+3. PASSO A PASSO PARA COMPILAR (VIA VSCODE)
 ------------------------------------------------------------------------
-Abra o prompt de comando (CMD ou PowerShell) na pasta raiz do seu projeto 
-(onde se encontra o arquivo principal 'CMakeLists.txt') e execute os
-seguintes comandos:
-
-1) Criar e entrar no diretório de build:
-   mkdir build
-   cd build
-
-2) Gerar os arquivos de build do CMake especificando os compiladores do UCRT64:
-   cmake -G "MinGW Makefiles" -DCMAKE_C_COMPILER=C:/msys64/ucrt64/bin/gcc.exe -DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/g++.exe ..
-
-3) Compilar o projeto (utilizando múltiplos núcleos para acelerar):
-   cmake --build . --config Debug -j 12
-
+Abra o VSCode com todas as extensões do requisitos baixados e ativados
+E então o CMake Tools irá reconhecer o CMake automaticamente
+VSCode perguntará qual compilador utilizar
+Selecione GCC 15.2.0 X86_64-w64-mingw32 (ucrt64)
+Cmake irá começar o build
+quando terminar pressione crtl + shift + P
+selecione CMake: run without debugging
 ------------------------------------------------------------------------
 4. EXECUTANDO O JOGO
 ------------------------------------------------------------------------
