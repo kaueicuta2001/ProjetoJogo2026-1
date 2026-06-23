@@ -50,7 +50,7 @@ void Plataforma::Executar()
         tempo--;
     else{
         tempo = 300;
-        colide = !colide; // Alterna o estado de colisão
+        colide = !colide;
     }
     AtualizarColisao();
     sprite.setPosition(posicao);

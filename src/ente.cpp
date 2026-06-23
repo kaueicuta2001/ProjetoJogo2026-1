@@ -6,10 +6,15 @@ using namespace TheFrog;
 using namespace Gerenciadores;
 
 Ente::Ente(int id) :
-id(id),
-textura(Texture()),
-sprite(Sprite())
+id(id)
 {}
+
+Ente::Ente() :
+id(-1)
+{
+    tamanho = static_cast<sf::Vector2f>(pGG->getWindow()->getSize());
+    posicao = sf::Vector2f(0.f, 0.f);
+}
 
 Ente::~Ente() {}
 

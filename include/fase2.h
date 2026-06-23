@@ -13,7 +13,7 @@ namespace TheFrog{
             int maxReiBesouro;
             std::vector<Entidades::Personagens::ReiBesouro*> vReiBesouros;
             public:
-            Fase2(int id, Entidades::Personagens::Jogador* pJogador, Entidades::Personagens::Jogador* pJogador2);
+            Fase2(Entidades::Personagens::Jogador* pJogador, Entidades::Personagens::Jogador* pJogador2);
             ~Fase2();
             
             void CriarInimigos() override;

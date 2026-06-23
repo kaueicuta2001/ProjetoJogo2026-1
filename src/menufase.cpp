@@ -7,14 +7,13 @@ using namespace std;
 using namespace sf;
 using namespace TheFrog::Menus;
 
-MenuFase::MenuFase(int id, Jogo* jogo) :
-Menu(id, jogo),
-titulo("The Frog ++")
+MenuFase::MenuFase(TheFrog::Jogo* jogo) :
+Menu(jogo)
 {
     InicializaOpcoesMenu();
     InicializaBotoes();
     PosicionaBotoes();
-    InicializaTitulo();
+    InicializaTextoFase();
 }
 
 MenuFase::~MenuFase()
@@ -38,16 +37,16 @@ void MenuFase::PosicionaBotoes()
     }
 }
 
-void MenuFase::InicializaTitulo()
+void MenuFase::InicializaTextoFase()
 {
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
         std::cerr << "Erro ao carregar a fonte!" << std::endl;
 
-    textoTitulo.setFont(fonte);
-    textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(50);
-    textoTitulo.setFillColor(Color::Green);
-    textoTitulo.setPosition(375.f, 150.f);
+    textoFase.setFont(fonte);
+    textoFase.setString("Selecione uma fase:");
+    textoFase.setCharacterSize(30);
+    textoFase.setFillColor(Color::Yellow);
+    textoFase.setPosition(435.f, 300.f);
 }
 
 void MenuFase::Executar()
@@ -56,4 +55,5 @@ void MenuFase::Executar()
     if (selecionado) {
         pJog->setOpcaoMenuFase(opcaoSelecionada);
     }
+    pGG->getWindow()->draw(textoFase);
 }

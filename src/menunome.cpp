@@ -7,40 +7,37 @@ using namespace sf;
 using namespace std;
 using namespace TheFrog::Menus;
 
-MenuNome::MenuNome(int id, Jogo* jogo) :
-Menu(id, jogo),
-titulo("Insira o seu Nick (3 Letras)"), // <-- INICIALIZADO CORRETAMENTE AQUI
+MenuNome::MenuNome(TheFrog::Jogo* jogo) :
+Menu(jogo),
 nomeDigitado("")
 {
-    InicializaTitulo();
+    titulo = "Insira o seu Nick (3 Letras)";
     
+    InicializaTitulo();
+
+    textoTitulo.setPosition(250.f, 150.f);
     textoNome.setFont(fonte);
     textoNome.setCharacterSize(60);
     textoNome.setFillColor(Color::Yellow);
     textoNome.setPosition(560.f, 350.f);
+
+    InicializaOpcoesMenu();
+    InicializaBotoes();
+    PosicionaBotoes();
 }
 
 MenuNome::~MenuNome() {}
 
 void MenuNome::InicializaOpcoesMenu() {
-    opcoesMenu.push_back("Pressione ENTER para confirmar");
+    opcoesMenu.push_back("Digite seu nome (3 letras) e pressione Enter");
+    
 }
 
 void MenuNome::PosicionaBotoes() {
     for (size_t i = 0; i < botoesMenu.size(); ++i)
     {
-        botoesMenu[i].setPosition(420.f, 500.f + i * 40.f);
+        botoesMenu[i].setPosition(250.f, 600.f + i * 40.f);
     }
-}
-
-void MenuNome::InicializaTitulo() {
-    if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-        std::cerr << "Erro ao carregar a fonte!" << std::endl;
-    textoTitulo.setFont(fonte);
-    textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(40);
-    textoTitulo.setFillColor(Color::Green);
-    textoTitulo.setPosition(250.f, 150.f);
 }
 
 void MenuNome::Notificar(sf::Event evento) {
@@ -62,7 +59,6 @@ void MenuNome::Notificar(sf::Event evento) {
             }
         }
     }
-    // Captura as letras nativamente
     else if (evento.type == Event::TextEntered) {
         if (evento.text.unicode >= 65 && evento.text.unicode <= 90 && nomeDigitado.size() < 3) {
             nomeDigitado += static_cast<char>(evento.text.unicode);
@@ -78,9 +74,7 @@ void MenuNome::Executar() {
     textoNome.setString(nomeDigitado + "_"); // Efeito de cursor a piscar
     pGG->getWindow()->draw(textoNome);
     
-    if(nomeDigitado.size() == 3) {
-        DesenharBotoes();
-    }
+    DesenharBotoes();
 }
 
 string MenuNome::getNomeDigitado() const

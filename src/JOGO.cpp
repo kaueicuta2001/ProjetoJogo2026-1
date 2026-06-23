@@ -27,10 +27,10 @@ ganhou(false),
 nomeJogador("")
 {
     Ente::setGG(GG);
-    menuPrincipal = new MenuPrincipal(1, this);
-    menuFase = new MenuFase(2, this);
-    menuRanking = new MenuRanking(5, this);
-    menuNome = new MenuNome(6, this);
+    menuPrincipal = new MenuPrincipal(this);
+    menuFase = new MenuFase(this);
+    menuRanking = new MenuRanking(this);
+    menuNome = new MenuNome(this);
 
     menuPrincipal->setAtivo(true); 
     menuFase->setAtivo(false);
@@ -76,7 +76,7 @@ void Jogo::Executar()
                             qtdJogadores = (opcaoMenuPrincipal == 0) ? 1 : 2;
                             estadoAtual = EstadoJogo::MenuNome;
                             menuPrincipal->setAtivo(false); 
-                            menuNome->resetNome(); // Limpa a caixa de texto
+                            menuNome->resetNome(); 
                             menuNome->setAtivo(true);
                         } else if (opcaoMenuPrincipal == 2) {
                             estadoAtual = EstadoJogo::Ranking;
@@ -97,7 +97,6 @@ void Jogo::Executar()
                     if (menuNome->getSelecionado()) {
                         nomeJogador = menuNome->getNomeDigitado();
                         
-                        // Agora sim, instanciamos os jogadores!
                         pJogador = new Jogador(1, Vector2f(50.f, 300.f), false);
                         if (qtdJogadores == 2) {
                             pJogador2 = new Jogador(2, Vector2f(150.f, 300.f), true);
@@ -118,15 +117,14 @@ void Jogo::Executar()
                     menuFase->Executar();
                     if (menuFase->getSelecionado()) {
                         if (opcaoMenuFase == 0) {
-                            faseAtual = new Fase1(3, pJogador, pJogador2);
+                            faseAtual = new Fase1(pJogador, pJogador2);
                         } else if (opcaoMenuFase == 1) {
-                            faseAtual = new Fase2(4, pJogador, pJogador2);
+                            faseAtual = new Fase2(pJogador, pJogador2);
                         } else if (opcaoMenuFase == 2) {
                             estadoAtual = EstadoJogo::MenuPrincipal;
                             menuFase->setAtivo(false);
                             menuPrincipal->setAtivo(true);
                             
-                            // Cancela os jogadores alocados
                             delete pJogador; pJogador = nullptr;
                             if (pJogador2) { delete pJogador2; pJogador2 = nullptr; }
                         }
@@ -173,7 +171,7 @@ void Jogo::Executar()
                             pJogador = new Jogador(1, Vector2f(50.f, 300.f), false);
                             if (qtdJogadores == 2)
                                 pJogador2 = new Jogador(2, Vector2f(150.f, 300.f), true); 
-                            faseAtual = new Fase2(4, pJogador, pJogador2);
+                            faseAtual = new Fase2(pJogador, pJogador2);
                             opcaoMenuFase = 1;
                             ganhou = false;
                         }

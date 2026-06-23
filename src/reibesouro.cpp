@@ -90,12 +90,12 @@ void ReiBesouro::VerificarAtaque() {
         // distância entre o Rei Besouro e o jogador alvo
         Vector2f dir = Vector2f(pJogadorAlvo->getPosicao().x - posicao.x, pJogadorAlvo->getPosicao().y - posicao.y);
         
-        // 2. Normaliza o vetor (Calcula a hipotenusa e divide os eixos)
+        // Normaliza o vetor (Calcula a hipotenusa e divide os eixos)
         float hipotenusa = std::sqrt(dir.x * dir.x + dir.y * dir.y);
         if (hipotenusa > 0.f) {
             direcaoTiro = Vector2f(dir.x / hipotenusa, dir.y / hipotenusa);
         } else {
-            direcaoTiro = Vector2f(1.f, 0.f); // Padrão se estiver exatamente na mesma coordenada
+            direcaoTiro = Vector2f(1.f, 0.f);
         }
         atirar = true; 
         tempoTiro = 0;

@@ -22,6 +22,7 @@ namespace TheFrog{
         
     public:
         Ente(int id);
+        Ente();
         virtual ~Ente();
         static void setGG(TheFrog::Gerenciadores::GerenciadorGrafico* gg);
         int getId() const;

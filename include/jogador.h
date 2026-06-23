@@ -42,7 +42,7 @@ namespace TheFrog{
                 void setVelY(float vY);
                 float getVelX() const;
                 void setVelX(float vX);
-                int getPontos() const; // NOVO: Retorna os pontos para salvar
+                int getPontos() const;
             };
         }
     }

@@ -7,14 +7,15 @@ using namespace std;
 using namespace sf;
 using namespace TheFrog::Menus;
 
-MenuPrincipal::MenuPrincipal(int id, Jogo* jogo) :
-Menu(id, jogo),
-titulo("The Frog ++")
+MenuPrincipal::MenuPrincipal(TheFrog::Jogo* jogo) :
+Menu(jogo)
 {
+    titulo = "The Frog ++";
+
     InicializaOpcoesMenu();
     InicializaBotoes();
     PosicionaBotoes();
-    InicializaTitulo();
+    InicializaTextoSelecione();
 }
 
 MenuPrincipal::~MenuPrincipal()
@@ -31,6 +32,18 @@ void MenuPrincipal::InicializaOpcoesMenu()
     opcoesMenu.push_back("Sair");
 }
 
+void MenuPrincipal::InicializaTextoSelecione()
+{
+    if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
+        std::cerr << "Erro ao carregar a fonte!" << std::endl;
+
+    textoSelecione.setFont(fonte);
+    textoSelecione.setString("Selecione uma opcao:");
+    textoSelecione.setCharacterSize(30);
+    textoSelecione.setFillColor(Color::Yellow);
+    textoSelecione.setPosition(400.f, 300.f);
+}
+
 void MenuPrincipal::PosicionaBotoes()
 {
     for (size_t i = 0; i < botoesMenu.size(); ++i)
@@ -39,22 +52,11 @@ void MenuPrincipal::PosicionaBotoes()
     }
 }
 
-void MenuPrincipal::InicializaTitulo()
-{
-    if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-        std::cerr << "Erro ao carregar a fonte!" << std::endl;
-
-    textoTitulo.setFont(fonte);
-    textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(50);
-    textoTitulo.setFillColor(Color::Green);
-    textoTitulo.setPosition(375.f, 150.f);
-}
-
 void MenuPrincipal::Executar()
 {
     Menu::Executar(); 
     if (selecionado) {
         pJog->setOpcaoMenuPrincipal(opcaoSelecionada);
     }
+    pGG->getWindow()->draw(textoSelecione);
 }

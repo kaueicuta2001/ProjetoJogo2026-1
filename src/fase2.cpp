@@ -10,8 +10,8 @@ using namespace TheFrog::Entidades;
 using namespace TheFrog::Entidades::Obstaculos;
 using namespace TheFrog::Entidades::Personagens;
 
-Fase2::Fase2(int id, Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr) :
-Fase(id, pJogador, pJogador2),
+Fase2::Fase2(Jogador* pJogador = nullptr, Jogador* pJogador2 = nullptr) :
+Fase(pJogador, pJogador2),
 maxVespas(5),         
 maxReiBesouro(5)
 {
@@ -35,7 +35,7 @@ void Fase2::CriarReiBesouro()
     {
         ReiBesouro* pReiBesouro = new ReiBesouro(i + 70, Vector2f(posicoesX[i % 5], 200.f), pJogador, pJogador2);
         listaEntidades.Incluir(pReiBesouro);
-        vReiBesouros.push_back(pReiBesouro); // Armazena o ponteiro do Rei Besouro no vetor
+        vReiBesouros.push_back(pReiBesouro); 
         gerenciadorColisoes.IncluirInimigo(pReiBesouro);
     }
 }

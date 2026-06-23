@@ -38,8 +38,8 @@ struct Registro {
     
     bool operator<(const Registro& outro) const {
         if (pontos != outro.pontos)
-            return pontos > outro.pontos; // 
-        return tempo < outro.tempo;//
+            return pontos > outro.pontos;
+        return tempo < outro.tempo;
     }
 };
 

@@ -32,7 +32,6 @@ Projetil::~Projetil() {
 
 void Projetil::Mover()
 {
-    // Move o projétil na direção diagonal salva no momento do disparo
     posicao.x += vel.x * direcaoTiro.x;
     posicao.y += vel.y * direcaoTiro.y;
 

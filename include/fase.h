@@ -40,7 +40,7 @@ namespace TheFrog{
             sf::Clock relogioFase;
             
             public:
-            Fase(int id, Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2);
+            Fase(Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2);
             virtual ~Fase();
             
             void CriarCenario();

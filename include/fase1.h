@@ -12,7 +12,7 @@ namespace TheFrog{
             int maxVespas;
             int maxLamalentos;
             public:
-            Fase1(int id, Entidades::Personagens::Jogador* pJogador = nullptr, Entidades::Personagens::Jogador* pJogador2 = nullptr);
+            Fase1(Entidades::Personagens::Jogador* pJogador = nullptr, Entidades::Personagens::Jogador* pJogador2 = nullptr);
             ~Fase1();
             
             void CriarInimigos();

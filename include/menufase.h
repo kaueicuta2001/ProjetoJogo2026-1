@@ -6,16 +6,13 @@ namespace TheFrog{
     namespace Menus{
         class MenuFase : public Menu
         {
-        private:
-            std::string titulo;
-            sf::Text textoTitulo;
+            sf::Text textoFase;
         public:
-            MenuFase(int id, TheFrog::Jogo* jogo);
+            MenuFase(TheFrog::Jogo* jogo);
             ~MenuFase();
+            void InicializaTextoFase();
             void InicializaOpcoesMenu();
-            void InicializaTitulo();
             void PosicionaBotoes();
-            void DesenharTitulo();
             void Executar();
         };
     }

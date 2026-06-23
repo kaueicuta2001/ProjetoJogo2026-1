@@ -8,11 +8,11 @@ using namespace std;
 using namespace TheFrog::Menus;
 using namespace TheFrog::Gerenciadores;
 
-MenuRanking::MenuRanking(int id, Jogo* jogo) :
-Menu(id, jogo),
-titulo("Ranking"),
-estadoFiltro(0) // Começa no 1 Jogador / Fase 1
+MenuRanking::MenuRanking(TheFrog::Jogo* jogo) :
+Menu(jogo),
+estadoFiltro(0) 
 {
+    titulo = "Ranking";
     InicializaTitulo();
     AtualizarRanking(); 
 }
@@ -48,24 +48,8 @@ void MenuRanking::InicializaOpcoesMenu() {}
 
 void MenuRanking::PosicionaBotoes() {
     for (size_t i = 0; i < botoesMenu.size(); ++i) {
-        botoesMenu[i].setPosition(450.f, 300.f + i * 50.f); // Rebaixado para caber o filtro
+        botoesMenu[i].setPosition(450.f, 300.f + i * 50.f);
     }
-}
-
-void MenuRanking::InicializaTitulo() {
-    if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
-        std::cerr << "Erro ao carregar a fonte!" << std::endl;
-        
-    textoTitulo.setFont(fonte);
-    textoTitulo.setString(titulo);
-    textoTitulo.setCharacterSize(50);
-    textoTitulo.setFillColor(Color::Yellow);
-    textoTitulo.setPosition(450.f, 80.f);
-    
-    textoFiltro.setFont(fonte);
-    textoFiltro.setCharacterSize(25);
-    textoFiltro.setFillColor(Color::Cyan);
-    textoFiltro.setPosition(380.f, 200.f);
 }
 
 void MenuRanking::Notificar(sf::Event evento) {

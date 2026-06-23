@@ -9,8 +9,8 @@ using namespace TheFrog::Listas;
 using namespace TheFrog::Entidades::Obstaculos;
 using namespace TheFrog::Entidades::Personagens;
 
-Fase1::Fase1(int id, Jogador* pJogador, Jogador* pJogador2) :
-Fase(id, pJogador, pJogador2),
+Fase1::Fase1(Jogador* pJogador, Jogador* pJogador2) :
+Fase(pJogador, pJogador2),
 maxVespas(5),         
 maxLamalentos(5)
 {

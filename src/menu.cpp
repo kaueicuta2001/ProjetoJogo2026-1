@@ -10,17 +10,16 @@ using namespace TheFrog::Menus;
 using namespace TheFrog::Gerenciadores;
 using namespace TheFrog::Entidades::Personagens;
 
-Menu::Menu(int id, Jogo* jogo) :
-Ente(id),
+Menu::Menu(Jogo* jogo) :
 opcaoIndice(0),
 opcaoSelecionada(-1),
 selecionado(false),
-ativo(false), // Começa desativado por padrão
+ativo(false),
+titulo("The Frog ++"),
 pJog(jogo)
 {
-    tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-    posicao = Vector2f(0.f, 0.f);
     InicializaBG();
+    InicializaTitulo();
     GerenciadorDeEventos::getGerenciadorDeEventos()->Anexar(this); 
 }    
 
@@ -41,6 +40,19 @@ void Menu::InicializaBG()
     );    
 }    
 
+void Menu::InicializaTitulo()
+{
+    if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
+        std::cerr << "Erro ao carregar a fonte!" << std::endl;
+
+    textoTitulo.setFont(fonte);
+    textoTitulo.setString(titulo);
+    textoTitulo.setCharacterSize(50);
+    textoTitulo.setFillColor(Color::Green);
+    textoTitulo.setPosition(400.f, 150.f);
+}
+
+
 void Menu::InicializaBotoes()
 {    
     if (!fonte.loadFromFile("../assets/Frijole-Regular.ttf"))
@@ -59,7 +71,7 @@ void Menu::InicializaBotoes()
 
 void Menu::Notificar(sf::Event evento)
 {
-    if (!ativo) return; // BLOQUEIA O TECLADO SE O MENU NÃO ESTIVER NA TELA
+    if (!ativo) return;
 
     if (evento.type == Event::KeyPressed)
     {

@@ -12,8 +12,7 @@ using namespace TheFrog::Entidades;
 using namespace TheFrog::Entidades::Obstaculos;
 using namespace TheFrog::Entidades::Personagens;
 
-Fase::Fase(int id, Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2) :
-Ente(id),
+Fase::Fase(Entidades::Personagens::Jogador* jogador, Entidades::Personagens::Jogador* jogador2) :
 listaEntidades(),
 gerenciadorColisoes(jogador, jogador2),
 pJogador(jogador),
@@ -27,8 +26,6 @@ maxObstDificil(5),
 faseAtiva(true),
 ganhou(false)
 {
-    tamanho = static_cast<Vector2f>(pGG->getWindow()->getSize());
-
     relogioFase.restart(); 
 
     if (pJogador) {

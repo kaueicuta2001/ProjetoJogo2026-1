@@ -7,15 +7,13 @@ namespace TheFrog{
         class MenuPrincipal : public Menu
         {
         private:
-            std::string titulo;
-            sf::Text textoTitulo;
+            sf::Text textoSelecione;
         public:
-            MenuPrincipal(int id, TheFrog::Jogo* jogo);
+            MenuPrincipal(TheFrog::Jogo* jogo);
             ~MenuPrincipal();
+            void InicializaTextoSelecione();
             void InicializaOpcoesMenu();
-            void InicializaTitulo();
             void PosicionaBotoes();
-            void DesenharTitulo();
             void Executar();
         };
     }
